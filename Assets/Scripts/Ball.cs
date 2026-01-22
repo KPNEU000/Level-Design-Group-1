@@ -3,7 +3,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     Rigidbody rb;
-    public float explosinForce = 20;
+    public float explosionForce = 20;
     public float explosionRadius = 20;
     public float throwForce = 100;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,6 +21,17 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        rb.AddExplosionForce(explosinForce,transform.position,explosionRadius);
+        Collider[] collidersArray = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (Collider collider in collidersArray)
+        {
+            print(collider.gameObject.name);
+            if (collider.gameObject.GetComponent<Rigidbody>())
+            {
+                collider.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce,transform.position,explosionRadius);
+                collider.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.forward * explosionForce, ForceMode.VelocityChange);
+            }
+        }
+        
+        rb.AddExplosionForce(explosionForce,transform.position,explosionRadius);
     }
 }
