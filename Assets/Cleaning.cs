@@ -57,6 +57,7 @@ public class Cleaning : MonoBehaviour
 
     IEnumerator CleanMess(GameObject mess)
     {
+        Debug.Log("cleaning" + mess.name);
         yield return new WaitForSeconds(1);
         Destroy(mess);
     }
