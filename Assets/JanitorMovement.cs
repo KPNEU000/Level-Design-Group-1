@@ -1,17 +1,12 @@
 using UnityEngine;
 
-
-public enum ModeState
-{
-    Attack,
-    Clean
-
-}
-
 public class JanitorMovement : MonoBehaviour
 {
     public static JanitorMovement Instance;
     public Animator animator;
+
+    public GameObject mopGun;
+    MopGunScript mopScript;
     public static bool sprinting = false;
 
 
@@ -26,10 +21,13 @@ public class JanitorMovement : MonoBehaviour
     Vector3 moveDirection;
     CharacterController controller;
 
-    ModeState modeState;
-
     bool grounded;
-    public bool isAttackMode = false;
+
+    public bool IsAttackMode => isAttackMode;
+    bool isAttackMode = false;
+
+    public bool CurrentlyCleaning => CurrentlyCleaning;
+    bool currentlyCleaning;
     public bool wasMoving = false;
 
     KeyCode modeSwitchKey = KeyCode.E;
@@ -48,6 +46,7 @@ public class JanitorMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        mopScript = mopGun.GetComponent<MopGunScript>();
         isAttackMode = false;
         defaultSpeed = speed;
     }
@@ -118,12 +117,10 @@ public class JanitorMovement : MonoBehaviour
         {
             if (isAttackMode)
             {
-                Debug.Log("bad here");
                 isAttackMode = false;
             }
             else
             {
-                Debug.Log("here");
                 isAttackMode = true;
             }
 
@@ -131,18 +128,12 @@ public class JanitorMovement : MonoBehaviour
         }
     }
 
-
-    //1: now moving, attack mode
-    //2: not idle, attack mode
-    //3: 
     void HandleAnimationSwitch(bool nowMoving)
     {
         if (nowMoving)
         {
-            Debug.Log("yippe1");
             if (isAttackMode)
             {
-                Debug.Log("yippe");
                 animator.SetBool("IsMoveAttack", true);
                 animator.SetBool("IsIdleAttack", false);
                 animator.SetBool("IsIdleClean", false);
@@ -173,6 +164,7 @@ public class JanitorMovement : MonoBehaviour
                 animator.SetBool("IsIdleAttack", false);
             }
         }
+        mopScript.UpdateMop(isAttackMode, currentlyCleaning);
 
     }
 }
