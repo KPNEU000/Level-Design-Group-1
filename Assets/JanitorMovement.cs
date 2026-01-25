@@ -1,10 +1,19 @@
 using UnityEngine;
 
+
+public enum ModeState
+{
+    Attack,
+    Clean
+
+}
+
 public class JanitorMovement : MonoBehaviour
 {
     public static JanitorMovement Instance;
     public Animator animator;
     public static bool sprinting = false;
+
 
     [Header("Controls")]
     public float speed = 0.8f;
@@ -17,8 +26,11 @@ public class JanitorMovement : MonoBehaviour
     Vector3 moveDirection;
     CharacterController controller;
 
+    ModeState modeState;
+
     bool grounded;
     public bool isAttackMode = false;
+    public bool wasMoving = false;
 
     KeyCode modeSwitchKey = KeyCode.E;
     public float range = 1;
@@ -42,8 +54,8 @@ public class JanitorMovement : MonoBehaviour
 
     void Update()
     {
-        Move();
         ModeHandler();
+        Move();
     }
 
     public void Move()
@@ -58,14 +70,15 @@ public class JanitorMovement : MonoBehaviour
         {
             if (Mathf.Abs(moveHorizontal) > 0.001f || Mathf.Abs(moveVertical) > 0.001f)
             {
+                if (!wasMoving)
+                    wasMoving = true;
                 HandleAnimationSwitch(true);
-                animator.SetBool("IsMoveAttack", true);
-                animator.SetBool("IsIdleAttack", false);
             }
             else
             {
-                animator.SetBool("IsIdleAttack", true);
-                animator.SetBool("IsMoveAttack", false);
+                if (wasMoving)
+                    wasMoving = false;
+                HandleAnimationSwitch(false);
             }
 
             moveDirection = input;
@@ -101,45 +114,63 @@ public class JanitorMovement : MonoBehaviour
 
     void ModeHandler()
     {
-        if (Input.GetKey(modeSwitchKey))
+        if (Input.GetKeyDown(modeSwitchKey))
         {
             if (isAttackMode)
             {
+                Debug.Log("bad here");
                 isAttackMode = false;
             }
             else
             {
+                Debug.Log("here");
                 isAttackMode = true;
             }
+
+            HandleAnimationSwitch(wasMoving);
         }
     }
 
+
+    //1: now moving, attack mode
+    //2: not idle, attack mode
+    //3: 
     void HandleAnimationSwitch(bool nowMoving)
     {
         if (nowMoving)
         {
-            if (animator.GetBool("IsIdleAttack"))
+            Debug.Log("yippe1");
+            if (isAttackMode)
             {
+                Debug.Log("yippe");
                 animator.SetBool("IsMoveAttack", true);
                 animator.SetBool("IsIdleAttack", false);
+                animator.SetBool("IsIdleClean", false);
+                animator.SetBool("IsMoveClean", false);
             }
-            else if (animator.GetBool("IsIdleClean"))
+            else
             {
                 animator.SetBool("IsMoveClean", true);
                 animator.SetBool("IsIdleClean", false);
+                animator.SetBool("IsMoveAttack", false);
+                animator.SetBool("IsIdleAttack", false);
             }
         }
         else
         {
-            if (animator.GetBool("IsMoveAttack"))
+            if (isAttackMode)
             {
                 animator.SetBool("IsMoveAttack", false);
                 animator.SetBool("IsIdleAttack", true);
+                animator.SetBool("IsIdleClean", false);
+                animator.SetBool("IsMoveClean", false);
             }
-            else if (animator.GetBool("IsMoveClean"))
+            else
             {
                 animator.SetBool("IsMoveClean", false);
                 animator.SetBool("IsIdleClean", true);
+                animator.SetBool("IsMoveAttack", false);
+                animator.SetBool("IsIdleAttack", false);
             }
         }
 
