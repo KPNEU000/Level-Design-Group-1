@@ -12,6 +12,9 @@ public class MopGunScript : MonoBehaviour
 
     Vector3 idleCleanPos = new Vector3(1.067018f, -1.556953f, -0.16059f);
     Vector3 idleCleanRot = new Vector3(38.817f, -553.733f, 53.748f);
+
+    Vector3 cleaningPos = new Vector3(0.9141538f, -0.2715257f, -1.712738f);
+    Vector3 cleaningRot = new Vector3(38.529f, -164.662f, 349.231f);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,7 +36,9 @@ public class MopGunScript : MonoBehaviour
         }
         else if (isCleaning)
         {
-
+            Debug.Log("hi");
+            transform.localPosition = cleaningPos;
+            transform.localRotation = Quaternion.Euler(cleaningRot.x, cleaningRot.y, cleaningRot.z);
         }
         else
         {

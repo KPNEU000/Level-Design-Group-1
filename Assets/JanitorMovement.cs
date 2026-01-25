@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class JanitorMovement : MonoBehaviour
@@ -55,6 +56,7 @@ public class JanitorMovement : MonoBehaviour
     {
         ModeHandler();
         Move();
+        ActionHandler();
     }
 
     public void Move()
@@ -130,41 +132,65 @@ public class JanitorMovement : MonoBehaviour
 
     void HandleAnimationSwitch(bool nowMoving)
     {
-        if (nowMoving)
+
+        if (currentlyCleaning)
         {
-            if (isAttackMode)
-            {
-                animator.SetBool("IsMoveAttack", true);
-                animator.SetBool("IsIdleAttack", false);
-                animator.SetBool("IsIdleClean", false);
-                animator.SetBool("IsMoveClean", false);
-            }
-            else
-            {
-                animator.SetBool("IsMoveClean", true);
-                animator.SetBool("IsIdleClean", false);
-                animator.SetBool("IsMoveAttack", false);
-                animator.SetBool("IsIdleAttack", false);
-            }
+            animator.SetBool("IsMoveAttack", false);
+            animator.SetBool("IsIdleAttack", false);
+            animator.SetBool("IsIdleClean", false);
+            animator.SetBool("IsMoveClean", false);
+            animator.SetBool("IsCleaning", true);
         }
         else
         {
-            if (isAttackMode)
+            if (nowMoving)
             {
-                animator.SetBool("IsMoveAttack", false);
-                animator.SetBool("IsIdleAttack", true);
-                animator.SetBool("IsIdleClean", false);
-                animator.SetBool("IsMoveClean", false);
+                if (isAttackMode)
+                {
+                    animator.SetBool("IsMoveAttack", true);
+                    animator.SetBool("IsIdleAttack", false);
+                    animator.SetBool("IsIdleClean", false);
+                    animator.SetBool("IsMoveClean", false);
+                    animator.SetBool("IsCleaning", false);
+                }
+                else
+                {
+                    animator.SetBool("IsMoveClean", true);
+                    animator.SetBool("IsIdleClean", false);
+                    animator.SetBool("IsMoveAttack", false);
+                    animator.SetBool("IsIdleAttack", false);
+                    animator.SetBool("IsCleaning", false);
+                }
             }
             else
             {
-                animator.SetBool("IsMoveClean", false);
-                animator.SetBool("IsIdleClean", true);
-                animator.SetBool("IsMoveAttack", false);
-                animator.SetBool("IsIdleAttack", false);
+                if (isAttackMode)
+                {
+                    animator.SetBool("IsMoveAttack", false);
+                    animator.SetBool("IsIdleAttack", true);
+                    animator.SetBool("IsIdleClean", false);
+                    animator.SetBool("IsMoveClean", false);
+                    animator.SetBool("IsCleaning", false);
+                }
+                else
+                {
+                    animator.SetBool("IsMoveClean", false);
+                    animator.SetBool("IsIdleClean", true);
+                    animator.SetBool("IsMoveAttack", false);
+                    animator.SetBool("IsIdleAttack", false);
+                    animator.SetBool("IsCleaning", false);
+                }
             }
         }
         mopScript.UpdateMop(isAttackMode, currentlyCleaning);
 
+    }
+
+    void ActionHandler()
+    {
+        if (Input.GetMouseButtonDown(0) && !isAttackMode)
+        {
+            currentlyCleaning = true;
+        }
     }
 }
