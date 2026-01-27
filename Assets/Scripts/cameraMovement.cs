@@ -11,9 +11,9 @@ public class cameraMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerBody = transform.parent.transform; //the playerbody is the parent of the camera
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // playerBody = transform.parent.transform; //the playerbody is the parent of the camera
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
 
     }
 

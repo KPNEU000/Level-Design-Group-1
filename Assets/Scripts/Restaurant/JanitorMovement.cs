@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class JanitorMovement : MonoBehaviour
@@ -25,14 +27,17 @@ public class JanitorMovement : MonoBehaviour
     bool grounded;
 
     public bool IsAttackMode => isAttackMode;
-    bool isAttackMode = false;
+    public bool isAttackMode = false;
 
-    public bool CurrentlyCleaning => CurrentlyCleaning;
-    bool currentlyCleaning;
+    public bool CurrentlyCleaning => currentlyCleaning;
+    public bool currentlyCleaning;
     public bool wasMoving = false;
 
     KeyCode modeSwitchKey = KeyCode.E;
     public float range = 1;
+
+    Coroutine stopCleanCoroutine;
+
     private void Awake()
     {
         if (Instance != null & Instance != this) //If there is another Instance
@@ -115,7 +120,7 @@ public class JanitorMovement : MonoBehaviour
 
     void ModeHandler()
     {
-        if (Input.GetKeyDown(modeSwitchKey))
+        if (Input.GetKeyDown(modeSwitchKey) && !currentlyCleaning)
         {
             if (isAttackMode)
             {
@@ -123,6 +128,12 @@ public class JanitorMovement : MonoBehaviour
             }
             else
             {
+                // if (stopCleanCoroutine != null)
+                // {
+                //     StopCoroutine(stopCleanCoroutine);
+                //     stopCleanCoroutine = null;
+                // }
+                currentlyCleaning = false;
                 isAttackMode = true;
             }
 
@@ -132,9 +143,11 @@ public class JanitorMovement : MonoBehaviour
 
     void HandleAnimationSwitch(bool nowMoving)
     {
+        Debug.Log("got here");
 
-        if (currentlyCleaning)
+        if (currentlyCleaning && !isAttackMode)
         {
+            Debug.Log("yeep");
             animator.SetBool("IsMoveAttack", false);
             animator.SetBool("IsIdleAttack", false);
             animator.SetBool("IsIdleClean", false);
@@ -188,9 +201,25 @@ public class JanitorMovement : MonoBehaviour
 
     void ActionHandler()
     {
-        if (Input.GetMouseButtonDown(0) && !isAttackMode)
+        if (Input.GetMouseButton(1) && !isAttackMode)
         {
+            // if (stopCleanCoroutine != null)
+            //     StopCoroutine(stopCleanCoroutine);
+
             currentlyCleaning = true;
+            //stopCleanCoroutine = StartCoroutine(StopCleanAfter(0.5f));
+        }
+        if (Input.GetMouseButtonUp(1) && !isAttackMode)
+        {
+            currentlyCleaning = false;
         }
     }
+
+    // IEnumerator StopCleanAfter(float delay)
+    // {
+    //     yield return new WaitForSeconds(delay);
+    //     currentlyCleaning = false;
+    //     stopCleanCoroutine = null;
+    //     HandleAnimationSwitch(false);
+    // }
 }

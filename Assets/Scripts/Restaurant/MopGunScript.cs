@@ -7,14 +7,14 @@ public class MopGunScript : MonoBehaviour
     public GameObject bone;
 
 
-    Vector3 idleAttackPos = new Vector3(-1.126f, 1.763f, -0.431f);
-    Vector3 idleAttackRot = new Vector3(-31.648f, -174.941f, 252.741f);
+    Vector3 idleAttackPos = new Vector3(0.015f, 0.086f, 0.024f);
+    Vector3 idleAttackRot = new Vector3(17.558f, -88.404f, -33.199f);
 
-    Vector3 idleCleanPos = new Vector3(0.626f, -1.753f, -0.14f);
-    Vector3 idleCleanRot = new Vector3(39.455f, -186.801f, 65.83f);
+    Vector3 idleCleanPos = new Vector3(-0.226f, 0.021f, -0.03f);
+    Vector3 idleCleanRot = new Vector3(-18.458f, -285.51f, 234.372f);
 
-    Vector3 cleaningPos = new Vector3(0.9141538f, -0.2715257f, -1.712738f);
-    Vector3 cleaningRot = new Vector3(38.529f, -164.662f, 349.231f);
+    Vector3 cleaningPos = new Vector3(0.2307734f, -0.2744828f, 0.1886233f);
+    Vector3 cleaningRot = new Vector3(-54.347f, -126.878f, -203.88f);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
