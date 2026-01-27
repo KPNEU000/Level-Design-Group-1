@@ -51,7 +51,7 @@ public class Shooting : MonoBehaviour
     IEnumerator MopFire()
     {
         mopMuzzleFire.SetActive(true);
-        yield return new Wait(0.2f);
+        yield return new WaitForSeconds(0.2f);
         mopMuzzleFire.SetActive(false);
     }
 
