@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,7 @@ public class Shooting : MonoBehaviour
     public AudioClip mopShootAudio;
     public AudioSource cameraAudioSource;
     public GameObject mopMuzzleFire;
-    public Image crosshair;
+    public UnityEngine.UI.Image crosshair;
     public int damage = 20;
 
     void Start()
@@ -30,11 +29,11 @@ public class Shooting : MonoBehaviour
         {
             if (objectHitByRaycast.collider.CompareTag("Enemy"))
             {
-                crosshair.Color = Color.Red;
+                crosshair.color = new Color32(255,0,0,100);
             }
             else
             {
-                crosshair.Color = Color.Black;
+                crosshair.color = new Color32(0,0,0,0);
             }
             if(Input.GetMouseButtonDown(0))
             {
@@ -42,7 +41,7 @@ public class Shooting : MonoBehaviour
                 StartCoroutine("MopFire");
                 if (objectHitByRaycast.collider.CompareTag("Enemy"))
                 {
-                    GetComponent<Collider>().GetComponent<Health>().TakeDamage(damage);
+                    //GetComponent<Collider>().GetComponent<Health>().TakeDamage(damage);
                 }
             }
         }
@@ -57,6 +56,6 @@ public class Shooting : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Debug.DrawRay(transform.position, transform.forward, Color.Blue);
+        Debug.DrawRay(transform.position, transform.forward, new Color32(0,0,255,100));
     }
 }
