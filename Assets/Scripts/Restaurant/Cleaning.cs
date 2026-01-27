@@ -16,6 +16,7 @@ public class Cleaning : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        cameraAudioSource = GetComponent<AudioSource>();
     }
 
     void Update()
