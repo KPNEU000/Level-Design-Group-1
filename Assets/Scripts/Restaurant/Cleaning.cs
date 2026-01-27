@@ -34,16 +34,19 @@ public class Cleaning : MonoBehaviour
             if (objectHitByRaycast.collider.CompareTag("Mess"))
             {
                 clean.text = "LMB to Clean";
-                if(Input.GetMouseButtonDown(0))
+                if(Input.GetMouseButton(1))
                 {
-                    if(mopAnimator)
+                    if(Input.GetMouseButtonDown(0))
                     {
-                        mopAnimator.Play("Mop");
+                        if(mopAnimator)
+                        {
+                            mopAnimator.Play("Mop");
+                        }
+                        if (mopAudio) {
+                            cameraAudioSource.PlayOneShot(mopAudio);
+                        }
+                        StartCoroutine("CleanMess", objectHitByRaycast.collider.gameObject);
                     }
-                    if (mopAudio) {
-                        cameraAudioSource.PlayOneShot(mopAudio);
-                    }
-                    StartCoroutine("CleanMess", objectHitByRaycast.collider.gameObject);
                 }
             }
             else
