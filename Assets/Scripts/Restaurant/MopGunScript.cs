@@ -7,11 +7,11 @@ public class MopGunScript : MonoBehaviour
     public GameObject bone;
 
 
-    Vector3 idleAttackPos = new Vector3(-1.102617f, 1.752648f, -0.3680f);
-    Vector3 idleAttackRot = new Vector3(-31.566f, -170.472f, 249.595f);
+    Vector3 idleAttackPos = new Vector3(-1.126f, 1.763f, -0.431f);
+    Vector3 idleAttackRot = new Vector3(-31.648f, -174.941f, 252.741f);
 
-    Vector3 idleCleanPos = new Vector3(1.067018f, -1.556953f, -0.16059f);
-    Vector3 idleCleanRot = new Vector3(38.817f, -553.733f, 53.748f);
+    Vector3 idleCleanPos = new Vector3(0.626f, -1.753f, -0.14f);
+    Vector3 idleCleanRot = new Vector3(39.455f, -186.801f, 65.83f);
 
     Vector3 cleaningPos = new Vector3(0.9141538f, -0.2715257f, -1.712738f);
     Vector3 cleaningRot = new Vector3(38.529f, -164.662f, 349.231f);
