@@ -21,7 +21,9 @@ public class Cleaning : MonoBehaviour
 
     void Update()
     {
+        if(JanitorMovement.currentlyCleaning && !JanitorMovement.isAttackMode) {
         RaycastingEffect();
+        }
     }
 
     void RaycastingEffect()

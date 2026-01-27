@@ -27,10 +27,10 @@ public class JanitorMovement : MonoBehaviour
     bool grounded;
 
     public bool IsAttackMode => isAttackMode;
-    public bool isAttackMode = false;
+    public static bool isAttackMode = false;
 
     public bool CurrentlyCleaning => currentlyCleaning;
-    public bool currentlyCleaning;
+    public static bool currentlyCleaning;
     public bool wasMoving = false;
 
     KeyCode modeSwitchKey = KeyCode.E;

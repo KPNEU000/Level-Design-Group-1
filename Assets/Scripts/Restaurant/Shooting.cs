@@ -21,7 +21,9 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
+        if(JanitorMovement.isAttackMode) {
         RaycastingEffect();
+        }
     }
 
     void RaycastingEffect()
