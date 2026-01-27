@@ -4,11 +4,13 @@ using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
+    
     public float range = 100;
 
     public AudioClip mopShootAudio;
     public AudioSource cameraAudioSource;
     public GameObject mopMuzzleFire;
+    public ParticleSystem muzzleFlash;
     public UnityEngine.UI.Image crosshair;
     public int damage = 20;
 
@@ -50,6 +52,7 @@ public class Shooting : MonoBehaviour
     IEnumerator MopFire()
     {
         mopMuzzleFire.SetActive(true);
+        muzzleFlash.Emit(20);
         yield return new WaitForSeconds(0.2f);
         mopMuzzleFire.SetActive(false);
     }
@@ -58,4 +61,5 @@ public class Shooting : MonoBehaviour
     {
         Debug.DrawRay(transform.position, transform.forward, new Color32(0,0,255,100));
     }
+    
 }

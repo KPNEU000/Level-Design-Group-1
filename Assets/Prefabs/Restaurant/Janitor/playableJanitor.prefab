@@ -408,6 +408,7 @@ MonoBehaviour:
   mopShootAudio: {fileID: 0}
   cameraAudioSource: {fileID: 2156428834283060696}
   mopMuzzleFire: {fileID: 7181906681641816691}
+  muzzleFlash: {fileID: 0}
   crosshair: {fileID: 6913822764414053144}
   damage: 20
 --- !u!82 &2156428834283060696
@@ -680,7 +681,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b3789c86be618d645bb0ba6156c09257, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a11d2a7878fc50b42b81acaa6bf57bcb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6110,15 +6111,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.6329775
+      value: -4.037337
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25000024
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.727198
+      value: -7.170483
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_LocalRotation.w

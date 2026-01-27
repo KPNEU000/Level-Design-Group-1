@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class cameraMovement : MonoBehaviour
 {
-    public static float mouseSensitivity = 100f;
+    public static float mouseSensitivity = 500f;
     public float pitchMin = -90;
     public float pitchMax = 90;
     public Transform playerBody;
