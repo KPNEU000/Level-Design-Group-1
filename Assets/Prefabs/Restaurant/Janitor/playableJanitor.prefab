@@ -408,7 +408,7 @@ MonoBehaviour:
   mopShootAudio: {fileID: 0}
   cameraAudioSource: {fileID: 2156428834283060696}
   mopMuzzleFire: {fileID: 7181906681641816691}
-  muzzleFlash: {fileID: 0}
+  muzzleFlash: {fileID: 1345062530978817470}
   crosshair: {fileID: 6913822764414053144}
   damage: 20
 --- !u!82 &2156428834283060696
@@ -1014,8 +1014,8 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
-  prewarm: 0
+  looping: 1
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -5829,7 +5829,7 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 34.34
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
