@@ -133,6 +133,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Window Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1723812926235125568, guid: 537ba001680a80f47ae33b2c0f26c186, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c9b47383769455546be81995c1d1f003, type: 2}
     - target: {fileID: 2881392563454673382, guid: 537ba001680a80f47ae33b2c0f26c186, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -155,7 +159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2881392563454673382, guid: 537ba001680a80f47ae33b2c0f26c186, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.85
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2881392563454673382, guid: 537ba001680a80f47ae33b2c0f26c186, type: 3}
       propertyPath: m_LocalRotation.w
