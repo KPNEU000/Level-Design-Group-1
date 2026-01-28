@@ -7,6 +7,8 @@ public class MonsterSpawner : MonoBehaviour
     public int maxMonsters = 10;
     public GameObject monsterPrefab;
     public bool isActive = false;
+    public AudioSource monsterCall;
+    public AudioClip monsterCallClip;
 
     void Start()
     {
@@ -17,6 +19,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         if(GameObject.FindGameObjectsWithTag("Mess").Length == 0 && isActive == false)
         {
+            monsterCall.PlayOneShot(monsterCallClip);
             isActive = true;
         }
         if(isActive) {
