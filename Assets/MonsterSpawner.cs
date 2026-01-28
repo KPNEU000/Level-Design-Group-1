@@ -6,6 +6,7 @@ public class MonsterSpawner : MonoBehaviour
     public List<Transform> spawnPositions = new List<Transform>();
     public int maxMonsters = 10;
     public GameObject monsterPrefab;
+    public bool isActive = false;
 
     void Start()
     {
@@ -14,9 +15,15 @@ public class MonsterSpawner : MonoBehaviour
 
     void Update()
     {
-        if(GameObject.FindGameObjectsWithTag("Enemy").Length < maxMonsters)
+        if(GameObject.FindGameObjectsWithTag("Mess").Length == 0 && isActive == false)
         {
-            SpawnMonster();
+            isActive = true;
+        }
+        if(isActive) {
+            if(GameObject.FindGameObjectsWithTag("Enemy").Length < maxMonsters)
+            {
+                SpawnMonster();
+            }
         }
     }
 

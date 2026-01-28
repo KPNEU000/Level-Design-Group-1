@@ -5950,6 +5950,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7819709535729193906}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3863741316569109452}
   m_SourcePrefab: {fileID: 100100000, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
 --- !u!4 &209691243807232459 stripped
 Transform:
@@ -6017,6 +6020,22 @@ MonoBehaviour:
   airControl: 10
   wasMoving: 0
   range: 1
+--- !u!114 &3863741316569109452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7032953123425226049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c2d43fe54ff974fbf846f8ea9f2235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  mopMaterial: {fileID: 2100000, guid: 1c18acd19091bdc49b1af63ef2e220b7, type: 2}
+  isPlayer: 1
+  isMonster: 0
 --- !u!1 &7351053502078349211 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 819453359113396107, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
