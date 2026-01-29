@@ -9,6 +9,8 @@ public class Health : MonoBehaviour
     public bool isPlayer;
     public bool isMonster;
     public bool isFurniture;
+    public Animator monsterAnim;
+    public GameObject goop;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,7 +26,7 @@ public class Health : MonoBehaviour
 
     }
 
-    void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         hp = hp - damage;
         if (mopBristles)
@@ -50,6 +52,9 @@ public class Health : MonoBehaviour
             }
             else if (isMonster)
             {
+                if (monsterAnim) {
+                monsterAnim.SetInteger("Anim State", 2);
+                }
                 MonsterDeath();
             }
             else if (isFurniture)
@@ -67,7 +72,8 @@ public class Health : MonoBehaviour
 
     void MonsterDeath()
     {
-        
+        Instantiate(goop, transform.position - transform.forward, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     void PlayerDeath()

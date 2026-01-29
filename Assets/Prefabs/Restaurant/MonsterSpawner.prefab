@@ -185,7 +185,7 @@ Transform:
   m_GameObject: {fileID: 3392678639709080933}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.472, y: 14.815, z: 0.856}
+  m_LocalPosition: {x: 26.213, y: 14.815, z: 0.856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -249,10 +249,11 @@ MonoBehaviour:
   - {fileID: 2707514706846945798}
   - {fileID: 2318831252789854510}
   maxMonsters: 10
-  monsterPrefab: {fileID: 0}
+  monsterPrefab: {fileID: 6667464073715544654, guid: 54f73dfddd4b37f4eb114a60fff863f0, type: 3}
   isActive: 0
   monsterCall: {fileID: 832324430937959345}
   monsterCallClip: {fileID: 8300000, guid: b09646471acc9a846a991163b4edafab, type: 3}
+  monsterGoopOnDoor: {fileID: 7178341777775377513}
 --- !u!1 &3801902755843760647
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +279,7 @@ Transform:
   m_GameObject: {fileID: 3801902755843760647}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.478, y: 15.82, z: -6.23}
+  m_LocalPosition: {x: 25.432, y: 15.25, z: -2.294}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -340,7 +341,7 @@ Transform:
   m_GameObject: {fileID: 7434694968362836640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.292, y: 15.82, z: -6.23}
+  m_LocalPosition: {x: 34.347, y: 14.867, z: -2.234}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -423,6 +424,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b418800133db16a439471ad97249cb07, type: 3}
+--- !u!1 &7178341777775377513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b418800133db16a439471ad97249cb07, type: 3}
+  m_PrefabInstance: {fileID: 8025412343807115576}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7554022551745586899 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b418800133db16a439471ad97249cb07, type: 3}

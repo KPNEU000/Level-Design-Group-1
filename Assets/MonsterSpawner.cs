@@ -9,6 +9,7 @@ public class MonsterSpawner : MonoBehaviour
     public bool isActive = false;
     public AudioSource monsterCall;
     public AudioClip monsterCallClip;
+    public GameObject monsterGoopOnDoor;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         if(GameObject.FindGameObjectsWithTag("Mess").Length == 0 && isActive == false)
         {
+            monsterGoopOnDoor.SetActive(true);
             monsterCall.PlayOneShot(monsterCallClip);
             isActive = true;
         }

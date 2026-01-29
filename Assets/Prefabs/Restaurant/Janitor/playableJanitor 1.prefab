@@ -5791,6 +5791,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b782329db183c3749ba78d8356e2cb6f, type: 3}
   m_PrefabInstance: {fileID: 2076361596515568918}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &2580831188483808217 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4683669308469848369, guid: b782329db183c3749ba78d8356e2cb6f, type: 3}
+  m_PrefabInstance: {fileID: 2076361596515568918}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7013047081004150300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5801,15 +5806,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.736412
+      value: -6.306213
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25000024
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.5085998
+      value: 3.9954047
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5842,6 +5847,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_Name
       value: playableJanitor 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}
       propertyPath: m_Controller
@@ -6033,9 +6042,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  mopMaterial: {fileID: 2100000, guid: 1c18acd19091bdc49b1af63ef2e220b7, type: 2}
+  mopBristles: {fileID: 2580831188483808217}
   isPlayer: 1
   isMonster: 0
+  isFurniture: 0
+  monsterAnim: {fileID: 0}
+  goop: {fileID: 0}
 --- !u!1 &7351053502078349211 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 819453359113396107, guid: ff8a7889a28f8314ca952b80d592ec1a, type: 3}

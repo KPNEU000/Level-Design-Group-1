@@ -45,7 +45,7 @@ public class Shooting : MonoBehaviour
                 StartCoroutine("MopFire");
                 if (objectHitByRaycast.collider.CompareTag("Enemy"))
                 {
-                    //GetComponent<Collider>().GetComponent<Health>().TakeDamage(damage);
+                    GetComponent<Collider>().GetComponent<Health>().TakeDamage(damage);
                 }
             }
         }
