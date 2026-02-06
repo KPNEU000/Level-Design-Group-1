@@ -1,28 +1,43 @@
+using System;
 using UnityEngine;
-using TMPro;
+
 
 public class PlayerInteraction : MonoBehaviour
 {
-
     public float range = 10;
+    public AudioClip eatSound;
+    public AudioSource playerAudioSource;
+    public GameObject heldObject = null;
+    public Health playerHealth;
 
     [SerializeField]
     PlayerMovement playerMovement;
 
-    [Header("HUD")]
-    public TMP_Text inspect;
-    public TMP_Text keyInventory;
-    public TMP_Text clueInventory;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        playerHealth = transform.parent.GetComponent<Health>();
     }
 
     // Update is called once per frame
     void Update()
     {
         RaycastingEffect();
+        /*
+        if (heldObject)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Eat(heldObject.GetComponent<EdibleObject>());
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                heldObject.GetComponent<EdibleObject>().held = true;
+                heldObject = null;
+            }
+        }
+        */
     }
 
     void RaycastingEffect()
@@ -30,23 +45,36 @@ public class PlayerInteraction : MonoBehaviour
         RaycastHit objectHitByRaycast;
         if (Physics.Raycast(transform.position, transform.forward, out objectHitByRaycast, range))
         {
-            if (objectHitByRaycast.collider.CompareTag("EdibleObject"))
+            if (objectHitByRaycast.collider.CompareTag("Edible"))
             {
-                inspect.text = objectHitByRaycast.transform.name;
-                if (Input.GetButtonDown("Jump"))
+                //inspect.text = objectHitByRaycast.transform.name;
+                if (Input.GetMouseButton(0)) //Could split into two checks. 1 for when you start holding, 2 for when you keep holding
                 {
-                    objectHitByRaycast.GetComponent<EdibleObject>().held = true;
+                    objectHitByRaycast.collider.gameObject.GetComponent<EdibleObject>().held = true;
+                    heldObject = objectHitByRaycast.collider.gameObject;
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                    Eat(heldObject.GetComponent<EdibleObject>());
+                    }
                 }
                 else
                 {
-                    objectHitByRaycast.GetComponent<EdibleObject>().held = false;
+                    heldObject.GetComponent<EdibleObject>().held = false;
+                    heldObject = null;
                 }
             }
             else
             {
-                inspect.text = "";
+                //inspect.text = "";
             }
         }
+    }
+
+    private void Eat(EdibleObject edibleObject)
+    {
+        playerAudioSource.PlayOneShot(eatSound);
+        Destroy(edibleObject.gameObject);
+        playerHealth.TakeDamage(edibleObject.damage);
     }
 
     void OnDrawGizmos()

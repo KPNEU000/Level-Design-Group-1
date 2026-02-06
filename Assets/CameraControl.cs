@@ -1,9 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-
-    public  float mouseSensitivity = 100f;
+    public float mouseSensitivity = 150f;
     public float pitchMin = -90;
     public float pitchMax = 90;
     public Transform playerBody;
@@ -15,7 +15,6 @@ public class CameraControl : MonoBehaviour
         playerBody = transform.parent.transform; //the playerbody is the parent of the camera
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     // Update is called once per frame
