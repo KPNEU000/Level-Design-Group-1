@@ -21,6 +21,7 @@ public class EdibleObject : MonoBehaviour
         if (held)
         {
             rb.useGravity = false;
+            transform.LookAt(Camera.main.transform.position);
             rb.position = Vector3.MoveTowards(rb.position, hand.transform.position, Time.deltaTime * speed);
         }
         else

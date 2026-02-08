@@ -9,6 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     public AudioSource playerAudioSource;
     public GameObject heldObject = null;
     public Health playerHealth;
+    public bool throwing;
 
     [SerializeField]
     PlayerMovement playerMovement;
@@ -24,6 +25,14 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         RaycastingEffect();
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            throwing = true;
+        }
+        else
+        {
+            throwing = false;
+        }
         /*
         if (heldObject)
         {
@@ -60,6 +69,10 @@ public class PlayerInteraction : MonoBehaviour
                 else
                 {
                     heldObject.GetComponent<EdibleObject>().held = false;
+                    if(throwing)
+                    {
+                        heldObject.GetComponent<Rigidbody>().AddForce(Vector3.forward * 200);
+                    }
                     heldObject = null;
                 }
             }
