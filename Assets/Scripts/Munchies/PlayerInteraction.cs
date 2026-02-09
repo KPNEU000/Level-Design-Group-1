@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 
@@ -10,6 +11,7 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject heldObject = null;
     public Health playerHealth;
     public bool throwing;
+    public TextMeshProUGUI text;
 
     [SerializeField]
     PlayerMovement playerMovement;
@@ -57,6 +59,7 @@ public class PlayerInteraction : MonoBehaviour
             if (objectHitByRaycast.collider.CompareTag("Edible"))
             {
                 //inspect.text = objectHitByRaycast.transform.name;
+                text.text = objectHitByRaycast.collider.gameObject.name;
                 if (Input.GetMouseButton(0)) //Could split into two checks. 1 for when you start holding, 2 for when you keep holding
                 {
                     objectHitByRaycast.collider.gameObject.GetComponent<EdibleObject>().held = true;
@@ -78,7 +81,7 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                //inspect.text = "";
+                text.text = "";
             }
         }
     }
