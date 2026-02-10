@@ -26,7 +26,9 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
+  - _METALLICSPECGLOSSMAP
   - _NORMALMAP
+  - _RECEIVE_SHADOWS_OFF
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -44,7 +46,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 023c42b3ff217244fa189ed0217df3c0, type: 3}
+        m_Texture: {fileID: 2800000, guid: f80353f0ae6d41d4ea29a1cef5e1f618, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -68,11 +70,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 023c42b3ff217244fa189ed0217df3c0, type: 3}
+        m_Texture: {fileID: 2800000, guid: f80353f0ae6d41d4ea29a1cef5e1f618, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8ff1d7e2840390f4a915b3c88c03c24a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -110,7 +112,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
-    - _Cutoff: 0.5
+    - _Cutoff: 0.488
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
@@ -124,7 +126,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 1
