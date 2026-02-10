@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e5fdf93fce8990141af52c70f1f113ba
+guid: 0e529ab0fe2944644a20208d23fb6bef
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,8 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: window
-    second: {fileID: 2100000, guid: e7321ea66a4722747bbf0542ff081ee1, type: 2}
+      name: Picture_Frame_Back_MAT
+    second: {fileID: 2100000, guid: d222c7a486b793c41b7e954cd292abb8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Picture_Frame_Bolt_MAT
+    second: {fileID: 2100000, guid: dd272b8532c76354285490a8931b165f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Picture_Frame_MAT
+    second: {fileID: 2100000, guid: 5a327568fbfb0e445b9ac0ec549aa9c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Picture_MAT
+    second: {fileID: 2100000, guid: fd75c9551119aee4d8481d572429d702, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
