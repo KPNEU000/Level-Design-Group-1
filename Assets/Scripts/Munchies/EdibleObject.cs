@@ -13,6 +13,7 @@ public class EdibleObject : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        hand = GameObject.FindGameObjectWithTag("Hand");
     }
 
     // Update is called once per frame
