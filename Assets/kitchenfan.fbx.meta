@@ -3,7 +3,22 @@ guid: a93451b58caeb19499988c575eefce8a
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fan
+    second: {fileID: 2100000, guid: 29cb3faf67091b44c8c16da4a22440c0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: screen
+    second: {fileID: 2100000, guid: 72e822b5c9761af41bffc844603fc4ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: screw
+    second: {fileID: 2100000, guid: 7ba2df0313842834b9b816794befc213, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
