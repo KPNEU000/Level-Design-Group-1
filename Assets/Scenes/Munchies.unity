@@ -22159,6 +22159,63 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &1394430233
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.8283661
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.0462118
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.7041383
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.77617025
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.63052344
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 78.178
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204187862777782908, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724546397088561350, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
+      propertyPath: m_Name
+      value: Michel Lotito
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ded0ad5e334497c43afa3d6318e87001, type: 3}
 --- !u!43 &1397450477
 Mesh:
   m_ObjectHideFlags: 0
@@ -35958,3 +36015,4 @@ SceneRoots:
   - {fileID: 1108005312}
   - {fileID: 1768838292}
   - {fileID: 210249103}
+  - {fileID: 1394430233}
