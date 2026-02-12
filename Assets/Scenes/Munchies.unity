@@ -2825,7 +2825,7 @@ PrefabInstance:
     - target: {fileID: -4683669308469848369, guid: 3d533ea33324fe343a6d481a5929f3c9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 654dfa33a9fd7d643870862cf442e177, type: 2}
+      objectReference: {fileID: 2100000, guid: 896d2137242e17b48945354f705b0bdf, type: 2}
     - target: {fileID: 919132149155446097, guid: 3d533ea33324fe343a6d481a5929f3c9, type: 3}
       propertyPath: m_Name
       value: bedroomdoor (2)
@@ -27942,7 +27942,7 @@ PrefabInstance:
     - target: {fileID: -4683669308469848369, guid: 3d533ea33324fe343a6d481a5929f3c9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 654dfa33a9fd7d643870862cf442e177, type: 2}
+      objectReference: {fileID: 2100000, guid: 896d2137242e17b48945354f705b0bdf, type: 2}
     - target: {fileID: 919132149155446097, guid: 3d533ea33324fe343a6d481a5929f3c9, type: 3}
       propertyPath: m_Name
       value: bedroomdoor (1)
@@ -35572,14 +35572,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 925011701}
     m_Modifications:
-    - target: {fileID: 1847815239907717889, guid: 3dc2d0a3faba45a47a36a90e9b9471b1, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 1083238943}
-    - target: {fileID: 1847815239907717889, guid: 3dc2d0a3faba45a47a36a90e9b9471b1, type: 3}
-      propertyPath: m_VersionIndex
-      value: 3796
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0e695e5861f240645beb51197f8e43d2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
@@ -35692,6 +35684,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.46
       objectReference: {fileID: 0}
+    - target: {fileID: 1847815239907717889, guid: 3dc2d0a3faba45a47a36a90e9b9471b1, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1083238943}
+    - target: {fileID: 1847815239907717889, guid: 3dc2d0a3faba45a47a36a90e9b9471b1, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3796
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35785,22 +35785,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 925011701}
     m_Modifications:
-    - target: {fileID: 2845176706980808044, guid: f82f5f0a43a23024cb6b417821045d6d, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 48225154}
-    - target: {fileID: 2845176706980808044, guid: f82f5f0a43a23024cb6b417821045d6d, type: 3}
-      propertyPath: m_VersionIndex
-      value: 2678
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590293622307511310, guid: f82f5f0a43a23024cb6b417821045d6d, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 375599531}
-    - target: {fileID: 8590293622307511310, guid: f82f5f0a43a23024cb6b417821045d6d, type: 3}
-      propertyPath: m_VersionIndex
-      value: 2479
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a93451b58caeb19499988c575eefce8a, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3
@@ -35860,6 +35844,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a93451b58caeb19499988c575eefce8a, type: 3}
       propertyPath: m_Name
       value: kitchenfan
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845176706980808044, guid: f82f5f0a43a23024cb6b417821045d6d, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 48225154}
+    - target: {fileID: 2845176706980808044, guid: f82f5f0a43a23024cb6b417821045d6d, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2678
+      objectReference: {fileID: 0}
+    - target: {fileID: 8590293622307511310, guid: f82f5f0a43a23024cb6b417821045d6d, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 375599531}
+    - target: {fileID: 8590293622307511310, guid: f82f5f0a43a23024cb6b417821045d6d, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2479
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -35947,14 +35947,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 925011701}
     m_Modifications:
-    - target: {fileID: 2007613503862848732, guid: 53e1128ffde25034b9ffe968cc3de589, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 385804965}
-    - target: {fileID: 2007613503862848732, guid: 53e1128ffde25034b9ffe968cc3de589, type: 3}
-      propertyPath: m_VersionIndex
-      value: 3725
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b2af69a4e85cf24eb7a660e002465ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.756
@@ -36019,6 +36011,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 3106a4f97abdb67409129aa33155aef0, type: 2}
+    - target: {fileID: 2007613503862848732, guid: 53e1128ffde25034b9ffe968cc3de589, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 385804965}
+    - target: {fileID: 2007613503862848732, guid: 53e1128ffde25034b9ffe968cc3de589, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3725
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6310625417968074788, guid: 6b2af69a4e85cf24eb7a660e002465ee, type: 3}
@@ -36033,14 +36033,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 925011701}
     m_Modifications:
-    - target: {fileID: 7089667227464194226, guid: d8133935a6197e54bac12adcb73b5590, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 983818520}
-    - target: {fileID: 7089667227464194226, guid: d8133935a6197e54bac12adcb73b5590, type: 3}
-      propertyPath: m_VersionIndex
-      value: 3824
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff4561c714ad3434685f647f3372f3dc, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.9
@@ -36096,6 +36088,14 @@ PrefabInstance:
     - target: {fileID: 2612165990509349945, guid: ff4561c714ad3434685f647f3372f3dc, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.294
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089667227464194226, guid: d8133935a6197e54bac12adcb73b5590, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 983818520}
+    - target: {fileID: 7089667227464194226, guid: d8133935a6197e54bac12adcb73b5590, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3824
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
