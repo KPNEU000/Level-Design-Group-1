@@ -69,5 +69,19 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("IsWalking", false);
         }
 
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 1))
+            {
+                if (hit.collider.CompareTag("Lock"))
+                {
+                    Debug.Log("Clicked");
+                }
+            }
+        }
     }
 }
