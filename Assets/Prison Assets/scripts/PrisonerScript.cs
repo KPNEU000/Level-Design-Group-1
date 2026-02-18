@@ -9,7 +9,7 @@ public class PrisonerScript : MonoBehaviour
     private Transform playerTransform;
 
     public int animType = 0;
-    float detectionDistance = 2f;
+    float detectionDistance = 3f;
 
     // Start is called before the first frame update
     void Start()
