@@ -44,6 +44,7 @@ public class PrisonerScript : MonoBehaviour
             if (distance < detectionDistance)
             {
                 prisonerAnimator.SetBool("IsWaving", true);
+                soundPlayed = false;
                 prisonerAnimator.SetBool("IsShakeDoor", false);
             }
             else
