@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8561311757028808814}
   - component: {fileID: 8186737833155339987}
   - component: {fileID: 1703174441095503379}
+  - component: {fileID: 4182278279483509733}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -170,6 +171,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e08670894565cb64e818d01c393425b0, type: 3}
   - {fileID: 8300000, guid: 2fa48bf4eaad06a4f871a419b3ab1b68, type: 3}
   readyToPlay: 1
+--- !u!114 &4182278279483509733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8668675164263681647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ccb47744c92414cbb76cf9473d34ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Patrol
+  waypoints: []
 --- !u!1001 &1543477864508641104
 PrefabInstance:
   m_ObjectHideFlags: 0
