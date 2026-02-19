@@ -4,9 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class PrisonerScript : MonoBehaviour
 {
-    [SerializeField]
-    [Tooltip("Insert Animator")]
-    private Animator prisonerAnimator;
+    [SerializeField] private Animator prisonerAnimator;
 
     private Transform playerTransform;
 
@@ -15,9 +13,9 @@ public class PrisonerScript : MonoBehaviour
 
     private AudioSource audioSource;
     public List<AudioClip> cries = new List<AudioClip>();
-    public bool soundPlayed = false;
 
-    // Start is called before the first frame update
+    bool wasInRange = false;
+
     void Start()
     {
         GameObject player = GameObject.FindWithTag("Player");
@@ -25,33 +23,34 @@ public class PrisonerScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (animType == 0)
         {
             prisonerAnimator.SetBool("IsSitting", true);
-            soundPlayed = false;
+            prisonerAnimator.SetBool("IsWaving", false);
+            prisonerAnimator.SetBool("IsShakeDoor", false);
+            wasInRange = false;
+            return;
         }
 
         if (animType == 1)
         {
             float distance = Vector3.Distance(transform.position, playerTransform.position);
-            if (!soundPlayed) {
-            audioSource.PlayOneShot(cries[Random.Range(0, cries.Count - 1)]);
-            soundPlayed = true;
-            }
-            if (distance < detectionDistance)
+            bool inRange = distance < detectionDistance;
+
+            if (inRange && !wasInRange)
             {
-                prisonerAnimator.SetBool("IsWaving", true);
-                soundPlayed = false;
-                prisonerAnimator.SetBool("IsShakeDoor", false);
+                if (cries.Count > 0)
+                {
+                    audioSource.PlayOneShot(cries[Random.Range(0, cries.Count)]);
+                }
             }
-            else
-            {
-                prisonerAnimator.SetBool("IsShakeDoor", true);
-                prisonerAnimator.SetBool("IsWaving", false);
-            }
+
+            prisonerAnimator.SetBool("IsWaving", inRange);
+            prisonerAnimator.SetBool("IsShakeDoor", !inRange);
+
+            wasInRange = inRange;
         }
     }
 }

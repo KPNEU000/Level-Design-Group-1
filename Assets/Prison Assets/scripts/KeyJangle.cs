@@ -11,7 +11,7 @@ public class KeyJangle : MonoBehaviour
     AudioSource AudioSource;
     NavMeshAgent agent;
     public bool readyToPlay = true;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,7 +23,7 @@ public class KeyJangle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(agent.isStopped)
+        if (agent.isStopped)
         {
             AudioSource.mute = true;
         }
