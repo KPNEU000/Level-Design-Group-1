@@ -12177,7 +12177,7 @@ Transform:
   - {fileID: 2017447798749795482}
   - {fileID: 5404805761337486615}
   - {fileID: 1836386164679613866}
-  - {fileID: 1418308217854568699}
+  - {fileID: 6576619476625171865}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6962590638786687629
@@ -19755,14 +19755,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: MedievalBed
       objectReference: {fileID: 0}
+    - target: {fileID: 9188814550952822219, guid: b06e386f69310c64285cda24617c2427, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188814550952822219, guid: b06e386f69310c64285cda24617c2427, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188814550952822219, guid: b06e386f69310c64285cda24617c2427, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188814550952822219, guid: b06e386f69310c64285cda24617c2427, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.506
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188814550952822219, guid: b06e386f69310c64285cda24617c2427, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.32
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b06e386f69310c64285cda24617c2427, type: 3}
---- !u!4 &1418308217854568699 stripped
+--- !u!4 &6576619476625171865 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3994470187711482025, guid: b06e386f69310c64285cda24617c2427, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9188814550952822219, guid: b06e386f69310c64285cda24617c2427, type: 3}
   m_PrefabInstance: {fileID: 2648647334150496338}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3693322136326816781
