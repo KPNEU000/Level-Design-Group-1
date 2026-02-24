@@ -2118,7 +2118,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: box
@@ -2270,18 +2270,18 @@ MonoBehaviour:
         brushOverlapCheckLayers:
           serializedVersion: 2
           m_Bits: 0
-        surfaceOffset: 0
+        surfaceOffset: 0.3
         orientationTransformMode: 0
         orientationMode: 0
         alongBrushStroke: 0
         rotation: {x: 0, y: 0, z: 0}
-        randomizeOrientationX: 100
+        randomizeOrientationX: 0
         randomizeOrientationY: 100
-        randomizeOrientationZ: 100
+        randomizeOrientationZ: 0
         scaleTransformMode: 0
         scaleMode: 0
         scaleUniformMin: 1
-        scaleUniformMax: 1
+        scaleUniformMax: 2.3
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -2385,9 +2385,9 @@ MonoBehaviour:
         gridNormal: {x: 0, y: 1, z: 0}
         gridAngle: 0
       prefabSlots:
-      - gameObject: {fileID: 5121792053650911359, guid: 2bf9cf2ab57374cc0bd173227f593e11, type: 3}
-      - gameObject: {fileID: 1500413753295065714, guid: 21931cfe3cae34bd9a826707883dbdce, type: 3}
-      - gameObject: {fileID: 1732320645968458946, guid: 9b29c018d8b234e2c8468c8ee78f3f18, type: 3}
+      - gameObject: {fileID: 3965260391599478872, guid: 3bc86b17cd39e6b43989ec22ea902f09, type: 3}
+      - gameObject: {fileID: 1492346350066816272, guid: 38b86f152cf132f498b2e9bdbe53930e, type: 3}
+      - gameObject: {fileID: 7338797216278978072, guid: ebd2414e9a6c1084187923067bba22e8, type: 3}
       - gameObject: {fileID: 4244195985474975456, guid: cd9a0ed516cdd4b76a0070280139496d, type: 3}
       - gameObject: {fileID: 6823240390559314668, guid: e51a37bcc81e8447ba329ac52a59897a, type: 3}
       - gameObject: {fileID: 6220326741828520350, guid: 5fe35a31ea3e54d81b646b823679426f, type: 3}
@@ -2396,7 +2396,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: boxwcans
