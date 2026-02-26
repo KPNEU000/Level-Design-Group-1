@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     bool grounded;
     public float range = 1;
 
+    Rigidbody rb;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -47,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerAudioSource = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody>();
         UpdatePlayerAnim(0);
         InvokeRepeating("PlayWalkSound", 0, 0.2f);
     }
@@ -77,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
             moveDirection = Vector3.Lerp(moveDirection, input, airControl * Time.deltaTime);
         }
 
+        //transform.LookAt(new Vector3(transform.position.x, moveDirection.y, transform.position.z));
+        //Couldnt figure it out in time, rotation will be fixed
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(input * speed * Time.deltaTime);
     }
