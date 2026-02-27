@@ -8,7 +8,6 @@ public class CameraMovement : MonoBehaviour
     public float scrollSpeed = 3000;
     public Vector2 panLimitX = new Vector2(-20, 20);
     public Vector2 panLimitZ = new Vector2(-20, 20);
-    public Vector2 zoomLimit = new Vector2(5, 20);
 
     bool controlCamera = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,15 +24,15 @@ public class CameraMovement : MonoBehaviour
         {
             currentpos.x += panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.W) && currentpos.x > panLimitX.x)
+        else if (Input.GetKey(KeyCode.W) && currentpos.x > panLimitX.x)
         {
             currentpos.x -= panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.D) && currentpos.z < panLimitZ.y)
+        else if (Input.GetKey(KeyCode.D) && currentpos.z < panLimitZ.y)
         {
             currentpos.z += panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.A) && currentpos.z > panLimitZ.x)
+        else if (Input.GetKey(KeyCode.A) && currentpos.z > panLimitZ.x)
         {
             currentpos.z -= panSpeed * Time.deltaTime;
         }
