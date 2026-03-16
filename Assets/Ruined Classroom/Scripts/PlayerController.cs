@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 class PlayerController : MonoBehaviour
 {
@@ -12,12 +13,19 @@ class PlayerController : MonoBehaviour
 
     int moveSpeed = 2;
 
+    Vector3 standingCameraPos;
+    Vector3 crouchingCameraPos;
+
     CharacterController controller;
 
     public Transform head;
 
     void Start()
     {
+        standingCameraPos = new Vector3(-.12f, 4.694f, .174f);
+        crouchingCameraPos = new Vector3(.36f, 2.35f, 1.1f);
+        head.localPosition = standingCameraPos;
+
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
     }
@@ -64,7 +72,14 @@ class PlayerController : MonoBehaviour
         if (move.magnitude > 1)
             move.Normalize();
 
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        if (isCrouching)
+        {
+            controller.Move(move * (moveSpeed * 0.5f) * Time.deltaTime);
+        }
+        else
+        {
+            controller.Move(move * moveSpeed * Time.deltaTime);
+        }
     }
 
     void HandleMouseLook()
@@ -93,6 +108,7 @@ class PlayerController : MonoBehaviour
                 anim.SetBool("IsStandingIdle", false);
                 anim.SetBool("IsStandToCrouch", true);
                 anim.SetBool("IsCrouchToStand", false);
+                StartCoroutine(WaitToMoveHead(crouchingCameraPos, .2f));
             }
             else
             {
@@ -100,6 +116,7 @@ class PlayerController : MonoBehaviour
                 anim.SetBool("IsCrouchingIdle", false);
                 anim.SetBool("IsCrouchToStand", true);
                 anim.SetBool("IsStandToCrouch", false);
+                StartCoroutine(WaitToMoveHead(standingCameraPos, .5f));
             }
         }
     }
@@ -137,5 +154,27 @@ class PlayerController : MonoBehaviour
     public void ExitStandInteract()
     {
         locked = false;
+    }
+
+    IEnumerator WaitToMoveHead(Vector3 target, float time)
+    {
+        yield return new WaitForSeconds(time);
+        StartCoroutine(MoveHead(target));
+    }
+
+    IEnumerator MoveHead(Vector3 target)
+    {
+        float duration = 1.2f;
+        Vector3 start = head.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            head.localPosition = Vector3.Lerp(start, target, elapsed / duration);
+            yield return null;
+        }
+
+        head.localPosition = target;
     }
 }
