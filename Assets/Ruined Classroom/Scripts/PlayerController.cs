@@ -16,6 +16,8 @@ class PlayerController : MonoBehaviour
     Vector3 standingCameraPos;
     Vector3 crouchingCameraPos;
 
+    Coroutine headCoroutine;
+
     CharacterController controller;
 
     public Transform head;
@@ -108,7 +110,7 @@ class PlayerController : MonoBehaviour
                 anim.SetBool("IsStandingIdle", false);
                 anim.SetBool("IsStandToCrouch", true);
                 anim.SetBool("IsCrouchToStand", false);
-                StartCoroutine(WaitToMoveHead(crouchingCameraPos, .1f));
+                MoveHeadTo(crouchingCameraPos, .1f);
             }
             else
             {
@@ -116,7 +118,7 @@ class PlayerController : MonoBehaviour
                 anim.SetBool("IsCrouchingIdle", false);
                 anim.SetBool("IsCrouchToStand", true);
                 anim.SetBool("IsStandToCrouch", false);
-                StartCoroutine(WaitToMoveHead(standingCameraPos, .7f));
+                MoveHeadTo(standingCameraPos, .7f);
             }
         }
     }
@@ -154,6 +156,13 @@ class PlayerController : MonoBehaviour
     public void ExitStandInteract()
     {
         locked = false;
+    }
+
+    void MoveHeadTo(Vector3 target, float delay = 0f)
+    {
+        if (headCoroutine != null)
+            StopCoroutine(headCoroutine);
+        headCoroutine = StartCoroutine(WaitToMoveHead(target, delay));
     }
 
     IEnumerator WaitToMoveHead(Vector3 target, float time)
