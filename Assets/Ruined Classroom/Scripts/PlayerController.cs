@@ -22,8 +22,8 @@ class PlayerController : MonoBehaviour
 
     void Start()
     {
-        standingCameraPos = new Vector3(-.12f, 4.694f, .174f);
-        crouchingCameraPos = new Vector3(.36f, 2.35f, 1.1f);
+        standingCameraPos = new Vector3(-.12f, 4.694f, 0.335f);
+        crouchingCameraPos = new Vector3(.36f, 2.35f, 1.3f);
         head.localPosition = standingCameraPos;
 
         anim = GetComponent<Animator>();
@@ -108,7 +108,7 @@ class PlayerController : MonoBehaviour
                 anim.SetBool("IsStandingIdle", false);
                 anim.SetBool("IsStandToCrouch", true);
                 anim.SetBool("IsCrouchToStand", false);
-                StartCoroutine(WaitToMoveHead(crouchingCameraPos, .2f));
+                StartCoroutine(WaitToMoveHead(crouchingCameraPos, .1f));
             }
             else
             {
@@ -116,7 +116,7 @@ class PlayerController : MonoBehaviour
                 anim.SetBool("IsCrouchingIdle", false);
                 anim.SetBool("IsCrouchToStand", true);
                 anim.SetBool("IsStandToCrouch", false);
-                StartCoroutine(WaitToMoveHead(standingCameraPos, .5f));
+                StartCoroutine(WaitToMoveHead(standingCameraPos, .7f));
             }
         }
     }
@@ -164,7 +164,7 @@ class PlayerController : MonoBehaviour
 
     IEnumerator MoveHead(Vector3 target)
     {
-        float duration = 1.2f;
+        float duration = 1f;
         Vector3 start = head.localPosition;
         float elapsed = 0f;
 
