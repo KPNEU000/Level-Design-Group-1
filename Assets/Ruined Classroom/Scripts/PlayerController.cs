@@ -4,6 +4,8 @@ using System.Collections;
 class PlayerController : MonoBehaviour
 {
     Animator anim;
+    public AudioClip[] numberSounds = new AudioClip[3];
+    AudioSource audioSource;
 
     bool isCrouching = false;
     bool locked = false;
@@ -24,6 +26,7 @@ class PlayerController : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         standingCameraPos = new Vector3(-.12f, 4.694f, 0.335f);
         crouchingCameraPos = new Vector3(.36f, 2.35f, 1.3f);
         head.localPosition = standingCameraPos;
@@ -38,6 +41,7 @@ class PlayerController : MonoBehaviour
         HandleCrouch();
         HandleMovement();
         HandleInteract();
+        HandleNumberKeys();
     }
 
     void HandleMovement()
@@ -185,5 +189,18 @@ class PlayerController : MonoBehaviour
         }
 
         head.localPosition = target;
+    }
+
+    void HandleNumberKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) PlayNumberSound(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) PlayNumberSound(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) PlayNumberSound(2);
+    }
+
+    void PlayNumberSound(int index)
+    {
+        audioSource.clip = numberSounds[index];
+        audioSource.Play();
     }
 }
