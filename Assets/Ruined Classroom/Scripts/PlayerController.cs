@@ -5,9 +5,11 @@ class PlayerController : MonoBehaviour
 {
     Animator anim;
     public AudioClip[] numberSounds = new AudioClip[3];
-    AudioSource audioSource;
+    public AudioSource clipAudioSource;
+    public AudioSource damageAudioSource;
+    public AudioSource breathingAudioSource;
 
-    bool isCrouching = false;
+    public bool isCrouching = false;
     bool locked = false;
 
     float mouseSensitivity = 2f;
@@ -21,18 +23,25 @@ class PlayerController : MonoBehaviour
     Coroutine headCoroutine;
 
     CharacterController controller;
+    float standingColliderCenterY = 2.5f;
+    float standingColliderHeight = 5.5f;
+    float crouchingColliderCenterY = 1.3f;
+    float crouchingColliderHeight = 3f;
 
     public Transform head;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         standingCameraPos = new Vector3(-.12f, 4.694f, 0.335f);
         crouchingCameraPos = new Vector3(.36f, 2.35f, 1.3f);
         head.localPosition = standingCameraPos;
 
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+
+        controller.center = new Vector3(0, standingColliderCenterY, 0);
+        controller.height = standingColliderHeight;
+
     }
 
     void Update()
@@ -144,22 +153,28 @@ class PlayerController : MonoBehaviour
 
     public void ExitCrouchToStand()
     {
-        locked = false;
+        //locked = false;
         isCrouching = false;
         anim.SetBool("IsCrouchToStand", false);
+        SetColliderSettings(true);
+        anim.SetBool("IsCrouchingMoving", false);
+        anim.SetBool("IsCrouchingIdle", false);
     }
 
     public void ExitStandToCrouch()
     {
-        locked = false;
+        //locked = false;
         isCrouching = true;
         anim.SetBool("IsStandToCrouch", false);
+        SetColliderSettings(false);
+        anim.SetBool("IsStandingMoving", false);
+        anim.SetBool("IsStandingIdle", false);
 
     }
 
     public void ExitStandInteract()
     {
-        locked = false;
+        //locked = false;
     }
 
     void MoveHeadTo(Vector3 target, float delay = 0f)
@@ -189,6 +204,7 @@ class PlayerController : MonoBehaviour
         }
 
         head.localPosition = target;
+        locked = false;
     }
 
     void HandleNumberKeys()
@@ -200,7 +216,29 @@ class PlayerController : MonoBehaviour
 
     void PlayNumberSound(int index)
     {
-        audioSource.clip = numberSounds[index];
-        audioSource.Play();
+        clipAudioSource.clip = numberSounds[index];
+        clipAudioSource.Play();
+    }
+
+    void SetColliderSettings(bool isStanding)
+    {
+        if (isStanding)
+        {
+            controller.center = new Vector3(0, standingColliderCenterY, 0);
+            controller.height = standingColliderHeight;
+        }
+        else
+        {
+            controller.center = new Vector3(0, crouchingColliderCenterY, 0);
+            controller.height = crouchingColliderHeight;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Damaging")) return;
+
+        damageAudioSource.Play();
+        breathingAudioSource.Play();
     }
 }
