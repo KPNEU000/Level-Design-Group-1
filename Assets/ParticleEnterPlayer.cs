@@ -14,7 +14,6 @@ public class ParticleEnterPlayer : MonoBehaviour
     }
     void OnParticleTrigger()
     {
-        Debug.Log("hi");
         int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter);
 
         for (int i = 0; i < numEnter; i++)
