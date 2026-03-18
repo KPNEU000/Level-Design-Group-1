@@ -9,6 +9,8 @@ class PlayerController : MonoBehaviour
     public AudioSource damageAudioSource;
     public AudioSource breathingAudioSource;
 
+    public OxygenController oxygenController;
+
     public bool isCrouching = false;
     bool locked = false;
 
@@ -240,5 +242,7 @@ class PlayerController : MonoBehaviour
 
         damageAudioSource.Play();
         breathingAudioSource.Play();
+        oxygenController.ChangeOxygen(-10);
+
     }
 }
