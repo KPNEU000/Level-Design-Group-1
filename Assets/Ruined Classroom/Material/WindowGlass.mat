@@ -20,16 +20,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glass
+  m_Name: WindowGlass
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
+  - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _PARALLAXMAP
   - _RECEIVE_SHADOWS_OFF
-  - _SPECULAR_SETUP
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -127,13 +127,13 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 0
-    - _Smoothness: 0
+    - _Smoothness: 0.9
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 1
-    - _WorkflowMode: 0
+    - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 0
     m_Colors:
