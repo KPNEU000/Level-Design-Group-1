@@ -11441,6 +11441,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8380157826906577798, guid: ae9fa2c9416fb4242a8c4742d888275d, type: 3}
+      propertyPath: m_TagString
+      value: Damaging
+      objectReference: {fileID: 0}
     - target: {fileID: -7510458959960579837, guid: ae9fa2c9416fb4242a8c4742d888275d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -11477,6 +11481,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 10a70163a750aad4387f570109998042, type: 2}
+    - target: {fileID: 2800250516343163423, guid: ae9fa2c9416fb4242a8c4742d888275d, type: 3}
+      propertyPath: m_TagString
+      value: Damaging
+      objectReference: {fileID: 0}
     - target: {fileID: 3438476899310315758, guid: ae9fa2c9416fb4242a8c4742d888275d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -11511,7 +11519,36 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -6733177361254619370, guid: ae9fa2c9416fb4242a8c4742d888275d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1416004054}
+    - targetCorrespondingSourceObject: {fileID: 2800250516343163423, guid: ae9fa2c9416fb4242a8c4742d888275d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 335935119}
   m_SourcePrefab: {fileID: 100100000, guid: ae9fa2c9416fb4242a8c4742d888275d, type: 3}
+--- !u!1 &335935118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2800250516343163423, guid: ae9fa2c9416fb4242a8c4742d888275d, type: 3}
+  m_PrefabInstance: {fileID: 335935117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &335935119
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335935118}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.043067694, y: 0.031540506, z: 0.012674799}
+  m_Center: {x: 0.049796015, y: -0.041525044, z: 0.0032758282}
 --- !u!1001 &335997296
 PrefabInstance:
   m_ObjectHideFlags: 0
