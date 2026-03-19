@@ -32,7 +32,7 @@ public class AudioClipsController : MonoBehaviour
 
     void PlayNumberSound(int index)
     {
-        currentLitNumber = index + 1;
+        currentLitNumber = index;
         clipAudioSource.clip = playerController.numberSounds[index];
         clipAudioSource.Play();
     }
