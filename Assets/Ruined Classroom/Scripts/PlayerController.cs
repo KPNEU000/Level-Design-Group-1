@@ -52,7 +52,7 @@ class PlayerController : MonoBehaviour
         HandleCrouch();
         HandleMovement();
         HandleInteract();
-        HandleNumberKeys();
+        //HandleNumberKeys();
     }
 
     void HandleMovement()
