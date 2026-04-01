@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,8 @@ public class ComaPlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float sprintMultiplier = 1.8f;
+    [SerializeField] float walkerMultiplier = 1.8f;
+
 
     [Header("Jumping")]
     [SerializeField] float jumpHeight = 1.5f;
@@ -26,6 +29,7 @@ public class ComaPlayerController : MonoBehaviour
     Vector3 velocity;
     float xRotation;
     bool jumpQueued;
+    bool hasWalker;
 
     float gravity = -9.81f;
 
@@ -44,6 +48,7 @@ public class ComaPlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        hasWalker = true;
 
         changeAnim("isIdle");
     }
@@ -58,8 +63,6 @@ public class ComaPlayerController : MonoBehaviour
     {
         Vector2 lookInput = lookAction.ReadValue<Vector2>();
 
-        Debug.Log("lookInput: " + lookInput);
-
         float mouseX = lookInput.x * mouseSensitivity;
         float mouseY = lookInput.y * mouseSensitivity;
 
@@ -67,8 +70,6 @@ public class ComaPlayerController : MonoBehaviour
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -verticalClamp, verticalClamp);
-
-        Debug.Log("xRotation: " + xRotation);
 
         cameraFollowTarget.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
     }
@@ -81,9 +82,23 @@ public class ComaPlayerController : MonoBehaviour
             velocity.y = -2f;
 
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
-        bool isSprinting = sprintAction.ReadValue<float>() > 0.5f;
 
-        float speed = moveSpeed * (isSprinting ? sprintMultiplier : 1f);
+        bool isSprinting;
+        if (!hasWalker)
+            isSprinting = sprintAction.ReadValue<float>() > 0.5f;
+        else isSprinting = false;
+
+        float multiplier = 1f;
+        if (isSprinting)
+        {
+            multiplier = sprintMultiplier;
+        }
+        else if (hasWalker)
+        {
+            multiplier = walkerMultiplier;
+        }
+
+        float speed = moveSpeed * multiplier;
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         cc.Move(move * speed * Time.deltaTime);
 
