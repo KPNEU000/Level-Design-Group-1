@@ -345,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::L1LevelManager
   arenaSpawnerTripwirePrefab: {fileID: 3617121476534476076, guid: d3938c53222b84e4b8fc8adc393fd018, type: 3}
   spawnBedDespawnTripwirePrefab: {fileID: 3617121476800621333}
-  arenaPrefab: {fileID: 3071181307842337635, guid: 98d3ddd46b0663a4cb57e8471b63e883, type: 3}
+  arenaPrefab: {fileID: 1142675582447471691, guid: 9c80ae86121d3094b8ad99872fef405e, type: 3}
   hallwayPrefab: {fileID: 784095233414443242, guid: 0e79f90058532a340a102a46655872e6, type: 3}
   targetBedPrefab: {fileID: 715453440396256112, guid: d4f41445a9ede864d95d49f853e77287, type: 3}
   spawnBedPrefab: {fileID: 7380112887250783349, guid: f610381b918eeb84ea54e081ac85f495, type: 3}
@@ -4539,7 +4539,7 @@ PrefabInstance:
       objectReference: {fileID: 496634570}
     - target: {fileID: 211565464000347047, guid: f610381b918eeb84ea54e081ac85f495, type: 3}
       propertyPath: m_VersionIndex
-      value: 169
+      value: 172
       objectReference: {fileID: 0}
     - target: {fileID: 5414564384309859697, guid: f610381b918eeb84ea54e081ac85f495, type: 3}
       propertyPath: m_Mesh
@@ -5911,6 +5911,18 @@ PrefabInstance:
     - target: {fileID: 2165972695454769837, guid: 8c3115a089ee9c442979a44f86708df2, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824754523348577712, guid: 8c3115a089ee9c442979a44f86708df2, type: 3}
+      propertyPath: m_Height
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824754523348577712, guid: 8c3115a089ee9c442979a44f86708df2, type: 3}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824754523348577712, guid: 8c3115a089ee9c442979a44f86708df2, type: 3}
+      propertyPath: m_Center.y
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7921864188527270562, guid: 8c3115a089ee9c442979a44f86708df2, type: 3}
       propertyPath: walkerMultiplier
