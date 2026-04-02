@@ -3,6 +3,7 @@ using UnityEngine;
 public class L1LevelManager : MonoBehaviour
 {
     public GameObject arenaSpawnerTripwirePrefab;
+    public GameObject player;
     public GameObject spawnBedDespawnTripwirePrefab;
     public GameObject arenaPrefab;
     public GameObject hallwayPrefab;
@@ -16,9 +17,11 @@ public class L1LevelManager : MonoBehaviour
     GameObject spawnBedInstance;
     GameObject walkerInstance;
     GameObject spawnBedDespawnTripwireInstance;
+    ComaPlayerController pc;
 
     void Start()
     {
+        pc = player.GetComponent<ComaPlayerController>();
         hallwaySpawnPoint = new Vector3(2.2f, 0.36337f, -1.84108f);
         hallwayInstance = Instantiate(hallwayPrefab, hallwaySpawnPoint, Quaternion.identity);
         targetBedInstance = Instantiate(targetBedPrefab, targetBedPrefab.transform.position, Quaternion.identity);
@@ -37,6 +40,7 @@ public class L1LevelManager : MonoBehaviour
             SpawnPrefab(arenaPrefab);
             DespawnInstance(hallwayInstance);
             DespawnInstance(walkerInstance);
+            pc.hasWalker = false;
         }
         else if (spawnBedDespawnTripwireInstance.name.Contains(name))
         {

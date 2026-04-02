@@ -26,10 +26,11 @@ public class ComaPlayerController : MonoBehaviour
     InputAction jumpAction;
     InputAction sprintAction;
 
+
     Vector3 velocity;
     float xRotation;
     bool jumpQueued;
-    bool hasWalker;
+    public bool hasWalker;
 
     float gravity = -9.81f;
 
