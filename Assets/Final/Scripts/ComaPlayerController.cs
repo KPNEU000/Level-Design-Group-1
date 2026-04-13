@@ -6,33 +6,27 @@ public class ComaPlayerController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
-    [SerializeField] float sprintMultiplier = 1.8f;
-    [SerializeField] float walkerMultiplier = 1.8f;
-
-
-    [Header("Jumping")]
-    [SerializeField] float jumpHeight = 1.5f;
 
     [Header("Look")]
     [SerializeField] Transform cameraFollowTarget;
     [SerializeField] float mouseSensitivity = 0.1f;
     [SerializeField] float verticalClamp = 80f;
 
+    [Header("Walker / Body Lag")]
+    [SerializeField] float lookFreedom = 40f;
+    [SerializeField] float bodyRotateSpeed = 60f;
+
     CharacterController cc;
     Animator anim;
     PlayerInput playerInput;
-    InputAction moveAction;
     InputAction lookAction;
-    InputAction jumpAction;
-    InputAction sprintAction;
-
 
     Vector3 velocity;
     float xRotation;
-    bool jumpQueued;
-    public bool hasWalker;
-
     float gravity = -9.81f;
+
+    float lookYaw;
+    float bodyYaw;
 
     void Awake()
     {
@@ -40,18 +34,13 @@ public class ComaPlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         anim = GetComponent<Animator>();
 
-        moveAction = playerInput.actions["Move"];
         lookAction = playerInput.actions["Look"];
-        jumpAction = playerInput.actions["Jump"];
-        sprintAction = playerInput.actions["Sprint"];
-
-        jumpAction.performed += _ => jumpQueued = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        hasWalker = true;
 
-        changeAnim("isIdle");
+        lookYaw = transform.eulerAngles.y;
+        bodyYaw = lookYaw;
     }
 
     void Update()
@@ -64,15 +53,18 @@ public class ComaPlayerController : MonoBehaviour
     {
         Vector2 lookInput = lookAction.ReadValue<Vector2>();
 
-        float mouseX = lookInput.x * mouseSensitivity;
+        lookYaw += lookInput.x * mouseSensitivity;
+
+        bodyYaw = (bodyYaw % 360f + 360f) % 360f;
+        lookYaw = (lookYaw % 360f + 360f) % 360f;
+
+        transform.rotation = Quaternion.Euler(0f, bodyYaw, 0f);
+
         float mouseY = lookInput.y * mouseSensitivity;
-
-        transform.Rotate(Vector3.up * mouseX);
-
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -verticalClamp, verticalClamp);
 
-        cameraFollowTarget.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
+        cameraFollowTarget.rotation = Quaternion.Euler(xRotation, lookYaw, 0f);
     }
 
     void HandleMovement()
@@ -82,58 +74,21 @@ public class ComaPlayerController : MonoBehaviour
         if (grounded && velocity.y < 0f)
             velocity.y = -2f;
 
-        Vector2 moveInput = moveAction.ReadValue<Vector2>();
+        bool moving = Mouse.current.leftButton.isPressed || Mouse.current.rightButton.isPressed;
 
-        bool isSprinting;
-        if (!hasWalker)
-            isSprinting = sprintAction.ReadValue<float>() > 0.5f;
-        else isSprinting = false;
+        float yawDelta = Mathf.DeltaAngle(bodyYaw, lookYaw);
+        bool withinCone = Mathf.Abs(yawDelta) <= lookFreedom;
 
-        float multiplier = 1f;
-        if (isSprinting)
-        {
-            multiplier = sprintMultiplier;
-        }
-        else if (hasWalker)
-        {
-            multiplier = walkerMultiplier;
-        }
+        float rotateSpeed = (moving && !withinCone) ? bodyRotateSpeed * 3f : bodyRotateSpeed;
+        bodyYaw = Mathf.MoveTowardsAngle(bodyYaw, lookYaw, rotateSpeed * Time.deltaTime);
 
-        float speed = moveSpeed * multiplier;
-        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        cc.Move(move * speed * Time.deltaTime);
-
-        if (jumpQueued && grounded)
+        if (moving && withinCone)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            jumpQueued = false;
-        }
-        else
-        {
-            jumpQueued = false;
+            Vector3 moveForward = Quaternion.Euler(0f, lookYaw, 0f) * Vector3.forward;
+            cc.Move(moveForward * moveSpeed * Time.deltaTime);
         }
 
         velocity.y += gravity * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
-
-        if (isSprinting)
-        {
-            changeAnim("isSprinting");
-        }
-        else if (move.magnitude > 0.1f)
-        {
-            changeAnim("isWalking");
-        }
-        else changeAnim("isIdle");
-    }
-
-    void changeAnim(string animBool)
-    {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isWalking", false);
-        anim.SetBool("isSprinting", false);
-
-        if (animBool != "none")
-            anim.SetBool(animBool, true);
     }
 }

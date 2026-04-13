@@ -40,7 +40,6 @@ public class L1LevelManager : MonoBehaviour
             SpawnPrefab(arenaPrefab);
             DespawnInstance(hallwayInstance);
             DespawnInstance(walkerInstance);
-            pc.hasWalker = false;
         }
         else if (spawnBedDespawnTripwireInstance.name.Contains(name))
         {
