@@ -1654,7 +1654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5674836689492847439, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5.4059
+      value: 7.212966
       objectReference: {fileID: 0}
     - target: {fileID: 5674836689492847439, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1706,7 +1706,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
       propertyPath: simulationSpeed
-      value: 1
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
+      propertyPath: ShapeModule.type
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
       propertyPath: ShapeModule.m_Scale.x
@@ -1719,6 +1723,18 @@ PrefabInstance:
     - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
       propertyPath: ShapeModule.m_Scale.z
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
+      propertyPath: RotationModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
+      propertyPath: SizeModule.y.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
+      propertyPath: SizeModule.z.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
       propertyPath: RotationModule.curve.scalar
@@ -1738,11 +1754,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
       propertyPath: ShapeModule.alignToDirection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
       propertyPath: RotationModule.curve.minScalar
       value: 0.40997782
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7747930435001442363, guid: 144ed8861fce6e949b76d2b3d576f5ca, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.atime0
