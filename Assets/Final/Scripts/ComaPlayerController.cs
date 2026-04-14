@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class ComaPlayerController : MonoBehaviour
 {
+
+    [SerializeField] Transform respawnPoint;
+
     [Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
 
@@ -41,6 +44,11 @@ public class ComaPlayerController : MonoBehaviour
 
         lookYaw = transform.eulerAngles.y;
         bodyYaw = lookYaw;
+    }
+
+    void Start()
+    {
+        GameManager.Ins.OnDeath += Death;
     }
 
     void Update()
@@ -90,5 +98,17 @@ public class ComaPlayerController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
+
+        //debugging
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameManager.Ins.RemoveHealth(10);
+        }
+    }
+
+    void Death()
+    {
+        transform.position = respawnPoint.position;
+        GameManager.Ins.AfterRespawn();
     }
 }
