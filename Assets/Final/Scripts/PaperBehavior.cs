@@ -1,0 +1,26 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class PaperBehavior : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("efefe");
+        if (other.CompareTag("Monitor"))
+        {
+            GameManager.Ins.CollectPaper(gameObject);
+        }
+    }
+}
