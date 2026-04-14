@@ -1,7 +1,5 @@
 public enum DialogueType
 {
-    Attack,
-    Retreat,
-    Hold,
-
+    Low,
+    High
 }

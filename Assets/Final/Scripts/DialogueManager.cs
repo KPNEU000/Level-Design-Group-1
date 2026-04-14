@@ -7,8 +7,9 @@ public class DialogueManager : MonoBehaviour
 
     public DialogueGroup[] dialogueGroups;
 
-    // event: all soldiers listen to this
-    public static event Action<DialogueType> OnDialogueTriggered;
+    // events: soldiers listen to these
+    public static event Action OnLowDialogue;
+    public static event Action OnHighDialogue;
 
     public void PlayDialogue(DialogueType type)
     {
@@ -27,8 +28,15 @@ public class DialogueManager : MonoBehaviour
                 audioSource.clip = chosenClip;
                 audioSource.Play();
 
-                // notify all listeners (soldiers)
-                OnDialogueTriggered?.Invoke(type);
+                // trigger events
+                if (type == DialogueType.Low)
+                {
+                    OnLowDialogue?.Invoke();
+                }
+                else if (type == DialogueType.High)
+                {
+                    OnHighDialogue?.Invoke();
+                }
 
                 return;
             }

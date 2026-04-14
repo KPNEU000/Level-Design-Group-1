@@ -2,71 +2,41 @@ using UnityEngine;
 
 public class SoldierController : MonoBehaviour
 {
-    [Header("Anger Settings")]
-    public float currentAnger = 0f;
-    public float angerThreshold = 5f;
-
-    [Header("Anger Gain Per Dialogue")]
-    public float attackAnger = 2f;
-    public float tauntAnger = 1.5f;
-    public float retreatAnger = 0.5f;
-    public float holdAnger = 0.2f;
-
-    private bool isAngry = false;
+    [Header("Soldier Type")]
+    public bool isBasic = true; // toggle in inspector
 
     private void OnEnable()
     {
-        DialogueManager.OnDialogueTriggered += ReactToDialogue;
+        DialogueManager.OnLowDialogue += OnLow;
+        DialogueManager.OnHighDialogue += OnHigh;
     }
 
     private void OnDisable()
     {
-        DialogueManager.OnDialogueTriggered -= ReactToDialogue;
+        DialogueManager.OnLowDialogue -= OnLow;
+        DialogueManager.OnHighDialogue -= OnHigh;
     }
 
-    void ReactToDialogue(DialogueType type)
+    void OnLow()
     {
-        if (isAngry) return;
-
-        switch (type)
+        // only basic soldiers react to low
+        if (isBasic)
         {
-            case DialogueType.Attack:
-                IncreaseAnger(attackAnger);
-                break;
-
-            // case DialogueType.Taunt:
-            //     IncreaseAnger(tauntAnger);
-            //     break;
-
-            case DialogueType.Retreat:
-                IncreaseAnger(retreatAnger);
-                break;
-
-            case DialogueType.Hold:
-                IncreaseAnger(holdAnger);
-                break;
+            Shoot("LOW");
         }
     }
 
-    void IncreaseAnger(float amount)
+    void OnHigh()
     {
-        currentAnger += amount;
-
-        Debug.Log(name + " anger: " + currentAnger);
-
-        if (currentAnger >= angerThreshold)
-        {
-            BecomeAngry();
-        }
+        // all soldiers react to high
+        Shoot("HIGH");
     }
 
-    void BecomeAngry()
+    void Shoot(string level)
     {
-        isAngry = true;
-
-        Debug.Log(name + " is now ANGRY and attacks!");
-
-        // placeholder behavior
-        // later like in w2 we can trigger animations and do state machine stuff ig
+        Debug.Log(name + " fires on " + level + " dialogue!");
+        
+        // placeholder for real shooting logic
+        // later: animations, projectiles, etc.
     }
 }
