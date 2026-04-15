@@ -14,7 +14,7 @@ public class SoldierController : MonoBehaviour
     public float baseIllumination = 4f;
     public float flashIllumination = 10f;
     public float flashDuration = 1f;
-    public float flashCount = 3;
+
 
     private Animator anim;
     private Renderer[] rends;
@@ -49,8 +49,11 @@ public class SoldierController : MonoBehaviour
 
     void OnDialogue(DialogueType type, DialogueSide incomingSide)
     {
+        Debug.Log("got here");
         // only react to your own side
         if (incomingSide != mySide) return;
+
+        TriggerFlash();
 
         switch (type)
         {
@@ -78,7 +81,6 @@ public class SoldierController : MonoBehaviour
     {
         Debug.Log(name + " fires on " + level + " dialogue!");
         SetAnim("IsStandFire");
-        TriggerFlash();
 
 
         // placeholder for stuff like anims basically feel free to be creative here ig
