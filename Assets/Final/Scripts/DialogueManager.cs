@@ -31,11 +31,11 @@ public class DialogueManager : MonoBehaviour
         {
             PlayDialogue(DialogueType.Low, DialogueSide.Son, true);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyUp(KeyCode.Alpha2))
         {
             PlayDialogue(DialogueType.Medium, DialogueSide.Son, true);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyUp(KeyCode.Alpha3))
         {
             PlayDialogue(DialogueType.High, DialogueSide.Son, true);
         }

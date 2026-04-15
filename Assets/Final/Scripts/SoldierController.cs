@@ -42,14 +42,7 @@ public class SoldierController : MonoBehaviour
         SetIllumination(baseIllumination);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Shoot("MEDIUM");
-        }
-    }
-
+    //On the start of any dialogue spawning, check if it's our team and if I shoot or not
     void OnDialogue(DialogueType type, DialogueSide incomingSide)
     {
         // only react to your own side
@@ -68,38 +61,46 @@ public class SoldierController : MonoBehaviour
                 // only basic soldiers shoot
                 if (isBasic)
                 {
-                    Shoot("MEDIUM");
+                    HandleShoot("MEDIUM");
                 }
                 break;
 
             case DialogueType.High:
                 // everyone shoots
-                Shoot("HIGH");
+                HandleShoot("HIGH");
                 break;
         }
     }
 
+    //Triggered on any dialogue piece end. Add actual data to end shooting colliders when we get to that
     void OnDialogueEnd(DialogueType type, DialogueSide incomingSide)
     {
         // only react to your own side
         if (incomingSide != mySide) return;
 
-        //might be useful
+        //might be useful in the future to make the following
         //EndFlash();
 
-        SetAnim("IsAimIdle");
+        SetAnim("IsAimIdle");  //shooting stops
     }
 
-    void Shoot(string level)
+
+    //call this to start shooting animation and associated data, but it's on a slight random delay
+    void HandleShoot(string level)
     {
+        float randomDelay = Random.Range(0f, .3f);
+        Invoke("Shoot", randomDelay);
         Debug.Log(name + " fires on " + level + " dialogue!");
-        SetAnim("IsFire");
-
-
-        // placeholder for stuff like anims basically feel free to be creative here ig
-
     }
 
+    //The helper method that HandleShoot uses
+    void Shoot()
+    {
+        SetAnim("IsFire");
+    }
+
+
+    //put arms down. Done at end of game
     void CeaseFire()
     {
         Debug.Log("got here soldier");
@@ -107,7 +108,7 @@ public class SoldierController : MonoBehaviour
     }
 
 
-    //ANIMATION
+    //animation setter helper
     void SetAnim(string name)
     {
         anim.SetBool("IsFire", false);
@@ -124,12 +125,7 @@ public class SoldierController : MonoBehaviour
         }
     }
 
-    void EndStandShoot()
-    {
-        SetAnim("IsAimIdle");
-    }
-
-    //FLASHING
+    //FLASHING STUFF
     public void TriggerFlash()
     {
         StartCoroutine(FlashRoutine());
