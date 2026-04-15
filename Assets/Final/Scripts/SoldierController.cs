@@ -10,10 +10,9 @@ public class SoldierController : MonoBehaviour
     [Header("Side")]
     public DialogueSide mySide;
 
-    [Header("Illumination Settings")]
-    public float baseIllumination = 4f;
-    public float flashIllumination = 10f;
-    public float flashDuration = 1f;
+    float baseIllumination = 4f;
+    float flashIllumination = 10f;
+    float flashDuration = 1f;
 
 
     private Animator anim;
@@ -81,7 +80,7 @@ public class SoldierController : MonoBehaviour
     void Shoot(string level)
     {
         Debug.Log(name + " fires on " + level + " dialogue!");
-        SetAnim("IsStandFire");
+        SetAnim("IsFire");
 
 
         // placeholder for stuff like anims basically feel free to be creative here ig
@@ -113,7 +112,7 @@ public class SoldierController : MonoBehaviour
 
     void EndStandShoot()
     {
-        SetAnim("IsStandAimIdle");
+        SetAnim("IsAimIdle");
     }
 
     //FLASHING

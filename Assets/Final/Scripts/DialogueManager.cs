@@ -35,7 +35,7 @@ public class DialogueManager : MonoBehaviour
         {
             PlayDialogue(DialogueType.Medium, DialogueSide.Daughter);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             PlayDialogue(DialogueType.High, DialogueSide.Daughter);
         }
