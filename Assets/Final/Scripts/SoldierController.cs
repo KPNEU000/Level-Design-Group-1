@@ -24,7 +24,7 @@ public class SoldierController : MonoBehaviour
     {
         DialogueManager.OnDialogueTriggered += OnDialogue;
         anim = GetComponent<Animator>();
-        SetAnim("IsStandAimIdle");
+        SetAnim("IsAimIdle");
         rends = GetComponentsInChildren<Renderer>();
         propBlock = new MaterialPropertyBlock();
     }
@@ -32,10 +32,12 @@ public class SoldierController : MonoBehaviour
     private void OnDestroy()
     {
         DialogueManager.OnDialogueTriggered -= OnDialogue;
+        GameManager.Ins.AllPiecesCollected -= CeaseFire;
     }
 
     void Start()
     {
+        GameManager.Ins.AllPiecesCollected += CeaseFire;
         SetIllumination(baseIllumination);
     }
 
@@ -49,7 +51,6 @@ public class SoldierController : MonoBehaviour
 
     void OnDialogue(DialogueType type, DialogueSide incomingSide)
     {
-        Debug.Log("got here");
         // only react to your own side
         if (incomingSide != mySide) return;
 
@@ -87,14 +88,27 @@ public class SoldierController : MonoBehaviour
 
     }
 
+    void CeaseFire()
+    {
+        Debug.Log("got here soldier");
+        SetAnim("IsAimToDown");
+    }
+
 
     //ANIMATION
     void SetAnim(string name)
     {
-        anim.SetBool("IsStandFire", false);
-        anim.SetBool("IsStandAimIdle", false);
+        anim.SetBool("IsFire", false);
+        anim.SetBool("IsAimIdle", false);
 
-        anim.SetBool(name, true);
+        if (name == "IsAimToDown")
+        {
+            anim.SetTrigger("IsAimToDown");
+        }
+        else
+        {
+            anim.SetBool(name, true);
+        }
     }
 
     void EndStandShoot()

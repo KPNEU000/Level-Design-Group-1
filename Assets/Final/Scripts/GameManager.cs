@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public Action OnHealthChanged;
     public Action OnDeath;
 
+    public Action AllPiecesCollected;
+
 
     void Awake()
     {
@@ -42,7 +44,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            Debug.Log("got here manager");
+            AllPiecesCollected?.Invoke();
+        }
     }
 
     public void RemoveHealth(int amt)
@@ -78,6 +84,11 @@ public class GameManager : MonoBehaviour
         collectedPapers.Add(paper);
         Debug.Log("rgrgrgrgrg");
         paper.SetActive(false); //stub for a more elegant look later
+
+        if (collectedPapers.Count >= papers.Count)
+        {
+            AllPiecesCollected?.Invoke();
+        }
     }
 
     public void AfterRespawn()
