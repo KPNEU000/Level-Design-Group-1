@@ -1,5 +1,6 @@
 using UnityEditor.Animations;
 using UnityEngine;
+using System.Collections;
 
 public class SoldierController : MonoBehaviour
 {
@@ -9,18 +10,33 @@ public class SoldierController : MonoBehaviour
     [Header("Side")]
     public DialogueSide mySide;
 
+    [Header("Illumination Settings")]
+    public float baseIllumination = 4f;
+    public float flashIllumination = 10f;
+    public float flashDuration = 1f;
+    public float flashCount = 3;
+
     private Animator anim;
+    private Renderer[] rends;
+    private MaterialPropertyBlock propBlock;
 
     private void OnEnable()
     {
         DialogueManager.OnDialogueTriggered += OnDialogue;
         anim = GetComponent<Animator>();
         SetAnim("IsStandAimIdle");
+        rends = GetComponentsInChildren<Renderer>();
+        propBlock = new MaterialPropertyBlock();
     }
 
     private void OnDestroy()
     {
         DialogueManager.OnDialogueTriggered -= OnDialogue;
+    }
+
+    void Start()
+    {
+        SetIllumination(baseIllumination);
     }
 
     void Update()
@@ -62,12 +78,15 @@ public class SoldierController : MonoBehaviour
     {
         Debug.Log(name + " fires on " + level + " dialogue!");
         SetAnim("IsStandFire");
+        TriggerFlash();
 
 
         // placeholder for stuff like anims basically feel free to be creative here ig
 
     }
 
+
+    //ANIMATION
     void SetAnim(string name)
     {
         anim.SetBool("IsStandFire", false);
@@ -79,5 +98,50 @@ public class SoldierController : MonoBehaviour
     void EndStandShoot()
     {
         SetAnim("IsStandAimIdle");
+    }
+
+    //FLASHING
+    public void TriggerFlash()
+    {
+        StartCoroutine(FlashRoutine());
+    }
+
+    IEnumerator FlashRoutine()
+    {
+        float elapsed = 0f;
+        float totalDuration = flashDuration;
+
+        // Ramp up
+        while (elapsed < totalDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / totalDuration;
+            float curvedT = Mathf.SmoothStep(0f, 1f, t);
+            SetIllumination(Mathf.Lerp(baseIllumination, flashIllumination, curvedT));
+            yield return null;
+        }
+
+        elapsed = 0f;
+
+        // Ramp down
+        while (elapsed < totalDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / totalDuration;
+            float curvedT = Mathf.SmoothStep(0f, 1f, t);
+            SetIllumination(Mathf.Lerp(flashIllumination, baseIllumination, curvedT));
+            yield return null;
+        }
+
+        SetIllumination(baseIllumination);
+    }
+
+    void SetIllumination(float value)
+    {
+        propBlock.SetFloat("_SelfIllumination", value);
+        foreach (Renderer rend in rends)
+        {
+            rend.SetPropertyBlock(propBlock);
+        }
     }
 }

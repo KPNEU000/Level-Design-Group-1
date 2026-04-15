@@ -1,13 +1,15 @@
 Readme - Ghost Shader
 _________________________
 
+Support Unity versions
+2019.4.0 or higher
+The package includes Built-in and URP shaders. The v2020.1 package is only compatible with Unity 2019.4.0 or higher. 
+The package is set up to Built-In Render Pipeline by default.
+
+
 
 URP Setup : 
 ---------
-Support Unity versions
-2019.4.0 or higher
-
-
 First delete the Builtin folder and unpack the URP-Ghost shaders.unitypackage. In order to use the shaders with the Universal Render Pipeline
 you will need to enable the Opaque Texture toggle in the pipeline asset inspector(for more information check the documentation linked below).
 
@@ -18,8 +20,8 @@ v1018.1.0 :
 Support Unity versions
 2018.1.0 and higher (Built-in only)
 
-By default the new built-in shaders (v2019.4.x) are available in the built-in folder. If you don't need them, 
-delete the Builtin folder before unpacking the Ghost Shader v2018.1.unitypackage
+By default the new built-in shaders (v2019.4.x or higher) are available in the built-in folder. If you don't need them, 
+delete the Builtin folder before unpacking the Ghost Shaders v2018.1.unitypackage
 
 
 
