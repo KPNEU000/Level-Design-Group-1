@@ -7,11 +7,10 @@ public class DialogueManager : MonoBehaviour
 
     public DialogueGroup[] dialogueGroups;
 
-    // events: soldiers listen to these
-    public static event Action OnLowDialogue;
-    public static event Action OnHighDialogue;
+    // event: soldiers listen to this
+    public static event Action<DialogueType, DialogueSide> OnDialogueTriggered;
 
-    public void PlayDialogue(DialogueType type)
+    public void PlayDialogue(DialogueType type, DialogueSide side)
     {
         foreach (var group in dialogueGroups)
         {
@@ -28,15 +27,8 @@ public class DialogueManager : MonoBehaviour
                 audioSource.clip = chosenClip;
                 audioSource.Play();
 
-                // trigger events
-                if (type == DialogueType.Low)
-                {
-                    OnLowDialogue?.Invoke();
-                }
-                else if (type == DialogueType.High)
-                {
-                    OnHighDialogue?.Invoke();
-                }
+                // broadcast to soldiers
+                OnDialogueTriggered?.Invoke(type, side);
 
                 return;
             }
