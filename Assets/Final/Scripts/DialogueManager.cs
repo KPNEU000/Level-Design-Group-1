@@ -9,39 +9,52 @@ public class DialogueManager : MonoBehaviour
 
     // event: soldiers listen to this
     public static event Action<DialogueType, DialogueSide> OnDialogueTriggered;
+    public static event Action<DialogueType, DialogueSide> OnDialogueEnd;
 
     void Update()
     {
         //Debugging
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Debug.Log("erer");
-            PlayDialogue(DialogueType.Low, DialogueSide.Son);
+            PlayDialogue(DialogueType.Low, DialogueSide.Son, false);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            PlayDialogue(DialogueType.Medium, DialogueSide.Son);
+            PlayDialogue(DialogueType.Medium, DialogueSide.Son, false);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            PlayDialogue(DialogueType.High, DialogueSide.Son);
+            PlayDialogue(DialogueType.High, DialogueSide.Son, false);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Alpha1))
+        {
+            PlayDialogue(DialogueType.Low, DialogueSide.Son, true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayDialogue(DialogueType.Medium, DialogueSide.Son, true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayDialogue(DialogueType.High, DialogueSide.Son, true);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            PlayDialogue(DialogueType.Low, DialogueSide.Daughter);
+            PlayDialogue(DialogueType.Low, DialogueSide.Daughter, false);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            PlayDialogue(DialogueType.Medium, DialogueSide.Daughter);
+            PlayDialogue(DialogueType.Medium, DialogueSide.Daughter, false);
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            PlayDialogue(DialogueType.High, DialogueSide.Daughter);
+            PlayDialogue(DialogueType.High, DialogueSide.Daughter, false);
         }
     }
 
-    public void PlayDialogue(DialogueType type, DialogueSide side)
+    public void PlayDialogue(DialogueType type, DialogueSide side, bool end)
     {
         foreach (var group in dialogueGroups)
         {
@@ -59,7 +72,14 @@ public class DialogueManager : MonoBehaviour
                 // audioSource.Play();
 
                 // broadcast to soldiers
-                OnDialogueTriggered?.Invoke(type, side);
+                if (end)
+                {
+                    OnDialogueEnd?.Invoke(type, side);
+                }
+                else
+                {
+                    OnDialogueTriggered?.Invoke(type, side);
+                }
 
                 return;
             }

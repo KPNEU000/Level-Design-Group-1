@@ -22,6 +22,7 @@ public class SoldierController : MonoBehaviour
     private void OnEnable()
     {
         DialogueManager.OnDialogueTriggered += OnDialogue;
+        DialogueManager.OnDialogueEnd += OnDialogueEnd;
         anim = GetComponent<Animator>();
         SetAnim("IsAimIdle");
         rends = GetComponentsInChildren<Renderer>();
@@ -31,6 +32,7 @@ public class SoldierController : MonoBehaviour
     private void OnDestroy()
     {
         DialogueManager.OnDialogueTriggered -= OnDialogue;
+        DialogueManager.OnDialogueEnd -= OnDialogueEnd;
         GameManager.Ins.AllPiecesCollected -= CeaseFire;
     }
 
@@ -77,6 +79,17 @@ public class SoldierController : MonoBehaviour
         }
     }
 
+    void OnDialogueEnd(DialogueType type, DialogueSide incomingSide)
+    {
+        // only react to your own side
+        if (incomingSide != mySide) return;
+
+        //might be useful
+        //EndFlash();
+
+        SetAnim("IsAimIdle");
+    }
+
     void Shoot(string level)
     {
         Debug.Log(name + " fires on " + level + " dialogue!");
@@ -106,6 +119,7 @@ public class SoldierController : MonoBehaviour
         }
         else
         {
+            Debug.Log("setting" + name + "to true");
             anim.SetBool(name, true);
         }
     }
