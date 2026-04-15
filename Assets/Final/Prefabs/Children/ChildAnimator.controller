@@ -61,10 +61,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsStandFire
+    m_ConditionEvent: IsStandAimIdle
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: IsStandAimIdle
+    m_ConditionEvent: IsStandFire
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4783502936568330829}
