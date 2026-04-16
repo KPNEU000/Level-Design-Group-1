@@ -52,6 +52,19 @@ public class DialogueManager : MonoBehaviour
         {
             PlayDialogue(DialogueType.High, DialogueSide.Daughter, false);
         }
+
+        if (Input.GetKeyUp(KeyCode.Alpha4))
+        {
+            PlayDialogue(DialogueType.Low, DialogueSide.Daughter, true);
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha5))
+        {
+            PlayDialogue(DialogueType.Medium, DialogueSide.Daughter, true);
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha6))
+        {
+            PlayDialogue(DialogueType.High, DialogueSide.Daughter, true);
+        }
     }
 
     public void PlayDialogue(DialogueType type, DialogueSide side, bool end)

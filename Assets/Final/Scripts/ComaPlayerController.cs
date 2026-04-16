@@ -106,6 +106,14 @@ public class ComaPlayerController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Death"))
+        {
+            GameManager.Ins.OnDeath();
+        }
+    }
+
     void Death()
     {
         transform.position = respawnPoint.position;
