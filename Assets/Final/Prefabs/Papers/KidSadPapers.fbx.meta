@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 409ed103fc4ae7b47b93738f6ffb06a7
+guid: e54f42e7f3295734cbb2c33634f56d03
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: OldPaper
-    second: {fileID: 2100000, guid: 114f45ba12cf8344a9d18ba473eabf57, type: 2}
+      name: image
+    second: {fileID: 2100000, guid: 1b32ad33c6705a643b87f4caf8290b17, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: kidArtBefore
+    second: {fileID: 2800000, guid: de886da895404b3498791bef5396e1d9, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
