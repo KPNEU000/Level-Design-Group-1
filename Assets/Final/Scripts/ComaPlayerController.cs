@@ -49,6 +49,7 @@ public class ComaPlayerController : MonoBehaviour
     void Start()
     {
         GameManager.Ins.OnDeath += Death;
+        transform.position = respawnPoint.position;
     }
 
     void Update()

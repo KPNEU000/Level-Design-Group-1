@@ -31007,7 +31007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComaPlayerController
   respawnPoint: {fileID: 1531936288}
-  moveSpeed: 5
+  moveSpeed: 2
   cameraFollowTarget: {fileID: 234385301}
   mouseSensitivity: 0.1
   verticalClamp: 80
@@ -43091,12 +43091,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   papers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7874294518531208750}
+  - {fileID: 6370599515728424012}
+  - {fileID: 7005178203098405336}
+  - {fileID: 6473609506786810090}
+  - {fileID: 8551659236870447123}
+  - {fileID: 8627382378420221306}
 --- !u!114 &1779411922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49280,6 +49280,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 409ed103fc4ae7b47b93738f6ffb06a7, type: 3}
       propertyPath: m_Name
       value: animated_papers_v3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 409ed103fc4ae7b47b93738f6ffb06a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1357452471946215511, guid: 409ed103fc4ae7b47b93738f6ffb06a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -82430,6 +82434,8 @@ GameObject:
   - component: {fileID: 8116789540124757210}
   - component: {fileID: 5409403782554145423}
   - component: {fileID: 3915737034230071257}
+  - component: {fileID: 8116789540124757211}
+  - component: {fileID: 8116789540124757212}
   m_Layer: 0
   m_Name: Paper2
   m_TagString: Untagged
@@ -82463,6 +82469,8 @@ GameObject:
   - component: {fileID: 3678249845161221764}
   - component: {fileID: 2525595443448682973}
   - component: {fileID: 6983398490765902569}
+  - component: {fileID: 6983398490765902570}
+  - component: {fileID: 6983398490765902571}
   m_Layer: 0
   m_Name: Paper4
   m_TagString: Untagged
@@ -82602,6 +82610,40 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6983398490765902570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6473609506786810090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80801848a1c8ce488472c7581683776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaperBehavior
+--- !u!64 &6983398490765902571
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6473609506786810090}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1398128768431238364, guid: a2334613c3dd07d4f9a8d960adb49a61, type: 3}
 --- !u!1 &7005178203098405336
 GameObject:
   m_ObjectHideFlags: 0
@@ -82613,6 +82655,8 @@ GameObject:
   - component: {fileID: 3136032745730494262}
   - component: {fileID: 5220853089549058742}
   - component: {fileID: 8815375981579040445}
+  - component: {fileID: 8815375981579040446}
+  - component: {fileID: 8815375981579040447}
   m_Layer: 0
   m_Name: Paper3
   m_TagString: Untagged
@@ -82841,6 +82885,8 @@ GameObject:
   - component: {fileID: 2078594869608163866}
   - component: {fileID: 3583261981218704160}
   - component: {fileID: 6755364062683649044}
+  - component: {fileID: 7874294518531208751}
+  - component: {fileID: 7874294518531208752}
   m_Layer: 0
   m_Name: Paper1
   m_TagString: Untagged
@@ -82848,6 +82894,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7874294518531208751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7874294518531208750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80801848a1c8ce488472c7581683776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaperBehavior
+--- !u!64 &7874294518531208752
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7874294518531208750}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1241904002521185189, guid: a2334613c3dd07d4f9a8d960adb49a61, type: 3}
 --- !u!23 &7915900485183362142
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -87662,6 +87742,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 634305875}
   m_LocalEulerAnglesHint: {x: -57.672, y: 0, z: 0}
+--- !u!114 &8116789540124757211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6370599515728424012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80801848a1c8ce488472c7581683776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaperBehavior
+--- !u!64 &8116789540124757212
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6370599515728424012}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7335230724382169361, guid: a2334613c3dd07d4f9a8d960adb49a61, type: 3}
 --- !u!33 &8161965108057610898
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -92544,6 +92658,8 @@ GameObject:
   - component: {fileID: 1381736064400479527}
   - component: {fileID: 4812445650473218742}
   - component: {fileID: 111439985676073384}
+  - component: {fileID: 8551659236870447124}
+  - component: {fileID: 8551659236870447125}
   m_Layer: 0
   m_Name: Paper 5
   m_TagString: Untagged
@@ -92551,6 +92667,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8551659236870447124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551659236870447123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80801848a1c8ce488472c7581683776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaperBehavior
+--- !u!64 &8551659236870447125
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551659236870447123}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6877138239493254733, guid: a2334613c3dd07d4f9a8d960adb49a61, type: 3}
 --- !u!1 &8627382378420221306
 GameObject:
   m_ObjectHideFlags: 0
@@ -92562,6 +92712,8 @@ GameObject:
   - component: {fileID: 4880833622142477792}
   - component: {fileID: 5351725258345400912}
   - component: {fileID: 2816913480442209701}
+  - component: {fileID: 8627382378420221307}
+  - component: {fileID: 8627382378420221308}
   m_Layer: 0
   m_Name: Paper 6
   m_TagString: Untagged
@@ -92569,6 +92721,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8627382378420221307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8627382378420221306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80801848a1c8ce488472c7581683776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaperBehavior
+--- !u!64 &8627382378420221308
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8627382378420221306}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -858338158618911350, guid: a2334613c3dd07d4f9a8d960adb49a61, type: 3}
 --- !u!4 &8792950780738240047 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5323620817152043486, guid: 1cf0863b2c5f03e4197cbdb412186548, type: 3}
@@ -92623,6 +92809,40 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8815375981579040446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7005178203098405336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80801848a1c8ce488472c7581683776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaperBehavior
+--- !u!64 &8815375981579040447
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7005178203098405336}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2783478370911525003, guid: a2334613c3dd07d4f9a8d960adb49a61, type: 3}
 --- !u!33 &8921700160311013364
 MeshFilter:
   m_ObjectHideFlags: 0
