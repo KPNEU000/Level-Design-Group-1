@@ -19,10 +19,27 @@ public class ComaPlayerController : MonoBehaviour
     [SerializeField] float lookFreedom = 40f;
     [SerializeField] float bodyRotateSpeed = 60f;
 
+    [Header("Head Bob")]
+    [SerializeField] float bobAmplitude = 0.05f;
+    [SerializeField] float bobFrequency = 8f;
+    [SerializeField] float bobReturnSpeed = 6f;
+
+    [Header("Walk Zoom")]
+    [SerializeField] float walkFOVOffset = -3f;
+    [SerializeField] float fovLerpSpeed = 4f;
+
     CharacterController cc;
     Animator anim;
     PlayerInput playerInput;
     InputAction lookAction;
+    Camera cam;
+    bool moving;
+
+    Vector3 camRestLocalPos;
+    float bobTimer;
+    float currentBobY;
+    float currentBobX;
+    float baseFOV;
 
     Vector3 velocity;
     float xRotation;
@@ -44,6 +61,12 @@ public class ComaPlayerController : MonoBehaviour
 
         lookYaw = transform.eulerAngles.y;
         bodyYaw = lookYaw;
+
+        camRestLocalPos = cameraFollowTarget.localPosition;
+
+        cam = cameraFollowTarget.GetComponentInChildren<Camera>();
+        cam ??= Camera.main;
+        if (cam != null) baseFOV = cam.fieldOfView;
     }
 
     void Start()
@@ -56,6 +79,7 @@ public class ComaPlayerController : MonoBehaviour
     {
         HandleLook();
         HandleMovement();
+        HandleHeadBob();
     }
 
     void HandleLook()
@@ -83,7 +107,7 @@ public class ComaPlayerController : MonoBehaviour
         if (grounded && velocity.y < 0f)
             velocity.y = -2f;
 
-        bool moving = Mouse.current.leftButton.isPressed || Mouse.current.rightButton.isPressed;
+        moving = Mouse.current.leftButton.isPressed || Mouse.current.rightButton.isPressed;
 
         float yawDelta = Mathf.DeltaAngle(bodyYaw, lookYaw);
         bool withinCone = Mathf.Abs(yawDelta) <= lookFreedom;
@@ -105,6 +129,28 @@ public class ComaPlayerController : MonoBehaviour
         {
             GameManager.Ins.RemoveHealth(10);
         }
+    }
+
+    void HandleHeadBob()
+    {
+        if (moving)
+        {
+            bobTimer += bobFrequency * Time.deltaTime;
+            currentBobY = Mathf.Sin(bobTimer) * bobAmplitude;
+            currentBobX = Mathf.Sin(bobTimer * 0.5f) * bobAmplitude * 0.5f;
+
+            if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV + walkFOVOffset, fovLerpSpeed * Time.deltaTime);
+        }
+        else
+        {
+            bobTimer = 0f;
+            currentBobY = Mathf.Lerp(currentBobY, 0f, bobReturnSpeed * Time.deltaTime);
+            currentBobX = Mathf.Lerp(currentBobX, 0f, bobReturnSpeed * Time.deltaTime);
+
+            if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV, fovLerpSpeed * Time.deltaTime);
+        }
+
+        cameraFollowTarget.localPosition = camRestLocalPos + new Vector3(currentBobX, currentBobY, 0f);
     }
 
     void OnTriggerEnter(Collider other)
