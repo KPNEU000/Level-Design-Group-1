@@ -9993,6 +9993,8 @@ MonoBehaviour:
   damage: 0
   mySide: 1
   muzzleFlashEffects: {fileID: 431052565646754961}
+  gun: {fileID: 1574163702560952311}
+  arClip: {fileID: 8300000, guid: e4cb914721751394fa2571f0124cb927, type: 3}
 --- !u!4 &1162687137226475437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: d8bd5ae08f0741548bccbee18666e87b, type: 3}
@@ -10014,6 +10016,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 29f01dc1d53cd544f9d1c03e095b1c4d, type: 2}
+    - target: {fileID: 3735068795684034263, guid: 966536e6b35e83844912bfe9eceb3f79, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 99af25932df352e418731ff660b56ce9, type: 3}
     - target: {fileID: 4240701686437010950, guid: 966536e6b35e83844912bfe9eceb3f79, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -10082,6 +10088,11 @@ PrefabInstance:
       addedObject: {fileID: 1716895127858772264}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 966536e6b35e83844912bfe9eceb3f79, type: 3}
+--- !u!1 &1574163702560952311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6082307852510025089, guid: 966536e6b35e83844912bfe9eceb3f79, type: 3}
+  m_PrefabInstance: {fileID: 4733352787475716726}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2203207037146748237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6855431259454017339, guid: 966536e6b35e83844912bfe9eceb3f79, type: 3}

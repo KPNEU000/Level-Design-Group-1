@@ -9521,6 +9521,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9054378299585635186, guid: 46dfa0927c51201418809d8cfd4e3ce7, type: 3}
   m_PrefabInstance: {fileID: 239418255}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &241713368 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5177032848852048695, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+  m_PrefabInstance: {fileID: 892157532}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &251774244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22988,6 +22993,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4459833863150196625, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 241713368}
+    - target: {fileID: 5728209971075383029, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728209971075383029, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728209971075383029, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6041220092106506249, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 2
@@ -31922,6 +31943,11 @@ MonoBehaviour:
   verticalClamp: 80
   lookFreedom: 40
   bodyRotateSpeed: 60
+  bobAmplitude: 0.05
+  bobFrequency: 8
+  bobReturnSpeed: 6
+  walkFOVOffset: -3
+  fovLerpSpeed: 4
 --- !u!114 &1244236063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37830,6 +37856,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1487731904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5177032848852048695, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+  m_PrefabInstance: {fileID: 6232338607613324458}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1488188804
 GameObject:
   m_ObjectHideFlags: 0
@@ -38140,6 +38171,7 @@ MonoBehaviour:
   damage: 0
   mySide: 1
   muzzleFlashEffects: {fileID: 769591031}
+  gun: {fileID: 2071644999}
 --- !u!65 &1500129273
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51456,6 +51488,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070250335}
   m_Mesh: {fileID: -4538902456354076084, guid: 56557f21a5c98d94984fb08abf559298, type: 3}
+--- !u!1 &2071644999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1574163702560952311, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
+  m_PrefabInstance: {fileID: 1500129268}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2075328550
 GameObject:
   m_ObjectHideFlags: 0
@@ -63337,6 +63374,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.034121245
       objectReference: {fileID: 0}
+    - target: {fileID: 2768301462894311247, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
+      propertyPath: psgShotAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: d1cac02ab0b80364fbf507c115f0fb03, type: 3}
     - target: {fileID: 2882677970011338897, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.1322976
@@ -64220,6 +64261,10 @@ PrefabInstance:
     - target: {fileID: 8036674943725430366, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.05298844
+      objectReference: {fileID: 0}
+    - target: {fileID: 8243168484200860833, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8582571977990479721, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -85999,6 +86044,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.01845309
       objectReference: {fileID: 0}
+    - target: {fileID: 4459833863150196625, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 1487731904}
     - target: {fileID: 4483217299717471910, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0000032076985
@@ -86362,6 +86411,18 @@ PrefabInstance:
     - target: {fileID: 5640135998746273548, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.10209824
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728209971075383029, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728209971075383029, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728209971075383029, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6041220092106506249, guid: 239b0445e0247654a873abbcdd4b7167, type: 3}
       propertyPath: InitialModule.startLifetime.scalar

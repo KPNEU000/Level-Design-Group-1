@@ -21,6 +21,8 @@ public class SoldierController : MonoBehaviour
     private MaterialPropertyBlock propBlock;
 
     public GameObject muzzleFlashEffects;
+    public GameObject gun;
+
 
     private void OnEnable()
     {
@@ -187,6 +189,12 @@ public class SoldierController : MonoBehaviour
         muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Stop();
         muzzleFlashEffects.GetComponent<ParticleSystem>().Play();
         muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Play();
-        //play audio clip
+
+    }
+
+    public void triggerMuzzleSounds()
+    {
+        //gun.GetComponent<AudioSource>().Stop();
+        gun.GetComponent<AudioSource>().Play();
     }
 }
