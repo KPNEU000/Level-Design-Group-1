@@ -6,6 +6,7 @@ public class SoldierController : MonoBehaviour
 {
     [Header("Soldier Type")]
     public bool isBasic = true;
+    public int damage;
 
     [Header("Side")]
     public DialogueSide mySide;
@@ -38,6 +39,14 @@ public class SoldierController : MonoBehaviour
 
     void Start()
     {
+        if(isBasic)
+        {
+            damage = 20;
+        }
+        else
+        {
+            damage = 45;
+        }
         GameManager.Ins.AllPiecesCollected += CeaseFire;
         SetIllumination(baseIllumination);
     }

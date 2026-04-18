@@ -1156,6 +1156,7 @@ Transform:
   - {fileID: 8160645971248706485}
   - {fileID: 8856155185718045534}
   - {fileID: 6426408896582103159}
+  - {fileID: 3020333271461790928}
   m_Father: {fileID: 8066348491973587177}
   m_LocalEulerAnglesHint: {x: -83.747, y: -417.853, z: 151.073}
 --- !u!1 &1633707198386726467
@@ -2625,6 +2626,74 @@ Transform:
   - {fileID: 1430700890886707102}
   m_Father: {fileID: 7739640717110088491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4007886538101831930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3020333271461790928}
+  - component: {fileID: 7342342480740855611}
+  - component: {fileID: 3407793530853085046}
+  m_Layer: 0
+  m_Name: BulletCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3020333271461790928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4007886538101831930}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.108017296, y: 0.104027264, z: 0.6395081}
+  m_LocalScale: {x: 1.2111572, y: 1.2111574, z: 1.2111574}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7085005337124546864}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7342342480740855611
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4007886538101831930}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5616551, y: 0.4878514, z: 8.59572}
+  m_Center: {x: 0.005434492, y: -0.012943426, z: 4.0835204}
+--- !u!114 &3407793530853085046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4007886538101831930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83cdad7df824b4b448a8566334554310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  soldier: {fileID: 5332535523326174069}
+  damage: 0
 --- !u!1 &4020402515009270281
 GameObject:
   m_ObjectHideFlags: 0
@@ -4564,6 +4633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoldierController
   isBasic: 1
+  damage: 0
   mySide: 1
 --- !u!1 &7604411027619620881
 GameObject:

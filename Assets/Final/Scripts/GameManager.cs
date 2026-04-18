@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     private int maxHealth = 100;
     private int currentHealth = 100;
+    public int damageCooldown;
+    public bool canBeHurt = true;
     public static GameManager Ins => _instance;
     private static GameManager _instance;
 
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour
 
     public void RemoveHealth(int amt)
     {
+        if(canBeHurt) {
         if (amt >= currentHealth)
         {
             currentHealth = 0;
@@ -70,7 +74,20 @@ public class GameManager : MonoBehaviour
         {
             currentHealth -= amt;
             OnHealthChanged?.Invoke();
+            StartCoroutine("DamageCooldown");
         }
+        }
+        else
+        {
+            Debug.Log("Damage on Cooldown");
+        }
+    }
+
+    IEnumerator DamageCooldown()
+    {
+        canBeHurt = false;
+        yield return new WaitForSeconds(damageCooldown);
+        canBeHurt = true;
     }
 
     public void CollectPaper(GameObject paper)
