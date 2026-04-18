@@ -20,6 +20,9 @@ public class SoldierController : MonoBehaviour
     private Renderer[] rends;
     private MaterialPropertyBlock propBlock;
 
+    public GameObject muzzleFlashEffects;
+    public bool fireTrigger = false;
+
     private void OnEnable()
     {
         DialogueManager.OnDialogueTriggered += OnDialogue;
@@ -177,5 +180,14 @@ public class SoldierController : MonoBehaviour
         {
             rend.SetPropertyBlock(propBlock);
         }
+    }
+
+    public void triggerMuzzleEffects()
+    {
+        muzzleFlashEffects.GetComponent<ParticleSystem>().Stop();
+        muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Stop();
+        muzzleFlashEffects.GetComponent<ParticleSystem>().Play();
+        muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Play();
+        //play audio clip
     }
 }
