@@ -61,8 +61,7 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 459.2238, y: 401.7105, z: 402.65216}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5728209971075383029}
+  m_Children: []
   m_Father: {fileID: 5517845635692921229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5694359937695549416
@@ -148,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4683593811827960351}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.00000010430809, y: 0.000000059604623, z: -0.00000004470347, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -170,7 +169,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -5076,13 +5075,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5472169584596860539}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0.001282, z: 0.000068}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.4467172, y: 0.4943248, z: 0.5477777, w: 0.50599056}
+  m_LocalPosition: {x: -0.107154235, y: 0.81553733, z: 0.101863146}
+  m_LocalScale: {x: 459.22375, y: 402.65213, z: 401.71057}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9165967645463559288}
-  m_Father: {fileID: 3723306960778947015}
+  m_Father: {fileID: 841268288521365363}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!198 &5699035603994022224
 ParticleSystem:
@@ -10221,6 +10220,9 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 1574163702560952311, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1162687137226475437, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
+      insertIndex: 6
+      addedObject: {fileID: 5728209971075383029}
     - targetCorrespondingSourceObject: {fileID: 1162687137226475437, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5517845635692921229}

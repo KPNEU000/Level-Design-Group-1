@@ -21,7 +21,6 @@ public class SoldierController : MonoBehaviour
     private MaterialPropertyBlock propBlock;
 
     public GameObject muzzleFlashEffects;
-    public bool fireTrigger = false;
 
     private void OnEnable()
     {

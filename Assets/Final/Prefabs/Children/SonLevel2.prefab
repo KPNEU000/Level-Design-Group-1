@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83cdad7df824b4b448a8566334554310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletCollider
-  soldier: {fileID: 0}
+  soldier: {fileID: 8034058334939300020}
   damage: 0
 --- !u!65 &5404202647514637719
 BoxCollider:
@@ -84,7 +84,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7837921431908906719
 Transform:
@@ -116,7 +116,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -4988,14 +4988,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8203002989523342456}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.004, y: 0.025, z: 0.534}
+  m_LocalRotation: {x: -0.6067506, y: 0.2752579, z: 0.30064926, w: 0.6824199}
+  m_LocalPosition: {x: -0.104222775, y: 0.83397156, z: 0.10774222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7837921431908906719}
-  m_Father: {fileID: 7980938022605036532}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 6428606119850831958}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -46.989}
 --- !u!198 &7181729719404350328
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -9944,6 +9944,9 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1162687137226475437, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 4371153415102058175}
+    - targetCorrespondingSourceObject: {fileID: 1162687137226475437, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7980938022605036532}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 384623259891139892, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
@@ -9981,6 +9984,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1162687137226475437, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
   m_PrefabInstance: {fileID: 5265920717833156603}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8034058334939300020 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2768301462894311247, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
+  m_PrefabInstance: {fileID: 5265920717833156603}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5495018468950061775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c44f49856f9542cba70e316b8e6be58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoldierController
 --- !u!1001 &7587234575386246175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10044,9 +10058,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d61abf8bbf43be648b02856956eb81c5, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 4371153415102058175}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d61abf8bbf43be648b02856956eb81c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3012955547330568886}
