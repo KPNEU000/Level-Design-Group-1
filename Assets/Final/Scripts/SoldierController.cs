@@ -191,7 +191,8 @@ public class SoldierController : MonoBehaviour
         muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Stop();
         muzzleFlashEffects.GetComponent<ParticleSystem>().Play();
         muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Play();
-        Instantiate(bulletShellPrefab, ejectionPoint.position, new Quaternion(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+        GameObject bullet = Instantiate(bulletShellPrefab, ejectionPoint.position, new Quaternion(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+        bullet.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.5f, 5f), Random.Range(0.5f, 15f), -1));
     }
 
     public void triggerMuzzleSounds()

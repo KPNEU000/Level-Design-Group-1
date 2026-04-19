@@ -9994,8 +9994,8 @@ MonoBehaviour:
   mySide: 1
   muzzleFlashEffects: {fileID: 431052565646754961}
   gun: {fileID: 1574163702560952311}
-  bulletShellPrefab: {fileID: 0}
-  ejectionPoint: {fileID: 0}
+  bulletShellPrefab: {fileID: 5870502063709986914, guid: 26280fa292eb45449b8ba9e7067d1836, type: 3}
+  ejectionPoint: {fileID: 5014973720210738320}
 --- !u!4 &1162687137226475437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: d8bd5ae08f0741548bccbee18666e87b, type: 3}
@@ -10097,5 +10097,10 @@ GameObject:
 --- !u!4 &2203207037146748237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6855431259454017339, guid: 966536e6b35e83844912bfe9eceb3f79, type: 3}
+  m_PrefabInstance: {fileID: 4733352787475716726}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5014973720210738320 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 299765692092962534, guid: 966536e6b35e83844912bfe9eceb3f79, type: 3}
   m_PrefabInstance: {fileID: 4733352787475716726}
   m_PrefabAsset: {fileID: 0}

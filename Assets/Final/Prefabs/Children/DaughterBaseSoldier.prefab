@@ -1158,6 +1158,7 @@ Transform:
   - {fileID: 8160645971248706485}
   - {fileID: 8856155185718045534}
   - {fileID: 6426408896582103159}
+  - {fileID: 8268147210109507653}
   m_Father: {fileID: 8066348491973587177}
   m_LocalEulerAnglesHint: {x: -83.747, y: -417.853, z: 151.073}
 --- !u!82 &8127323599901653490
@@ -13310,6 +13311,37 @@ Transform:
   - {fileID: 3162789342572638402}
   m_Father: {fileID: 3954611356077315979}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5152790717431053301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8268147210109507653}
+  m_Layer: 0
+  m_Name: EjectionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8268147210109507653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5152790717431053301}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.149, y: 0.15, z: -0.126}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7085005337124546864}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5200301215096106431
 GameObject:
   m_ObjectHideFlags: 0
@@ -14525,8 +14557,8 @@ MonoBehaviour:
   mySide: 1
   muzzleFlashEffects: {fileID: 4936923402154984979}
   gun: {fileID: 1612910557398016595}
-  bulletShellPrefab: {fileID: 0}
-  ejectionPoint: {fileID: 0}
+  bulletShellPrefab: {fileID: 5870502063709986914, guid: 26280fa292eb45449b8ba9e7067d1836, type: 3}
+  ejectionPoint: {fileID: 8268147210109507653}
 --- !u!1 &7604411027619620881
 GameObject:
   m_ObjectHideFlags: 0
