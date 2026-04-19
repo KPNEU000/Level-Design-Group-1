@@ -11,6 +11,7 @@ public class BulletCollider : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
+        damage = soldier.damage;
         Debug.Log("bullet hit");
         if(other.CompareTag("Player"))
         {
