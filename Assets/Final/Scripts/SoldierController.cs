@@ -22,6 +22,8 @@ public class SoldierController : MonoBehaviour
 
     public GameObject muzzleFlashEffects;
     public GameObject gun;
+    public GameObject bulletShellPrefab;
+    public Transform ejectionPoint;
 
 
     private void OnEnable()
@@ -189,7 +191,7 @@ public class SoldierController : MonoBehaviour
         muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Stop();
         muzzleFlashEffects.GetComponent<ParticleSystem>().Play();
         muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Play();
-
+        Instantiate(bulletShellPrefab, ejectionPoint.position, new Quaternion(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
     }
 
     public void triggerMuzzleSounds()

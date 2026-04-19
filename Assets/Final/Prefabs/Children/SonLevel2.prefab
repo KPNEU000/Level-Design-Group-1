@@ -66,8 +66,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2186876, y: 0.23418136, z: 8.084693}
-  m_Center: {x: -0.021671183, y: 0.057204377, z: 3.5423481}
+  m_Size: {x: 0.2186876, y: 5.1084723, z: 39.281784}
+  m_Center: {x: -0.021680482, y: 0.06867063, z: 19.140896}
 --- !u!1 &6848117848301853684
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,9 +183,9 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 5
-      minScalar: 5
+      minMaxState: 3
+      scalar: 2
+      minScalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -354,9 +354,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 1
-      minScalar: 1
+      minMaxState: 3
+      scalar: 1.5
+      minScalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -407,7 +407,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -460,7 +460,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -5249,9 +5249,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0.6
-      minScalar: 1
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5302,7 +5302,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -5355,7 +5355,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -9884,7 +9884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1017149950596374414, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.492981
+      value: 1.3718643
       objectReference: {fileID: 0}
     - target: {fileID: 1017149950596374414, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9892,11 +9892,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1017149950596374414, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.620609
+      value: -0.043598175
       objectReference: {fileID: 0}
     - target: {fileID: 1017149950596374414, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9890404
+      value: 0.9489737
       objectReference: {fileID: 0}
     - target: {fileID: 1017149950596374414, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalRotation.x
@@ -9904,7 +9904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1017149950596374414, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.14764564
+      value: 0.31535512
       objectReference: {fileID: 0}
     - target: {fileID: 1017149950596374414, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalRotation.z
@@ -9916,7 +9916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1017149950596374414, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 16.981
+      value: 36.764
       objectReference: {fileID: 0}
     - target: {fileID: 1017149950596374414, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -9934,6 +9934,10 @@ PrefabInstance:
       propertyPath: muzzleFlashEffects
       value: 
       objectReference: {fileID: 8203002989523342456}
+    - target: {fileID: 5213129246379548887, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6412431704780670452, guid: 90e52b0bb58dc2b428545c912a9762a4, type: 3}
       propertyPath: m_Controller
       value: 
