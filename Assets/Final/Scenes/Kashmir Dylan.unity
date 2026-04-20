@@ -3323,6 +3323,63 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &214821283
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 21.177465
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.796295
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 58.026447
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.000000037748947
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
+      propertyPath: m_Name
+      value: HospicePerson
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3e8e4cd14d06c794990e653896c5579f, type: 3}
 --- !u!1 &219538944
 GameObject:
   m_ObjectHideFlags: 0
@@ -3864,7 +3921,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 263646395}
+  m_Mesh: {fileID: 2058153807}
 --- !u!33 &239760729
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -12898,7 +12955,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 445873617}
+  m_Mesh: {fileID: 1438913903}
 --- !u!33 &838457090
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -19757,14 +19814,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d1c5bd0bba10d45ab156e31c235ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComaPlayerController
+  respawnPoint: {fileID: 0}
   moveSpeed: 1
-  sprintMultiplier: 2
-  walkerMultiplier: 1
-  jumpHeight: 20
   cameraFollowTarget: {fileID: 234385301}
   mouseSensitivity: 0.1
   verticalClamp: 80
-  hasWalker: 0
+  lookFreedom: 40
+  bodyRotateSpeed: 60
+  bobAmplitude: 0.05
+  bobAmplitudeMax: 0.15
+  bobFrequency: 8
+  bobFrequencyMax: 11
+  bobReturnSpeed: 6
+  walkFOVOffset: -3
+  fovLerpSpeed: 4
+  slowDuration: 2
+  slowMultiplier: 0.5
+  shakeDuration: 0.5
+  shakeMagnitude: 0.05
 --- !u!114 &1244236063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21821,7 +21888,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1073150549}
+  m_Mesh: {fileID: 263646395}
 --- !u!33 &1403227644
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -30785,3 +30852,4 @@ SceneRoots:
   - {fileID: 1301446075}
   - {fileID: 1244236066}
   - {fileID: 1029443571}
+  - {fileID: 214821283}
