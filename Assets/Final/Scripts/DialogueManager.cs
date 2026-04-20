@@ -6,6 +6,8 @@ using Unity.VisualScripting;
 public class DialogueManager : MonoBehaviour
 {
     public AudioSource audioSource;
+    public AudioSource sonAudioSource;
+    public AudioSource daughterAudioSource;
     public bool autoPlayEnabled = true;
     public DialogueGroup[] dialogueGroups;
 
@@ -13,11 +15,78 @@ public class DialogueManager : MonoBehaviour
     public static event Action<DialogueType, DialogueSide> OnDialogueTriggered;
     public static event Action<DialogueType, DialogueSide> OnDialogueEnd;
 
+    // presets
+    [System.Serializable]
+    public struct DialogueStep
+    {
+        public DialogueType type;
+        public DialogueSide side;
+        public float delayAfter;
+    }
+
+    private DialogueStep[][] presets = new DialogueStep[][]
+    {
+        // Preset 1: low daughter -> medium daughter -> medium son
+        new DialogueStep[] {
+            new DialogueStep { type = DialogueType.Low, side = DialogueSide.Daughter, delayAfter = 0.5f },
+            new DialogueStep { type = DialogueType.Medium, side = DialogueSide.Daughter, delayAfter = 0.1f },
+            new DialogueStep { type = DialogueType.Medium, side = DialogueSide.Son, delayAfter = 0f }
+        },
+        // Preset 2: low son -> low daughter -> high son
+        new DialogueStep[] {
+            new DialogueStep { type = DialogueType.Low, side = DialogueSide.Son, delayAfter = 0.3f },
+            new DialogueStep { type = DialogueType.Low, side = DialogueSide.Daughter, delayAfter = 0.2f },
+            new DialogueStep { type = DialogueType.High, side = DialogueSide.Son, delayAfter = 0f }
+        },
+        // Preset 3: medium son -> medium daughter -> high daughter -> high son
+        new DialogueStep[] {
+            new DialogueStep { type = DialogueType.Medium, side = DialogueSide.Son, delayAfter = 0.4f },
+            new DialogueStep { type = DialogueType.Medium, side = DialogueSide.Daughter, delayAfter = 0.1f },
+            new DialogueStep { type = DialogueType.High, side = DialogueSide.Daughter, delayAfter = 0.2f },
+            new DialogueStep { type = DialogueType.High, side = DialogueSide.Son, delayAfter = 0f }
+        },
+        // Preset 4: low daughter -> low son
+        new DialogueStep[] {
+            new DialogueStep { type = DialogueType.Low, side = DialogueSide.Daughter, delayAfter = 0.5f },
+            new DialogueStep { type = DialogueType.Low, side = DialogueSide.Son, delayAfter = 0f }
+        },
+        // Preset 5: high daughter -> high son -> medium daughter
+        new DialogueStep[] {
+            new DialogueStep { type = DialogueType.High, side = DialogueSide.Daughter, delayAfter = 0.1f },
+            new DialogueStep { type = DialogueType.High, side = DialogueSide.Son, delayAfter = 0.3f },
+            new DialogueStep { type = DialogueType.Medium, side = DialogueSide.Daughter, delayAfter = 0f }
+        }
+    };
 
     void Start()
     {
         StartCoroutine(AutoPlayDialogue());
     } 
+
+    AudioSource GetAudioSourceForSide(DialogueSide side)
+    {
+        return side == DialogueSide.Son ? sonAudioSource : daughterAudioSource;
+    }
+
+    //find and play a random clip for a type/side group
+    AudioClip PlayClipForGroup(DialogueType type, DialogueSide side)
+    {
+        foreach (var group in dialogueGroups)
+        {
+            if (group.type == type && group.side == side)
+            {
+                if (group.clips != null && group.clips.Length > 0)
+                {
+                    AudioClip clip = group.clips[UnityEngine.Random.Range(0, group.clips.Length)];
+                    AudioSource source = GetAudioSourceForSide(side);
+                    source.clip = clip;
+                    source.Play();
+                    return clip;
+                }
+            }
+        }
+        return null;
+    }
 
     IEnumerator AutoPlayDialogue()
     {
@@ -25,38 +94,59 @@ public class DialogueManager : MonoBehaviour
 
         while (autoPlayEnabled)
         {
-            // pick a random type and sid
-            DialogueType randomType = (DialogueType)UnityEngine.Random.Range(0,3);
-            DialogueSide randomSide = (DialogueSide)UnityEngine.Random.Range(0,2);
+            // RANDOM VOICELINES PLAYING: 
+            // // pick a random type and sid
+            // DialogueType randomType = (DialogueType)UnityEngine.Random.Range(0,3);
+            // DialogueSide randomSide = (DialogueSide)UnityEngine.Random.Range(0,2);
 
-            // find matching group
-            DialogueGroup matchedGroup = null;
-            foreach (var group in dialogueGroups)
+            // // find matching group
+            // DialogueGroup matchedGroup = null;
+            // foreach (var group in dialogueGroups)
+            // {
+            //     if (group.type == randomType && group.side == randomSide)
+            //     {
+            //         matchedGroup = group;
+            //         break;
+            //     }
+            // }
+
+            // if (matchedGroup != null && matchedGroup.clips.Length > 0)
+            // {
+            //     // pick random clip from group
+            //     AudioClip clip = matchedGroup.clips[UnityEngine.Random.Range(0, matchedGroup.clips.Length)];
+
+            //     // play ts
+            //     audioSource.clip = clip;
+            //     audioSource.Play();
+
+            //     // fire start event
+            //     OnDialogueTriggered?.Invoke(randomType, randomSide);
+
+            //     // wiat for clip to finish
+            //     yield return new WaitForSeconds(clip.length);
+
+            //     // fire end event
+            //     OnDialogueEnd?.Invoke(randomType, randomSide);
+            // }
+
+            // PRESET VOICELINES PLAYING:
+            // pick a random preset
+            DialogueStep[] preset = presets[UnityEngine.Random.Range(0, presets.Length)];
+
+            // play each step in preset
+            foreach (var step in preset)
             {
-                if (group.type == randomType && group.side == randomSide)
+                AudioClip clip = PlayClipForGroup(step.type, step.side);
+
+                if (clip != null)
                 {
-                    matchedGroup = group;
-                    break;
+                    OnDialogueTriggered?.Invoke(step.type, step.side);
+                    yield return new WaitForSeconds(clip.length);
+                    OnDialogueEnd?.Invoke(step.type, step.side);
                 }
-            }
 
-            if (matchedGroup != null && matchedGroup.clips.Length > 0)
-            {
-                // pick random clip from group
-                AudioClip clip = matchedGroup.clips[UnityEngine.Random.Range(0, matchedGroup.clips.Length)];
-
-                // play ts
-                audioSource.clip = clip;
-                audioSource.Play();
-
-                // fire start event
-                OnDialogueTriggered?.Invoke(randomType, randomSide);
-
-                // wiat for clip to finish
-                yield return new WaitForSeconds(clip.length);
-
-                // fire end event
-                OnDialogueEnd?.Invoke(randomType, randomSide);
+                if (step.delayAfter > 0f)
+                    yield return new WaitForSeconds(step.delayAfter);
             }
 
             // random pause before next clip
