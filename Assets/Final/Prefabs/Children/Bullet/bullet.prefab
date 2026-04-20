@@ -66,6 +66,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b30c23cbcec13394dbfe1925ed76af78, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1665089296477548272}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b30c23cbcec13394dbfe1925ed76af78, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5987002398826138305}
   m_SourcePrefab: {fileID: 100100000, guid: b30c23cbcec13394dbfe1925ed76af78, type: 3}
 --- !u!1 &5870502063709986914 stripped
 GameObject:
@@ -98,7 +101,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1665089296477548272
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -120,3 +123,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.00057883025, y: 0.00010541275, z: 0.00013014139}
   m_Center: {x: -0.000032879718, y: 2.2002768e-10, z: -0.000008650125}
+--- !u!114 &5987002398826138305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5870502063709986914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0e34d79f50bd3b4b9376829f494a773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  startColor: {r: 0, g: 0, b: 0, a: 0}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
+  fadeAfterSeconds: 1.5
+  fadeRate: 0.1
