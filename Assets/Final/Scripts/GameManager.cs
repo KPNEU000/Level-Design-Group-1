@@ -1,50 +1,48 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Ins { get; private set; }
+
     public int MaxHealth => maxHealth;
     public int CurrentHealth => currentHealth;
-    [SerializeField] private List<GameObject> papers = new List<GameObject>();
-
-    private List<GameObject> collectedPapers = new List<GameObject>();
-
-    private int maxHealth = 100;
-    private int currentHealth = 100;
-    public int damageCooldown;
-    public bool canBeHurt = true;
-    public static GameManager Ins => _instance;
-    private static GameManager _instance;
 
     public Action OnHealthChanged;
+    public Action OnDamaged;
     public Action OnDeath;
-
     public Action AllPiecesCollected;
 
+    [Header("Damage")]
+    public int damageCooldown;
+    public bool canBeHurt = true;
+
+    [Header("Health Regen")]
+    [SerializeField] float regenDelay = 5f;
+    [SerializeField] float regenRate = 5f;
+
+    [Header("Papers")]
+    [SerializeField] private List<GameObject> papers = new();
+
+    private readonly int maxHealth = 100;
+    private int currentHealth = 100;
+    private readonly List<GameObject> collectedPapers = new();
+    float timeSinceLastDamage;
+    float regenAccumulator;
 
     void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (Ins != null && Ins != this)
         {
             Debug.LogError($"Multiple instances of GameManager in scene, destroying component on {gameObject.name}");
             Destroy(this);
             return;
         }
-        else
-        {
-            _instance = this;
-        }
+        Ins = this;
     }
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha7))
@@ -52,11 +50,38 @@ public class GameManager : MonoBehaviour
             Debug.Log("got here manager");
             AllPiecesCollected?.Invoke();
         }
+        HandleRegen();
+    }
+
+    void HandleRegen()
+    {
+        if (currentHealth <= 0 || currentHealth >= maxHealth) return;
+
+        timeSinceLastDamage += Time.deltaTime;
+
+        if (timeSinceLastDamage < regenDelay) return;
+
+        regenAccumulator += regenRate * Time.deltaTime;
+        int toRegen = Mathf.FloorToInt(regenAccumulator);
+
+        if (toRegen < 1) return;
+
+        currentHealth = Mathf.Min(currentHealth + toRegen, maxHealth);
+        regenAccumulator -= toRegen;
+        OnHealthChanged?.Invoke();
     }
 
     public void RemoveHealth(int amt)
     {
-        if(canBeHurt) {
+        if (!canBeHurt)
+        {
+            Debug.Log("Damage on Cooldown");
+            return;
+        }
+
+        timeSinceLastDamage = 0f;
+        regenAccumulator = 0f;
+
         if (amt >= currentHealth)
         {
             currentHealth = 0;
@@ -74,12 +99,8 @@ public class GameManager : MonoBehaviour
         {
             currentHealth -= amt;
             OnHealthChanged?.Invoke();
-            StartCoroutine("DamageCooldown");
-        }
-        }
-        else
-        {
-            Debug.Log("Damage on Cooldown");
+            OnDamaged?.Invoke();
+            StartCoroutine(nameof(DamageCooldown));
         }
     }
 
@@ -100,17 +121,16 @@ public class GameManager : MonoBehaviour
 
         collectedPapers.Add(paper);
         Debug.Log("rgrgrgrgrg");
-        paper.SetActive(false); //stub for a more elegant look later
+        paper.SetActive(false);
 
-        if (collectedPapers.Count >= papers.Count)
-        {
-            AllPiecesCollected?.Invoke();
-        }
+        if (collectedPapers.Count >= papers.Count) AllPiecesCollected?.Invoke();
     }
 
     public void AfterRespawn()
     {
         currentHealth = maxHealth;
-
+        timeSinceLastDamage = 0f;
+        regenAccumulator = 0f;
+        OnHealthChanged?.Invoke();
     }
 }

@@ -32610,6 +32610,10 @@ MonoBehaviour:
   bobReturnSpeed: 6
   walkFOVOffset: -3
   fovLerpSpeed: 4
+  slowDuration: 2
+  slowMultiplier: 0.5
+  shakeDuration: 0.5
+  shakeMagnitude: 0.1
 --- !u!114 &1244236063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44966,6 +44970,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a056a57ba23c2941a6e81d5bbb2f1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  damageCooldown: 0
+  canBeHurt: 1
+  regenDelay: 7
+  regenRate: 4
   papers:
   - {fileID: 7874294518531208750}
   - {fileID: 6370599515728424012}
@@ -44973,8 +44981,6 @@ MonoBehaviour:
   - {fileID: 6473609506786810090}
   - {fileID: 8551659236870447123}
   - {fileID: 8627382378420221306}
-  damageCooldown: 0
-  canBeHurt: 1
 --- !u!114 &1779411922
 MonoBehaviour:
   m_ObjectHideFlags: 0
