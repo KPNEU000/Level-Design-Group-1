@@ -5,17 +5,19 @@ public class UIManager : MonoBehaviour
 {
 
     [SerializeField] private Slider healthBar;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private KeyCode healthBarToggleKey = KeyCode.H;
+
     void Start()
     {
         GameManager.Ins.OnHealthChanged += Refresh;
+        healthBar.gameObject.SetActive(false);
         Refresh();
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(healthBarToggleKey))
+            healthBar.gameObject.SetActive(!healthBar.gameObject.activeSelf);
     }
 
     void Refresh()

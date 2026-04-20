@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class ComaPlayerController : MonoBehaviour
 {
-
     [SerializeField] Transform respawnPoint;
 
     [Header("Movement")]
@@ -21,7 +20,9 @@ public class ComaPlayerController : MonoBehaviour
 
     [Header("Head Bob")]
     [SerializeField] float bobAmplitude = 0.05f;
+    [SerializeField] float bobAmplitudeMax = 0.15f;
     [SerializeField] float bobFrequency = 8f;
+    [SerializeField] float bobFrequencyMax = 11f;
     [SerializeField] float bobReturnSpeed = 6f;
 
     [Header("Walk Zoom")]
@@ -65,7 +66,7 @@ public class ComaPlayerController : MonoBehaviour
         camRestLocalPos = cameraFollowTarget.localPosition;
 
         cam = cameraFollowTarget.GetComponentInChildren<Camera>();
-        cam ??= Camera.main;
+        cam = cam != null ? cam : Camera.main;
         if (cam != null) baseFOV = cam.fieldOfView;
     }
 
@@ -104,8 +105,7 @@ public class ComaPlayerController : MonoBehaviour
     {
         bool grounded = cc.isGrounded;
 
-        if (grounded && velocity.y < 0f)
-            velocity.y = -2f;
+        if (grounded && velocity.y < 0f) velocity.y = -2f;
 
         moving = Mouse.current.leftButton.isPressed || Mouse.current.rightButton.isPressed;
 
@@ -133,11 +133,15 @@ public class ComaPlayerController : MonoBehaviour
 
     void HandleHeadBob()
     {
+        float healthRatio = (float)GameManager.Ins.CurrentHealth / GameManager.Ins.MaxHealth;
+        float effectiveAmplitude = Mathf.Lerp(bobAmplitudeMax, bobAmplitude, healthRatio);
+        float effectiveFrequency = Mathf.Lerp(bobFrequencyMax, bobFrequency, healthRatio);
+
         if (moving)
         {
-            bobTimer += bobFrequency * Time.deltaTime;
-            currentBobY = Mathf.Sin(bobTimer) * bobAmplitude;
-            currentBobX = Mathf.Sin(bobTimer * 0.5f) * bobAmplitude * 0.5f;
+            bobTimer += effectiveFrequency * Time.deltaTime;
+            currentBobY = Mathf.Sin(bobTimer) * effectiveAmplitude;
+            currentBobX = Mathf.Sin(bobTimer * 0.5f) * effectiveAmplitude * 0.5f;
 
             if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV + walkFOVOffset, fovLerpSpeed * Time.deltaTime);
         }
