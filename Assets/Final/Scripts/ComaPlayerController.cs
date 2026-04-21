@@ -22,10 +22,9 @@ public class ComaPlayerController : MonoBehaviour
 
     [Header("Head Bob")]
     [SerializeField] float bobAmplitude = 0.05f;
-    [SerializeField] float bobAmplitudeMax = 0.15f;
     [SerializeField] float bobFrequency = 8f;
-    [SerializeField] float bobFrequencyMax = 11f;
     [SerializeField] float bobReturnSpeed = 6f;
+    [SerializeField] float bobReturnSpeedMin = 0.8f;
 
     [Header("Walk Zoom")]
     [SerializeField] float walkFOVOffset = -3f;
@@ -157,21 +156,22 @@ public class ComaPlayerController : MonoBehaviour
     void HandleHeadBob()
     {
         float healthRatio = (float)GameManager.Ins.CurrentHealth / GameManager.Ins.MaxHealth;
-        float effectiveAmplitude = Mathf.Lerp(bobAmplitudeMax, bobAmplitude, healthRatio);
-        float effectiveFrequency = Mathf.Lerp(bobFrequencyMax, bobFrequency, healthRatio);
+
+        // At low health, the bob drags back to center very slowly
+        float effectiveReturnSpeed = Mathf.Lerp(bobReturnSpeedMin, bobReturnSpeed, healthRatio);
 
         if (moving)
         {
-            bobTimer += effectiveFrequency * Time.deltaTime;
-            currentBobY = Mathf.Sin(bobTimer) * effectiveAmplitude;
-            currentBobX = Mathf.Sin(bobTimer * 0.5f) * effectiveAmplitude * 0.5f;
+            bobTimer += bobFrequency * Time.deltaTime;
+            currentBobY = Mathf.Sin(bobTimer) * bobAmplitude;
+            currentBobX = Mathf.Sin(bobTimer * 0.5f) * bobAmplitude * 0.5f;
             if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV + walkFOVOffset, fovLerpSpeed * Time.deltaTime);
         }
         else
         {
             bobTimer = 0f;
-            currentBobY = Mathf.Lerp(currentBobY, 0f, bobReturnSpeed * Time.deltaTime);
-            currentBobX = Mathf.Lerp(currentBobX, 0f, bobReturnSpeed * Time.deltaTime);
+            currentBobY = Mathf.Lerp(currentBobY, 0f, effectiveReturnSpeed * Time.deltaTime);
+            currentBobX = Mathf.Lerp(currentBobX, 0f, effectiveReturnSpeed * Time.deltaTime);
             if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV, fovLerpSpeed * Time.deltaTime);
         }
 
