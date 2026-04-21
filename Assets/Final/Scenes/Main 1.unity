@@ -8292,6 +8292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   healthBar: {fileID: 1576499780}
+  healthBarToggleKey: 104
 --- !u!1 &114680915
 GameObject:
   m_ObjectHideFlags: 0
@@ -32460,8 +32461,8 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1143443083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34189,6 +34190,17 @@ MonoBehaviour:
   verticalClamp: 80
   lookFreedom: 40
   bodyRotateSpeed: 60
+  bobAmplitude: 0.05
+  bobAmplitudeMax: 0.15
+  bobFrequency: 8
+  bobFrequencyMax: 11
+  bobReturnSpeed: 6
+  walkFOVOffset: -3
+  fovLerpSpeed: 4
+  slowDuration: 2
+  slowMultiplier: 0.5
+  shakeDuration: 0.5
+  shakeMagnitude: 0.05
 --- !u!114 &1244236063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49537,6 +49549,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a056a57ba23c2941a6e81d5bbb2f1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  damageCooldown: 0
+  canBeHurt: 1
+  regenDelay: 5
+  regenRate: 5
   papers:
   - {fileID: 0}
   - {fileID: 0}
@@ -55604,8 +55620,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &2049988180
 Mesh:
