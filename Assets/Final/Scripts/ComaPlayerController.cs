@@ -37,6 +37,10 @@ public class ComaPlayerController : MonoBehaviour
     [SerializeField] float shakeDuration = 0.5f;
     [SerializeField] float shakeMagnitude = 0.05f;
 
+    [SerializeField] GameObject walker;
+
+
+
     // Components
     CharacterController cc;
     Animator anim;
@@ -99,6 +103,11 @@ public class ComaPlayerController : MonoBehaviour
         HandleMovement();
         HandleHeadBob();
         HandleCameraShake();
+
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Utils.StartFade(this, walker, 1, 0, 2);
+        }
     }
 
     void HandleLook()
@@ -139,8 +148,6 @@ public class ComaPlayerController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space)) GameManager.Ins.RemoveHealth(10); //for debugging
     }
 
     void HandleHeadBob()

@@ -3,6 +3,12 @@ using UnityEngine;
 
 public static class Utils
 {
+
+    public static void StartFade(MonoBehaviour caller, GameObject obj, float startAlpha, float endAlpha, float duration)
+    {
+        caller.StartCoroutine(Fade(obj, startAlpha, endAlpha, duration));
+    }
+
     public static IEnumerator Fade(GameObject obj, float startAlpha, float endAlpha, float duration)
     {
         Renderer renderer = obj.GetComponent<Renderer>();

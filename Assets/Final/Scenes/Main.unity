@@ -35071,6 +35071,7 @@ MonoBehaviour:
   slowMultiplier: 0.5
   shakeDuration: 0.5
   shakeMagnitude: 0.1
+  walker: {fileID: 7529591009646457295}
 --- !u!114 &1244236063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98933,6 +98934,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cf0863b2c5f03e4197cbdb412186548, type: 3}
+--- !u!1 &7529591009646457295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1210771930179535604, guid: 1cf0863b2c5f03e4197cbdb412186548, type: 3}
+  m_PrefabInstance: {fileID: 7529591009646457294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7530504571266642580
 GameObject:
   m_ObjectHideFlags: 0
