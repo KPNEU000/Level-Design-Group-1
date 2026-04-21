@@ -20,7 +20,10 @@ public class RainSplashSpawner : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            Instantiate(splashEffect, collisionEvents[i].intersection, Quaternion.identity);
+            Destroy(
+                Instantiate(splashEffect, collisionEvents[i].intersection, Quaternion.identity).gameObject,
+                2f
+            );
         }
     }
 }
