@@ -70,6 +70,8 @@ public class ComaPlayerController : MonoBehaviour
     float shakeTimer;
     Vector3 shakeOffset;
 
+    private bool hasFaded = false;
+
     void Awake()
     {
         cc = GetComponent<CharacterController>();
@@ -104,8 +106,10 @@ public class ComaPlayerController : MonoBehaviour
         HandleHeadBob();
         HandleCameraShake();
 
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (!hasFaded && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
+            hasFaded = true;
+            Debug.Log("gucci bro");
             Utils.StartFade(this, walker, 1, 0, 2);
         }
     }
