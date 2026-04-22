@@ -36,6 +36,12 @@ public class ComaPlayerController : MonoBehaviour
     [SerializeField] float shakeDuration = 0.5f;
     [SerializeField] float shakeMagnitude = 0.05f;
 
+    [Header("Terrain Slowdown")]
+    [SerializeField] Terrain terrain;
+    [SerializeField] float terrainCheckRadius = 2f;
+    [SerializeField] float maxTerrainSlow = 0.4f; // 0 = full stop, 1 = no slow
+    [SerializeField] int detailLayerIndex = 0;
+
     [SerializeField] GameObject walker;
 
 
@@ -142,10 +148,17 @@ public class ComaPlayerController : MonoBehaviour
 
         if (moving && withinCone)
         {
-            float speed = moveSpeed * (slowTimer > 0f ? slowMultiplier : 1f);
+            float terrainDensity = GetTerrainDensity();
+            float terrainMultiplier = Mathf.Lerp(1f, maxTerrainSlow, terrainDensity);
+
+            // combine hit slow + terrain slow
+            float hitMultiplier = (slowTimer > 0f ? slowMultiplier : 1f);
+
+            float speed = moveSpeed * hitMultiplier * terrainMultiplier;
             Vector3 moveForward = Quaternion.Euler(0f, lookYaw, 0f) * Vector3.forward;
             cc.Move(speed * Time.deltaTime * moveForward);
         }
+
 
         if (slowTimer > 0f) slowTimer -= Time.deltaTime;
 
@@ -208,5 +221,40 @@ public class ComaPlayerController : MonoBehaviour
         shakeTimer = 0f;
         transform.position = respawnPoint.position;
         GameManager.Ins.AfterRespawn();
+    }
+
+    float GetTerrainDensity()
+    {
+        if (terrain == null) return 0f;
+
+        TerrainData data = terrain.terrainData;
+
+        Vector3 terrainPos = transform.position - terrain.transform.position;
+
+        int mapX = Mathf.RoundToInt((terrainPos.x / data.size.x) * data.detailWidth);
+        int mapZ = Mathf.RoundToInt((terrainPos.z / data.size.z) * data.detailHeight);
+
+        int radius = 2;
+
+        float total = 0f;
+        int count = 0;
+
+        for (int x = -radius; x <= radius; x++)
+        {
+            for (int z = -radius; z <= radius; z++)
+            {
+                int px = Mathf.Clamp(mapX + x, 0, data.detailWidth - 1);
+                int pz = Mathf.Clamp(mapZ + z, 0, data.detailHeight - 1);
+
+                int[,] samples = data.GetDetailLayer(px, pz, 1, 1, detailLayerIndex);
+                total += samples[0, 0];
+                count++;
+            }
+        }
+
+        if (count == 0) return 0f;
+
+        // normalize (rough scaling — tweak if needed)
+        return Mathf.Clamp01(total / (count * 16f));
     }
 }
