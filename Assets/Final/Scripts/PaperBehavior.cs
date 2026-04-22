@@ -17,7 +17,6 @@ public class PaperBehavior : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("efefe");
         if (other.CompareTag("Monitor"))
         {
             GameManager.Ins.CollectPaper(gameObject);
