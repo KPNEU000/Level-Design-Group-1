@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Papers")]
     [SerializeField] private List<GameObject> papers = new();
+    public Animator papersAnimator;
 
     private readonly int maxHealth = 100;
     private int currentHealth = 100;
@@ -123,7 +124,38 @@ public class GameManager : MonoBehaviour
         Debug.Log("rgrgrgrgrg");
         paper.SetActive(false);
 
+        Debug.Log(papers.IndexOf(paper) + "st paper collected");
+        ReturnPaper(papers.IndexOf(paper));
+
         if (collectedPapers.Count >= papers.Count) AllPiecesCollected?.Invoke();
+    }
+
+    public void ReturnPaper(int paperIndex) //it's bad I know
+    {
+        if(paperIndex == 1)
+        {
+            papersAnimator.Play("Paper1Return");
+        }
+        else if (paperIndex == 2)
+        {
+            papersAnimator.Play("Paper2Return");
+        }
+        else if (paperIndex == 3)
+        {
+            papersAnimator.Play("Paper3Return");
+        }
+        else if (paperIndex == 4)
+        {
+            papersAnimator.Play("Paper4Return");
+        }
+        else if (paperIndex == 5)
+        {
+            papersAnimator.Play("Paper5Return");
+        }
+        else if (paperIndex == 6)
+        {
+            papersAnimator.Play("Paper6Return");
+        }
     }
 
     public void AfterRespawn()
