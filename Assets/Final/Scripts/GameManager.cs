@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Papers")]
     [SerializeField] private List<GameObject> papers = new();
     public Animator papersAnimator;
+    public Material happyMat;
 
     private readonly int maxHealth = 100;
     private int currentHealth = 100;
@@ -122,6 +123,7 @@ public class GameManager : MonoBehaviour
 
         collectedPapers.Add(paper);
         Debug.Log("rgrgrgrgrg");
+        paper.GetComponent<MeshRenderer>().material = happyMat;
         //paper.SetActive(false);
 
         Debug.Log(papers.IndexOf(paper) + 1 + "st paper collected");
