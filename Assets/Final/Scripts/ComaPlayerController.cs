@@ -21,10 +21,10 @@ public class ComaPlayerController : MonoBehaviour
     [SerializeField] float bodyRotateSpeed = 60f;
 
     [Header("Head Bob")]
-    [SerializeField] float bobAmplitude = 0.05f;
-    [SerializeField] float bobAmplitudeMax = 0.15f;
-    [SerializeField] float bobFrequency = 8f;
-    [SerializeField] float bobFrequencyMax = 11f;
+    [SerializeField] float bobAmplitude = 0.03f;
+    [SerializeField] float bobAmplitudeMax = 0.08f;
+    [SerializeField] float bobFrequency = 6f;
+    [SerializeField] float bobFrequencyMax = 8.5f;
     [SerializeField] float bobReturnSpeed = 6f;
 
     [Header("Walk Zoom")]
