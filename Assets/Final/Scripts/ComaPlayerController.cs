@@ -42,6 +42,11 @@ public class ComaPlayerController : MonoBehaviour
     [SerializeField] float maxTerrainSlow = 0.4f; // 0 = full stop, 1 = no slow
     [SerializeField] int detailLayerIndex = 0;
 
+    [Header("Grass Audio")]
+    [SerializeField] AudioSource grassAudio;
+    [SerializeField] float maxGrassVolume = 0.6f;
+    [SerializeField] float grassFadeSpeed = 4f;
+
     [SerializeField] GameObject walker;
 
 
@@ -157,6 +162,7 @@ public class ComaPlayerController : MonoBehaviour
             float speed = moveSpeed * hitMultiplier * terrainMultiplier;
             Vector3 moveForward = Quaternion.Euler(0f, lookYaw, 0f) * Vector3.forward;
             cc.Move(speed * Time.deltaTime * moveForward);
+            HandleGrassAudio(terrainDensity);
         }
 
 
@@ -256,5 +262,28 @@ public class ComaPlayerController : MonoBehaviour
 
         // normalize (rough scaling — tweak if needed)
         return Mathf.Clamp01(total / (count * 16f));
+    }
+
+    void HandleGrassAudio(float terrainDensity)
+    {
+        if (grassAudio == null) return;
+
+        bool isMoving = moving;
+
+        float targetVolume = 0f;
+
+        if (isMoving && terrainDensity > 0.05f)
+        {
+            targetVolume = terrainDensity * maxGrassVolume;
+        }
+
+        grassAudio.volume = Mathf.Lerp(
+            grassAudio.volume,
+            targetVolume,
+            grassFadeSpeed * Time.deltaTime
+        );
+
+        // Optional: subtle pitch variation for realism
+        grassAudio.pitch = Mathf.Lerp(0.9f, 1.1f, terrainDensity);
     }
 }
