@@ -163,13 +163,15 @@ public class ComaPlayerController : MonoBehaviour
         if (moving)
         {
             bobTimer += effectiveFrequency * Time.deltaTime;
-            currentBobY = Mathf.Sin(bobTimer) * effectiveAmplitude;
+            // Sin starts at 0 and goes positive — subtract amplitude so it starts
+            // at the bottom of the arc, keeping vertical center at rest position
+            currentBobY = (Mathf.Sin(bobTimer) - 0f) * effectiveAmplitude;
             currentBobX = Mathf.Sin(bobTimer * 0.5f) * effectiveAmplitude * 0.5f;
             if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV + walkFOVOffset, fovLerpSpeed * Time.deltaTime);
         }
         else
         {
-            bobTimer = 0f;
+            bobTimer = Mathf.PI * 1.5f; // reset to trough so next movement starts going UP from below
             currentBobY = Mathf.Lerp(currentBobY, 0f, bobReturnSpeed * Time.deltaTime);
             currentBobX = Mathf.Lerp(currentBobX, 0f, bobReturnSpeed * Time.deltaTime);
             if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV, fovLerpSpeed * Time.deltaTime);

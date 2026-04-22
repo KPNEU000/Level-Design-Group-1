@@ -1,4 +1,3 @@
-using UnityEditor.Animations;
 using UnityEngine;
 using System.Collections;
 
@@ -11,10 +10,20 @@ public class SoldierController : MonoBehaviour
     [Header("Side")]
     public DialogueSide mySide;
 
+    [Header("Bias Settings")]
+    public Vector3 biasBaselines = new Vector3(0.05f, 0.40f, 0.70f);
+    public Vector3 biasCeilings = new Vector3(0.2f, 0.75f, 1.00f);
+    public float biasLerpSpeed = 8f;   // how snappy the per-frame tracking is
+    public float biasDecaySpeed = 3f;   // how fast bias fades after dialogue ends
+
+    float _targetBias;        // what we're lerping toward
+    float _currentBias;       // actual shader value
+    bool _dialogueActive;
+    DialogueType _activeType;
+
     float baseIllumination = 4f;
     float flashIllumination = 10f;
     float flashDuration = 1f;
-
 
     private Animator anim;
     private Renderer[] rends;
@@ -25,15 +34,14 @@ public class SoldierController : MonoBehaviour
     public GameObject bulletShellPrefab;
     public Transform ejectionPoint;
 
-
     private void OnEnable()
     {
         DialogueManager.OnDialogueTriggered += OnDialogue;
         DialogueManager.OnDialogueEnd += OnDialogueEnd;
         anim = GetComponent<Animator>();
-        SetAnim("IsAimIdle");
         rends = GetComponentsInChildren<Renderer>();
         propBlock = new MaterialPropertyBlock();
+        SetAnim("IsAimIdle");
     }
 
     private void OnDestroy()
@@ -45,62 +53,97 @@ public class SoldierController : MonoBehaviour
 
     void Start()
     {
-        if(isBasic)
-        {
-            damage = 20;
-        }
-        else
-        {
-            damage = 45;
-        }
+        damage = isBasic ? 20 : 45;
         GameManager.Ins.AllPiecesCollected += CeaseFire;
         SetIllumination(baseIllumination);
     }
 
-    //On the start of any dialogue spawning, check if it's our team and if I shoot or not
+    void Update()
+    {
+        if (_dialogueActive)
+        {
+            // Pull live volume for our side only
+            float liveVolume = mySide == DialogueSide.Son
+                ? DialogueManager.SonVolume
+                : DialogueManager.DaughterVolume;
+
+            // Get this tier's baseline and ceiling
+            float baseline = BiasBaseline(_activeType);
+            float ceiling = BiasCeiling(_activeType);
+
+            // Volume drives us from baseline toward ceiling
+            _targetBias = Mathf.Lerp(baseline, ceiling, liveVolume);
+        }
+        else
+        {
+            _targetBias = 0f;   // decay back to zero when silent
+        }
+
+        _currentBias = Mathf.Lerp(
+            _currentBias,
+            _targetBias,
+            Time.deltaTime * (_dialogueActive ? biasLerpSpeed : biasDecaySpeed)
+        );
+
+        SetBias(_currentBias);
+    }
+
     void OnDialogue(DialogueType type, DialogueSide incomingSide)
     {
-        // only react to your own side
         if (incomingSide != mySide) return;
+
+        _dialogueActive = true;
+        _activeType = type;
 
         TriggerFlash();
 
         switch (type)
         {
             case DialogueType.Low:
-                // no shooting, but could trigger visuals later
                 Debug.Log(name + " hears LOW dialogue");
                 break;
-
             case DialogueType.Medium:
-                // only basic soldiers shoot
-                if (isBasic)
-                {
-                    HandleShoot("MEDIUM");
-                }
+                if (isBasic) HandleShoot("MEDIUM");
                 break;
-
             case DialogueType.High:
-                // everyone shoots
                 HandleShoot("HIGH");
                 break;
         }
     }
 
-    //Triggered on any dialogue piece end. Add actual data to end shooting colliders when we get to that
     void OnDialogueEnd(DialogueType type, DialogueSide incomingSide)
     {
-        // only react to your own side
         if (incomingSide != mySide) return;
 
-        //might be useful in the future to make the following
-        //EndFlash();
-
-        SetAnim("IsAimIdle");  //shooting stops
+        _dialogueActive = false;
+        SetAnim("IsAimIdle");
     }
 
+    // --- Bias helpers ---
 
-    //call this to start shooting animation and associated data, but it's on a slight random delay
+    float BiasBaseline(DialogueType type) => type switch
+    {
+        DialogueType.Low => biasBaselines.x,
+        DialogueType.Medium => biasBaselines.y,
+        DialogueType.High => biasBaselines.z,
+        _ => 0f
+    };
+
+    float BiasCeiling(DialogueType type) => type switch
+    {
+        DialogueType.Low => biasCeilings.x,
+        DialogueType.Medium => biasCeilings.y,
+        DialogueType.High => biasCeilings.z,
+        _ => 0f
+    };
+
+    void SetBias(float value)
+    {
+        propBlock.SetFloat("_FresnelBias", value);
+        foreach (Renderer rend in rends)
+            rend.SetPropertyBlock(propBlock);
+    }
+
     void HandleShoot(string level)
     {
         float randomDelay = Random.Range(0f, .3f);
@@ -108,81 +151,47 @@ public class SoldierController : MonoBehaviour
         Debug.Log(name + " fires on " + level + " dialogue!");
     }
 
-    //The helper method that HandleShoot uses
-    void Shoot()
-    {
-        SetAnim("IsFire");
-    }
+    void Shoot() => SetAnim("IsFire");
 
-
-    //put arms down. Done at end of game
     void CeaseFire()
     {
         Debug.Log("got here soldier");
         SetAnim("IsAimToDown");
     }
 
-
-    //animation setter helper
     void SetAnim(string name)
     {
         anim.SetBool("IsFire", false);
         anim.SetBool("IsAimIdle", false);
-
-        if (name == "IsAimToDown")
-        {
-            anim.SetTrigger("IsAimToDown");
-        }
-        else
-        {
-            Debug.Log("setting" + name + "to true");
-            anim.SetBool(name, true);
-        }
+        if (name == "IsAimToDown") anim.SetTrigger("IsAimToDown");
+        else anim.SetBool(name, true);
     }
 
-    //FLASHING STUFF
-    public void TriggerFlash()
-    {
-        StartCoroutine(FlashRoutine());
-    }
+    public void TriggerFlash() => StartCoroutine(FlashRoutine());
 
     IEnumerator FlashRoutine()
     {
         float elapsed = 0f;
-        float totalDuration = flashDuration;
-
-        // Ramp up
-        while (elapsed < totalDuration)
+        while (elapsed < flashDuration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / totalDuration;
-            float curvedT = Mathf.SmoothStep(0f, 1f, t);
-            SetIllumination(Mathf.Lerp(baseIllumination, flashIllumination, curvedT));
+            SetIllumination(Mathf.Lerp(baseIllumination, flashIllumination, Mathf.SmoothStep(0f, 1f, elapsed / flashDuration)));
             yield return null;
         }
-
         elapsed = 0f;
-
-        // Ramp down
-        while (elapsed < totalDuration)
+        while (elapsed < flashDuration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / totalDuration;
-            float curvedT = Mathf.SmoothStep(0f, 1f, t);
-            SetIllumination(Mathf.Lerp(flashIllumination, baseIllumination, curvedT));
+            SetIllumination(Mathf.Lerp(flashIllumination, baseIllumination, Mathf.SmoothStep(0f, 1f, elapsed / flashDuration)));
             yield return null;
         }
-
         SetIllumination(baseIllumination);
     }
 
     void SetIllumination(float value)
     {
         propBlock.SetFloat("_SelfIllumination", value);
-        foreach (Renderer rend in rends)
-        {
-            rend.SetPropertyBlock(propBlock);
-        }
+        foreach (Renderer rend in rends) rend.SetPropertyBlock(propBlock);
     }
 
     public void triggerMuzzleEffects()
@@ -191,13 +200,10 @@ public class SoldierController : MonoBehaviour
         muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Stop();
         muzzleFlashEffects.GetComponent<ParticleSystem>().Play();
         muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Play();
-        GameObject bullet = Instantiate(bulletShellPrefab, ejectionPoint.position, new Quaternion(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+        GameObject bullet = Instantiate(bulletShellPrefab, ejectionPoint.position,
+            new Quaternion(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
         bullet.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.5f, 5f), Random.Range(0.5f, 15f), -1));
     }
 
-    public void triggerMuzzleSounds()
-    {
-        //gun.GetComponent<AudioSource>().Stop();
-        gun.GetComponent<AudioSource>().Play();
-    }
+    public void triggerMuzzleSounds() => gun.GetComponent<AudioSource>().Play();
 }
