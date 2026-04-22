@@ -22,9 +22,10 @@ public class ComaPlayerController : MonoBehaviour
 
     [Header("Head Bob")]
     [SerializeField] float bobAmplitude = 0.05f;
+    [SerializeField] float bobAmplitudeMax = 0.15f;
     [SerializeField] float bobFrequency = 8f;
+    [SerializeField] float bobFrequencyMax = 11f;
     [SerializeField] float bobReturnSpeed = 6f;
-    [SerializeField] float bobReturnSpeedMin = 0.8f;
 
     [Header("Walk Zoom")]
     [SerializeField] float walkFOVOffset = -3f;
@@ -35,17 +36,6 @@ public class ComaPlayerController : MonoBehaviour
     [SerializeField] float slowMultiplier = 0.5f;
     [SerializeField] float shakeDuration = 0.5f;
     [SerializeField] float shakeMagnitude = 0.05f;
-
-    [Header("Terrain Slowdown")]
-    [SerializeField] Terrain terrain;
-    [SerializeField] float terrainCheckRadius = 2f;
-    [SerializeField] float maxTerrainSlow = 0.4f; // 0 = full stop, 1 = no slow
-    [SerializeField] int detailLayerIndex = 0;
-
-    [Header("Grass Audio")]
-    [SerializeField] AudioSource grassAudio;
-    [SerializeField] float maxGrassVolume = 0.6f;
-    [SerializeField] float grassFadeSpeed = 4f;
 
     [SerializeField] GameObject walker;
 
@@ -153,18 +143,10 @@ public class ComaPlayerController : MonoBehaviour
 
         if (moving && withinCone)
         {
-            float terrainDensity = GetTerrainDensity();
-            float terrainMultiplier = Mathf.Lerp(1f, maxTerrainSlow, terrainDensity);
-
-            // combine hit slow + terrain slow
-            float hitMultiplier = (slowTimer > 0f ? slowMultiplier : 1f);
-
-            float speed = moveSpeed * hitMultiplier * terrainMultiplier;
+            float speed = moveSpeed * (slowTimer > 0f ? slowMultiplier : 1f);
             Vector3 moveForward = Quaternion.Euler(0f, lookYaw, 0f) * Vector3.forward;
             cc.Move(speed * Time.deltaTime * moveForward);
-            HandleGrassAudio(terrainDensity);
         }
-
 
         if (slowTimer > 0f) slowTimer -= Time.deltaTime;
 
@@ -175,22 +157,23 @@ public class ComaPlayerController : MonoBehaviour
     void HandleHeadBob()
     {
         float healthRatio = (float)GameManager.Ins.CurrentHealth / GameManager.Ins.MaxHealth;
-
-        // At low health, the bob drags back to center very slowly
-        float effectiveReturnSpeed = Mathf.Lerp(bobReturnSpeedMin, bobReturnSpeed, healthRatio);
+        float effectiveAmplitude = Mathf.Lerp(bobAmplitudeMax, bobAmplitude, healthRatio);
+        float effectiveFrequency = Mathf.Lerp(bobFrequencyMax, bobFrequency, healthRatio);
 
         if (moving)
         {
-            bobTimer += bobFrequency * Time.deltaTime;
-            currentBobY = Mathf.Sin(bobTimer) * bobAmplitude;
-            currentBobX = Mathf.Sin(bobTimer * 0.5f) * bobAmplitude * 0.5f;
+            bobTimer += effectiveFrequency * Time.deltaTime;
+            // Sin starts at 0 and goes positive — subtract amplitude so it starts
+            // at the bottom of the arc, keeping vertical center at rest position
+            currentBobY = (Mathf.Sin(bobTimer) - 0f) * effectiveAmplitude;
+            currentBobX = Mathf.Sin(bobTimer * 0.5f) * effectiveAmplitude * 0.5f;
             if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV + walkFOVOffset, fovLerpSpeed * Time.deltaTime);
         }
         else
         {
-            bobTimer = 0f;
-            currentBobY = Mathf.Lerp(currentBobY, 0f, effectiveReturnSpeed * Time.deltaTime);
-            currentBobX = Mathf.Lerp(currentBobX, 0f, effectiveReturnSpeed * Time.deltaTime);
+            bobTimer = Mathf.PI * 1.5f; // reset to trough so next movement starts going UP from below
+            currentBobY = Mathf.Lerp(currentBobY, 0f, bobReturnSpeed * Time.deltaTime);
+            currentBobX = Mathf.Lerp(currentBobX, 0f, bobReturnSpeed * Time.deltaTime);
             if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV, fovLerpSpeed * Time.deltaTime);
         }
 
@@ -227,63 +210,5 @@ public class ComaPlayerController : MonoBehaviour
         shakeTimer = 0f;
         transform.position = respawnPoint.position;
         GameManager.Ins.AfterRespawn();
-    }
-
-    float GetTerrainDensity()
-    {
-        if (terrain == null) return 0f;
-
-        TerrainData data = terrain.terrainData;
-
-        Vector3 terrainPos = transform.position - terrain.transform.position;
-
-        int mapX = Mathf.RoundToInt((terrainPos.x / data.size.x) * data.detailWidth);
-        int mapZ = Mathf.RoundToInt((terrainPos.z / data.size.z) * data.detailHeight);
-
-        int radius = 2;
-
-        float total = 0f;
-        int count = 0;
-
-        for (int x = -radius; x <= radius; x++)
-        {
-            for (int z = -radius; z <= radius; z++)
-            {
-                int px = Mathf.Clamp(mapX + x, 0, data.detailWidth - 1);
-                int pz = Mathf.Clamp(mapZ + z, 0, data.detailHeight - 1);
-
-                int[,] samples = data.GetDetailLayer(px, pz, 1, 1, detailLayerIndex);
-                total += samples[0, 0];
-                count++;
-            }
-        }
-
-        if (count == 0) return 0f;
-
-        // normalize (rough scaling — tweak if needed)
-        return Mathf.Clamp01(total / (count * 16f));
-    }
-
-    void HandleGrassAudio(float terrainDensity)
-    {
-        if (grassAudio == null) return;
-
-        bool isMoving = moving;
-
-        float targetVolume = 0f;
-
-        if (isMoving && terrainDensity > 0.05f)
-        {
-            targetVolume = terrainDensity * maxGrassVolume;
-        }
-
-        grassAudio.volume = Mathf.Lerp(
-            grassAudio.volume,
-            targetVolume,
-            grassFadeSpeed * Time.deltaTime
-        );
-
-        // Optional: subtle pitch variation for realism
-        grassAudio.pitch = Mathf.Lerp(0.9f, 1.1f, terrainDensity);
     }
 }
