@@ -122,10 +122,10 @@ public class GameManager : MonoBehaviour
 
         collectedPapers.Add(paper);
         Debug.Log("rgrgrgrgrg");
-        paper.SetActive(false);
+        //paper.SetActive(false);
 
-        Debug.Log(papers.IndexOf(paper) + "st paper collected");
-        ReturnPaper(papers.IndexOf(paper));
+        Debug.Log(papers.IndexOf(paper) + 1 + "st paper collected");
+        ReturnPaper(papers.IndexOf(paper) + 1);
 
         if (collectedPapers.Count >= papers.Count) AllPiecesCollected?.Invoke();
     }
