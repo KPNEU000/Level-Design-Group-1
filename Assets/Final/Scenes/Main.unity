@@ -34167,9 +34167,10 @@ MonoBehaviour:
   lookFreedom: 40
   bodyRotateSpeed: 60
   bobAmplitude: 0.05
+  bobAmplitudeMax: 0.15
   bobFrequency: 3
+  bobFrequencyMax: 11
   bobReturnSpeed: 15
-  bobReturnSpeedMin: 0.1
   walkFOVOffset: -3
   fovLerpSpeed: 4
   slowDuration: 2
@@ -45842,11 +45843,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6786704563919474195, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.57
+      value: 10.08
       objectReference: {fileID: 0}
     - target: {fileID: 6786704563919474195, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.508
+      value: -0.572
       objectReference: {fileID: 0}
     - target: {fileID: 6786704563919474195, guid: ff0b0a3d7ae7a9e4f8505795785ad853, type: 3}
       propertyPath: m_LocalPosition.z
