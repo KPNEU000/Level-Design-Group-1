@@ -54,7 +54,17 @@ public class DialogueManager : MonoBehaviour
         }
     };
 
-    void Start()
+    void Awake()
+    {
+        GameManager.Ins.OnGameProperStart += WakeUp;
+    }
+
+    void OnDisable()
+    {
+        GameManager.Ins.OnGameProperStart -= WakeUp;
+    }
+
+    void WakeUp()
     {
         StartCoroutine(AutoPlayDialogue());
     }

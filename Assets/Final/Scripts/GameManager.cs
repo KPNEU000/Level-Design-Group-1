@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     public Animator papersAnimator;
     public Material happyMat;
 
-    [Header("Positions")]
+    [Header("Transition Info")]
     [SerializeField] private GameObject bed;
     [SerializeField] private Transform bedEndingTransform;
     [SerializeField] private Transform bedStartingTransform;
@@ -41,12 +41,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject frame;
     [SerializeField] private Transform frameEndingTransform;
     [SerializeField] private Transform frameStartingTransform;
+    [SerializeField] private Terrain terrain;
+    [SerializeField] private GameObject ghostlyApparitions;
 
 
 
     public GameObject initialFog;
 
     public Action OnPapersGrounded;
+    public Action OnGameProperStart;
 
 
     bool isDead = false;
@@ -71,12 +74,23 @@ public class GameManager : MonoBehaviour
         shatteredSadDrawingAnimator = shatteredSadDrawing.GetComponent<Animator>();
 
         bed.transform.position = bedStartingTransform.position;
+        frame.transform.position = frameStartingTransform.position;
+        terrain.enabled = false;
+        ghostlyApparitions.SetActive(false);
+        Debug.Log($"terrain enabled: {terrain.enabled}, ghostly active: {ghostlyApparitions.activeSelf}");
+
+    }
+
+    void Start()
+    {
+        Debug.Log($"terrain enabled: {terrain.enabled}, ghostly active: {ghostlyApparitions.activeSelf}");
     }
 
     void TransitionToMainLevel()
     {
         bed.transform.position = bedEndingTransform.position;
         frame.transform.position = frameEndingTransform.position;
+        terrain.enabled = true;
     }
 
     void Update()
