@@ -32,7 +32,12 @@ public class WalkerSurface : MonoBehaviour
     void Start()
     {
         lastPosition = transform.position;
+        currentSurface = DetectSurface();
+        ApplyTrailMaterial(currentSurface);
         Debug.Log($"[WalkerSurface] Initialized. Terrain: {(terrain != null ? terrain.name : "NULL")} | LayerMap size: {layerMap.Length}");
+        Debug.Log($"[WalkerSurface] GrassParticles: {(grassParticles != null ? "assigned" : "NULL")} | MudParticles: {(mudParticles != null ? "assigned" : "NULL")}");
+        Debug.Log($"[WalkerSurface] Initial surface: {currentSurface}");
+        UpdateParticles(currentSurface, false);
 
         if (terrain != null)
         {
@@ -47,7 +52,8 @@ public class WalkerSurface : MonoBehaviour
 
     void Update()
     {
-        bool moving = (transform.position - lastPosition).sqrMagnitude > 0.0001f;
+        Vector3 delta = transform.position - lastPosition;
+        bool moving = new Vector2(delta.x, delta.z).sqrMagnitude > 0.001f;
         lastPosition = transform.position;
 
         SurfaceType surface = DetectSurface();
@@ -97,14 +103,31 @@ public class WalkerSurface : MonoBehaviour
 
     void UpdateParticles(SurfaceType surface, bool moving)
     {
-        SetParticles(grassParticles, surface == SurfaceType.Grass && moving);
-        SetParticles(mudParticles,   surface == SurfaceType.Mud   && moving);
+        if (!moving)
+        {
+            StopParticles(grassParticles, clear: true);
+            StopParticles(mudParticles,   clear: true);
+            return;
+        }
+
+        // Moving — soft stop on the outgoing surface so particles fade out naturally
+        SetParticles(grassParticles, surface == SurfaceType.Grass);
+        SetParticles(mudParticles,   surface == SurfaceType.Mud);
     }
 
     void SetParticles(ParticleSystem ps, bool shouldPlay)
     {
         if (ps == null) return;
-        if (shouldPlay && !ps.isPlaying) ps.Play();
-        if (!shouldPlay && ps.isPlaying) ps.Stop();
+        if (shouldPlay && !ps.isPlaying)
+            ps.Play();
+        else if (!shouldPlay)
+            StopParticles(ps, clear: false);
+    }
+
+    void StopParticles(ParticleSystem ps, bool clear)
+    {
+        if (ps == null || !ps.isPlaying) return;
+        ps.Stop(false, clear ? ParticleSystemStopBehavior.StopEmittingAndClear
+                              : ParticleSystemStopBehavior.StopEmitting);
     }
 }
