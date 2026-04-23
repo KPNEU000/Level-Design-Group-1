@@ -91,6 +91,7 @@ public class ComaPlayerController : MonoBehaviour
     Vector3 shakeOffset;
 
     private bool hasFaded = false;
+    bool isInitialized = false;
 
     void Awake()
     {
@@ -126,17 +127,16 @@ public class ComaPlayerController : MonoBehaviour
         droopOffset = droopAmount; // snap downward instantly on hit
     }
 
+
     void Update()
     {
-        void Update()
-        {
-            if (isDead) return;
-            HandleLook();
-            HandleMovement();
-            HandleHeadBob();
-            HandleCameraShake();
-            // ... your space key test etc
-        }
+        if (isDead) return;
+        HandleLook();
+        HandleMovement();
+        HandleHeadBob();
+        HandleCameraShake();
+        // ... your space key test etc
+
 
         if (!hasFaded && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
@@ -145,6 +145,7 @@ public class ComaPlayerController : MonoBehaviour
             Utils.StartFade(this, walker, 1, 0, 2);
         }
     }
+
 
     void HandleLook()
     {
@@ -157,8 +158,9 @@ public class ComaPlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, bodyYaw, 0f);
 
         xRotation -= lookInput.y * mouseSensitivity;
-        xRotation = Mathf.Clamp(xRotation, -verticalClamp, verticalClamp);
+        xRotation = Mathf.Clamp(xRotation, -verticalClamp, isDead ? 90f : verticalClamp);
         cameraFollowTarget.rotation = Quaternion.Euler(xRotation, lookYaw, 0f);
+
     }
 
     void HandleMovement()
@@ -252,63 +254,64 @@ public class ComaPlayerController : MonoBehaviour
 
     IEnumerator DeathSequence()
     {
-        // Lock out all input/movement/bob for duration
         float timer = 0f;
 
-        Vector3 startLocalPos = cameraFollowTarget.localPosition;
-        Quaternion startRot = cameraFollowTarget.rotation;
+        float startXRotation = xRotation;
+        float startLookYaw = lookYaw;
 
-        // Target: tipped forward and slightly to one side, dropped down
-        Quaternion fallRot = Quaternion.Euler(deathFallAngle, lookYaw, deathFallSideAngle);
-        Vector3 fallenLocalPos = new Vector3(startLocalPos.x, camRestLocalPos.y - deathDropHeight, startLocalPos.z);
+        float targetXRotation = 85f; // looking straight down at ground
+        float targetLookYaw = lookYaw + deathFallSideAngle;
 
         // --- Phase 1: Fall ---
         while (timer < deathFallDuration)
         {
             timer += Time.deltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, timer / deathFallDuration);
-
-            // Accelerate into the fall using a curve (slow start, fast finish = gravity feel)
-            float tPos = Mathf.Pow(t, 2f);
-
-            cameraFollowTarget.rotation = Quaternion.Slerp(startRot, fallRot, t);
-            cameraFollowTarget.localPosition = Vector3.Lerp(startLocalPos, fallenLocalPos, tPos);
+            float t = 1f - Mathf.Pow(1f - Mathf.Clamp01(timer / deathFallDuration), 2f);
+            xRotation = Mathf.Lerp(startXRotation, targetXRotation, t);
+            lookYaw = Mathf.Lerp(startLookYaw, targetLookYaw, t);
+            cameraFollowTarget.rotation = Quaternion.Euler(xRotation, lookYaw, 0f);
             yield return null;
         }
 
         // --- Phase 2: Bounce ---
-        // Small upward bump then settle, like the head hitting the floor
         timer = 0f;
-        Vector3 bouncePos = fallenLocalPos + Vector3.up * deathBounceHeight;
+        float bounceXRotation = targetXRotation - 5f;
 
         while (timer < deathBounceDuration * 0.5f)
         {
             timer += Time.deltaTime;
             float t = timer / (deathBounceDuration * 0.5f);
-            cameraFollowTarget.localPosition = Vector3.Lerp(fallenLocalPos, bouncePos, t);
+            xRotation = Mathf.Lerp(targetXRotation, bounceXRotation, t);
+            cameraFollowTarget.rotation = Quaternion.Euler(xRotation, lookYaw, 0f);
             yield return null;
         }
         while (timer < deathBounceDuration)
         {
             timer += Time.deltaTime;
             float t = (timer - deathBounceDuration * 0.5f) / (deathBounceDuration * 0.5f);
-            cameraFollowTarget.localPosition = Vector3.Lerp(bouncePos, fallenLocalPos, t);
+            xRotation = Mathf.Lerp(bounceXRotation, targetXRotation, t);
+            cameraFollowTarget.rotation = Quaternion.Euler(xRotation, lookYaw, 0f);
             yield return null;
         }
 
         // --- Phase 3: Fade to black ---
-        // Brief pause so the player registers they've hit the ground
         yield return new WaitForSeconds(0.3f);
-        //yield return StartCoroutine(Utils.FadeCoroutine(this, walker, 0f, 1f, fadeDuration));
+        if (ScreenFader.Ins != null)
+            yield return StartCoroutine(ScreenFader.Ins.FadeTo(1f, fadeDuration));
 
         // --- Reset ---
         transform.position = respawnPoint.position;
         cameraFollowTarget.localPosition = camRestLocalPos;
+        lookYaw = transform.eulerAngles.y;
+        bodyYaw = lookYaw;
         xRotation = 0f;
+        transform.rotation = Quaternion.Euler(0f, bodyYaw, 0f);
+        cameraFollowTarget.rotation = Quaternion.Euler(0f, lookYaw, 0f);
         GameManager.Ins.AfterRespawn();
 
         // --- Phase 4: Fade back in ---
-        //yield return StartCoroutine(Utils.FadeCoroutine(this, walker, 1f, 0f, fadeDuration));
+        if (ScreenFader.Ins != null)
+            yield return StartCoroutine(ScreenFader.Ins.FadeTo(0f, fadeDuration));
 
         isDead = false;
     }
