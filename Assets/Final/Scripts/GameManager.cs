@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public Animator papersAnimator;
     public Material happyMat;
 
+    public GameObject initialFog;
+
 
     bool isDead = false;
 
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             ShatterImage();
+            initialFog.SetActive(false);
         }
         HandleRegen();
     }
