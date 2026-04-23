@@ -3,10 +3,16 @@ using UnityEngine;
 
 public class PaperBehavior : MonoBehaviour
 {
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GameManager.Ins.OnPapersGrounded += Illuminate;
+    }
 
+    void OnDisable()
+    {
+        GameManager.Ins.OnPapersGrounded -= Illuminate;
     }
 
     // Update is called once per frame
@@ -21,5 +27,10 @@ public class PaperBehavior : MonoBehaviour
         {
             GameManager.Ins.CollectPaper(gameObject);
         }
+    }
+
+    public void Illuminate()
+    {
+
     }
 }

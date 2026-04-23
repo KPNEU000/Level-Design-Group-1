@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject initialFog;
 
+    public Action OnPapersGrounded;
+
 
     bool isDead = false;
 
@@ -187,5 +189,10 @@ public class GameManager : MonoBehaviour
         timeSinceLastDamage = 0f;
         regenAccumulator = 0f;
         OnHealthChanged?.Invoke();
+    }
+
+    public void OnShatterEnd()
+    {
+        OnPapersGrounded?.Invoke();
     }
 }
