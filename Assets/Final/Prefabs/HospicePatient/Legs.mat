@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f68049573da09184b85bac6e16257cb8, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -105,7 +105,7 @@ Material:
     - _DesaturateBackground: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DetailScale: 1
+    - _DetailScale: -10.06
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _DuplicateDetails: 1
@@ -114,8 +114,8 @@ Material:
     - _FresnelBias: 0
     - _FresnelIntensity: 4
     - _FresnelPower: 4
-    - _FresnelTransBias: 0
-    - _FresnelTransIntensity: 0
+    - _FresnelTransBias: 0.6
+    - _FresnelTransIntensity: -11.19
     - _FresnelTransPower: 5
     - _GlossMapScale: 1
     - _Glossiness: 0.4472136
@@ -134,7 +134,7 @@ Material:
     - _Refraction: 1.1
     - _RotationAngle: 0
     - _RotationSpeed: 0
-    - _SelfIllumination: 1
+    - _SelfIllumination: 6.3
     - _ShadowOpacity: 0
     - _Smoothness: 0.4472136
     - _SmoothnessTextureChannel: 0
