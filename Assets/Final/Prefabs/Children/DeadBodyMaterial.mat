@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Legs
+  m_Name: DeadBodyMaterial
   m_Shader: {fileID: 4800000, guid: 55f0f41f3c288164f83c6f6e906cb2fa, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -96,7 +96,7 @@ Material:
     - _AmplitudeSpeed: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BumpScale: 1
+    - _BumpScale: 1.11
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _ContrastDetailMap: 1
@@ -105,38 +105,38 @@ Material:
     - _DesaturateBackground: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DetailScale: -10.06
+    - _DetailScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _DuplicateDetails: 1
     - _EnableSpecularLight: 0
     - _EnvironmentReflections: 1
     - _FresnelBias: 0
-    - _FresnelIntensity: 4
-    - _FresnelPower: 4
-    - _FresnelTransBias: 0.6
-    - _FresnelTransIntensity: -11.19
+    - _FresnelIntensity: 1
+    - _FresnelPower: 3
+    - _FresnelTransBias: 0
+    - _FresnelTransIntensity: 0
     - _FresnelTransPower: 5
     - _GlossMapScale: 1
-    - _Glossiness: 0.4472136
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _Invert: 0
     - _MapContribution: 0
-    - _MaxValueAmplitude: 2
+    - _MaxValueAmplitude: 1
     - _Metallic: 0
     - _MinValueAmplitude: 1
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Opacity: 1
+    - _Opacity: 0.27
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Refraction: 1.1
     - _RotationAngle: 0
     - _RotationSpeed: 0
-    - _SelfIllumination: 6.3
-    - _ShadowOpacity: 0
-    - _Smoothness: 0.4472136
+    - _SelfIllumination: 10
+    - _ShadowOpacity: 1
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpreadDetailMap: 0
@@ -151,15 +151,15 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FillColorBackground: {r: 0, g: 0, b: 0, a: 0}
-    - _FresnelColor: {r: 0.3018868, g: 0.11024756, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _FillColorBackground: {r: 0, g: 0, b: 0, a: 1}
+    - _FresnelColor: {r: 0.64542896, g: 0.832884, b: 0.6747693, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2169681101747766951
+--- !u!114 &5434716601069957414
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
