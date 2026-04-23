@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum GameState { Intro, Playing, End }
 public class GameManager : MonoBehaviour
 {
     public static GameManager Ins { get; private set; }
@@ -66,6 +67,16 @@ public class GameManager : MonoBehaviour
             ShatterImage();
             initialFog.transform.position = Vector3.Lerp(initialFog.transform.position, Vector3.down * 10, 1);
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            foreach (GameObject paper in papers)
+            {
+                if (!collectedPapers.Contains(paper))
+                    CollectPaper(paper);
+            }
+        }
+
         HandleRegen();
     }
 

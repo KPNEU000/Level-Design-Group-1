@@ -10,14 +10,17 @@ public class SoldierController : MonoBehaviour
     [Header("Side")]
     public DialogueSide mySide;
 
+    [SerializeField] float startYRotation = 0f;
+    [SerializeField] float shootRange = 30f;
+
     [Header("Bias Settings")]
     public Vector3 biasBaselines = new Vector3(0.05f, 0.40f, 0.70f);
     public Vector3 biasCeilings = new Vector3(0.2f, 0.75f, 1.00f);
-    public float biasLerpSpeed = 8f;   // how snappy the per-frame tracking is
-    public float biasDecaySpeed = 3f;   // how fast bias fades after dialogue ends
+    public float biasLerpSpeed = 8f;
+    public float biasDecaySpeed = 3f;
 
-    float _targetBias;        // what we're lerping toward
-    float _currentBias;       // actual shader value
+    float _targetBias;
+    float _currentBias;
     bool _dialogueActive;
     DialogueType _activeType;
 
@@ -33,6 +36,8 @@ public class SoldierController : MonoBehaviour
     public GameObject gun;
     public GameObject bulletShellPrefab;
     public Transform ejectionPoint;
+
+    bool canShoot = true;
 
     private void OnEnable()
     {
@@ -53,7 +58,7 @@ public class SoldierController : MonoBehaviour
 
     void Start()
     {
-        damage = isBasic ? 10 : 25;
+        damage = isBasic ? 15 : 25;
         GameManager.Ins.AllPiecesCollected += CeaseFire;
         SetIllumination(baseIllumination);
     }
@@ -62,21 +67,18 @@ public class SoldierController : MonoBehaviour
     {
         if (_dialogueActive)
         {
-            // Pull live volume for our side only
             float liveVolume = mySide == DialogueSide.Son
                 ? DialogueManager.SonVolume
                 : DialogueManager.DaughterVolume;
 
-            // Get this tier's baseline and ceiling
             float baseline = BiasBaseline(_activeType);
             float ceiling = BiasCeiling(_activeType);
 
-            // Volume drives us from baseline toward ceiling
             _targetBias = Mathf.Lerp(baseline, ceiling, liveVolume);
         }
         else
         {
-            _targetBias = 0f;   // decay back to zero when silent
+            _targetBias = 0f;
         }
 
         _currentBias = Mathf.Lerp(
@@ -97,11 +99,9 @@ public class SoldierController : MonoBehaviour
 
         TriggerFlash();
 
+
         switch (type)
         {
-            case DialogueType.Low:
-                //Debug.Log(name + " hears LOW dialogue");
-                break;
             case DialogueType.Medium:
                 if (isBasic) HandleShoot("MEDIUM");
                 break;
@@ -118,8 +118,6 @@ public class SoldierController : MonoBehaviour
         _dialogueActive = false;
         SetAnim("IsAimIdle");
     }
-
-    // --- Bias helpers ---
 
     float BiasBaseline(DialogueType type) => type switch
     {
@@ -146,16 +144,15 @@ public class SoldierController : MonoBehaviour
 
     void HandleShoot(string level)
     {
-        float randomDelay = Random.Range(0f, .3f);
+        float randomDelay = Random.Range(.3f, .5f);
         Invoke("Shoot", randomDelay);
-        //Debug.Log(name + " fires on " + level + " dialogue!");
     }
 
     void Shoot() => SetAnim("IsFire");
 
     void CeaseFire()
     {
-        Debug.Log("got here soldier");
+        canShoot = false;
         SetAnim("IsAimToDown");
     }
 
@@ -165,6 +162,63 @@ public class SoldierController : MonoBehaviour
         anim.SetBool("IsAimIdle", false);
         if (name == "IsAimToDown") anim.SetTrigger("IsAimToDown");
         else anim.SetBool(name, true);
+    }
+
+    void FireRaycast()
+    {
+        if (!canShoot) return;
+
+        Vector3 origin = ejectionPoint.position;
+        Vector3 direction = ejectionPoint.forward;
+
+        float spread = 0.1f;
+        direction.x += Random.Range(-spread, spread);
+        direction.z += Random.Range(-spread, spread);
+        direction.y = 0f;
+        direction.Normalize();
+
+        Debug.DrawRay(origin, direction * shootRange, Color.red, 1f);
+
+        LayerMask combinedMask = LayerMask.GetMask("Blocking", "Player");
+
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, shootRange, combinedMask))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Blocking"))
+            {
+                Debug.Log($"[{name}] shot blocked by cover");
+                Debug.DrawRay(origin, direction * shootRange, Color.blue, 1f);
+                return;
+            }
+
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                Debug.Log($"[{name}] player hit");
+                Debug.DrawRay(origin, direction * shootRange, Color.green, 1f);
+                GameManager.Ins.RemoveHealth(damage);
+            }
+        }
+    }
+
+    public void triggerMuzzleEffects()
+    {
+        muzzleFlashEffects.GetComponent<ParticleSystem>().Stop();
+        muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Stop();
+        muzzleFlashEffects.GetComponent<ParticleSystem>().Play();
+        muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Play();
+
+        GameObject bullet = Instantiate(bulletShellPrefab, ejectionPoint.position,
+            new Quaternion(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+        bullet.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.5f, 5f), Random.Range(0.5f, 15f), -1));
+
+        FireRaycast();
+    }
+
+    public void triggerMuzzleSounds() => gun.GetComponent<AudioSource>().Play();
+
+    void SetIllumination(float value)
+    {
+        propBlock.SetFloat("_SelfIllumination", value);
+        foreach (Renderer rend in rends) rend.SetPropertyBlock(propBlock);
     }
 
     public void TriggerFlash() => StartCoroutine(FlashRoutine());
@@ -187,23 +241,5 @@ public class SoldierController : MonoBehaviour
         }
         SetIllumination(baseIllumination);
     }
-
-    void SetIllumination(float value)
-    {
-        propBlock.SetFloat("_SelfIllumination", value);
-        foreach (Renderer rend in rends) rend.SetPropertyBlock(propBlock);
-    }
-
-    public void triggerMuzzleEffects()
-    {
-        muzzleFlashEffects.GetComponent<ParticleSystem>().Stop();
-        muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Stop();
-        muzzleFlashEffects.GetComponent<ParticleSystem>().Play();
-        muzzleFlashEffects.GetComponentInChildren<ParticleSystem>().Play();
-        GameObject bullet = Instantiate(bulletShellPrefab, ejectionPoint.position,
-            new Quaternion(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
-        bullet.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.5f, 5f), Random.Range(0.5f, 15f), -1));
-    }
-
-    public void triggerMuzzleSounds() => gun.GetComponent<AudioSource>().Play();
 }
+
