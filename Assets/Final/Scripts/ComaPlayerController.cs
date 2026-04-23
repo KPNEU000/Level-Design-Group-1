@@ -258,7 +258,7 @@ public class ComaPlayerController : MonoBehaviour
 
         float startXRotation = xRotation;
         float startLookYaw = lookYaw;
-        float targetXRotation = 50f; // don't go past ~50 or it hits the ground
+        float targetXRotation = 50f;
         float targetLookYaw = lookYaw + deathFallSideAngle;
 
         // --- Phase 1: Fall ---
@@ -272,28 +272,8 @@ public class ComaPlayerController : MonoBehaviour
             yield return null;
         }
 
-        // --- Phase 2: Bounce ---
-        timer = 0f;
-        float bounceXRotation = targetXRotation - 5f;
-
-        while (timer < deathBounceDuration * 0.5f)
-        {
-            timer += Time.deltaTime;
-            float t = timer / (deathBounceDuration * 0.5f);
-            xRotation = Mathf.Lerp(targetXRotation, bounceXRotation, t);
-            cameraFollowTarget.rotation = Quaternion.Euler(xRotation, lookYaw, 0f);
-            yield return null;
-        }
-        while (timer < deathBounceDuration)
-        {
-            timer += Time.deltaTime;
-            float t = (timer - deathBounceDuration * 0.5f) / (deathBounceDuration * 0.5f);
-            xRotation = Mathf.Lerp(bounceXRotation, targetXRotation, t);
-            cameraFollowTarget.rotation = Quaternion.Euler(xRotation, lookYaw, 0f);
-            yield return null;
-        }
-
-        // --- Phase 3: Fade to black (no delay, starts right after bounce) ---
+        // --- Phase 2: Fade to black ---
+        yield return new WaitForSeconds(0.3f);
         if (ScreenFader.Ins != null)
             yield return StartCoroutine(ScreenFader.Ins.FadeTo(1f, fadeDuration));
 
@@ -311,10 +291,10 @@ public class ComaPlayerController : MonoBehaviour
         droopOffset = 0f;
         GameManager.Ins.AfterRespawn();
 
-        yield return new WaitForSeconds(0.1f); // one extra frame buffer
+        yield return new WaitForSeconds(0.1f);
 
-        // --- Phase 4: Fade back in ---
-        isDead = false; // re-enable HandleLook BEFORE fading in so it's already correct
+        // --- Phase 3: Fade back in ---
+        isDead = false;
         if (ScreenFader.Ins != null)
             yield return StartCoroutine(ScreenFader.Ins.FadeTo(0f, fadeDuration));
     }
