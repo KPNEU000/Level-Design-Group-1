@@ -258,8 +258,7 @@ public class ComaPlayerController : MonoBehaviour
 
         float startXRotation = xRotation;
         float startLookYaw = lookYaw;
-
-        float targetXRotation = 85f; // looking straight down at ground
+        float targetXRotation = 50f; // don't go past ~50 or it hits the ground
         float targetLookYaw = lookYaw + deathFallSideAngle;
 
         // --- Phase 1: Fall ---
@@ -294,12 +293,11 @@ public class ComaPlayerController : MonoBehaviour
             yield return null;
         }
 
-        // --- Phase 3: Fade to black ---
-        yield return new WaitForSeconds(0.3f);
+        // --- Phase 3: Fade to black (no delay, starts right after bounce) ---
         if (ScreenFader.Ins != null)
             yield return StartCoroutine(ScreenFader.Ins.FadeTo(1f, fadeDuration));
 
-        // --- Reset ---
+        // --- Reset while screen is black ---
         transform.position = respawnPoint.position;
         cameraFollowTarget.localPosition = camRestLocalPos;
         lookYaw = transform.eulerAngles.y;
@@ -307,12 +305,17 @@ public class ComaPlayerController : MonoBehaviour
         xRotation = 0f;
         transform.rotation = Quaternion.Euler(0f, bodyYaw, 0f);
         cameraFollowTarget.rotation = Quaternion.Euler(0f, lookYaw, 0f);
+        currentBobX = 0f;
+        currentBobY = 0f;
+        shakeOffset = Vector3.zero;
+        droopOffset = 0f;
         GameManager.Ins.AfterRespawn();
 
+        yield return new WaitForSeconds(0.1f); // one extra frame buffer
+
         // --- Phase 4: Fade back in ---
+        isDead = false; // re-enable HandleLook BEFORE fading in so it's already correct
         if (ScreenFader.Ins != null)
             yield return StartCoroutine(ScreenFader.Ins.FadeTo(0f, fadeDuration));
-
-        isDead = false;
     }
 }
