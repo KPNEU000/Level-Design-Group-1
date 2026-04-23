@@ -9,6 +9,8 @@ public class ComaPlayerController : MonoBehaviour
 {
     [SerializeField] Transform respawnPoint;
 
+    [SerializeField] Transform introPosition;
+
     [Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
 
@@ -117,6 +119,14 @@ public class ComaPlayerController : MonoBehaviour
     {
         GameManager.Ins.OnDeath += Death;
         GameManager.Ins.OnDamaged += OnHit;
+        //transform.position = respawnPoint.position;
+
+        transform.position = introPosition.position;
+        transform.rotation = introPosition.rotation;
+    }
+
+    void OnStartGameplay()
+    {
         transform.position = respawnPoint.position;
     }
 

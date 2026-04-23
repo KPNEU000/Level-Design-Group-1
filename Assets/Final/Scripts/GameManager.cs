@@ -33,6 +33,17 @@ public class GameManager : MonoBehaviour
     public Animator papersAnimator;
     public Material happyMat;
 
+    [Header("Positions")]
+    [SerializeField] private GameObject bed;
+    [SerializeField] private Transform bedEndingTransform;
+    [SerializeField] private Transform bedStartingTransform;
+
+    [SerializeField] private GameObject frame;
+    [SerializeField] private Transform frameEndingTransform;
+    [SerializeField] private Transform frameStartingTransform;
+
+
+
     public GameObject initialFog;
 
     public Action OnPapersGrounded;
@@ -58,6 +69,14 @@ public class GameManager : MonoBehaviour
         sadDrawing.SetActive(true);
         shatteredSadDrawing.SetActive(false);
         shatteredSadDrawingAnimator = shatteredSadDrawing.GetComponent<Animator>();
+
+        bed.transform.position = bedStartingTransform.position;
+    }
+
+    void TransitionToMainLevel()
+    {
+        bed.transform.position = bedEndingTransform.position;
+        frame.transform.position = frameEndingTransform.position;
     }
 
     void Update()
