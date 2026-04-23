@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
@@ -36,6 +37,25 @@ public class ComaPlayerController : MonoBehaviour
     [SerializeField] float slowMultiplier = 0.5f;
     [SerializeField] float shakeDuration = 0.5f;
     [SerializeField] float shakeMagnitude = 0.05f;
+
+    [Header("Death Animation")]
+    [SerializeField] float deathFallDuration = 0.8f;
+    [SerializeField] float deathFallAngle = 80f;       //how far forward it tips
+    [SerializeField] float deathFallSideAngle = 15f;   //slight sideways lean
+    [SerializeField] float deathDropHeight = 0.6f;     //how far camera drops
+    [SerializeField] float deathBounceHeight = 0.05f;  //small bounce on impact
+    [SerializeField] float deathBounceDuration = 0.2f;
+    [SerializeField] float fadeDuration = 1f;
+    bool isDead = false;
+
+
+    [Header("Drooping")]
+    [SerializeField] float droopAmount = -0.08f;
+    [SerializeField] float droopRecoverBase = 0.4f;
+    [SerializeField] float droopRecoverMin = 0.05f;
+
+    float droopOffset = 0f;
+    float droopTarget = 0f;
 
     [SerializeField] GameObject walker;
 
@@ -99,12 +119,24 @@ public class ComaPlayerController : MonoBehaviour
         transform.position = respawnPoint.position;
     }
 
+    void OnHit()
+    {
+        slowTimer = slowDuration;
+        shakeTimer = shakeDuration;
+        droopOffset = droopAmount; // snap downward instantly on hit
+    }
+
     void Update()
     {
-        HandleLook();
-        HandleMovement();
-        HandleHeadBob();
-        HandleCameraShake();
+        void Update()
+        {
+            if (isDead) return;
+            HandleLook();
+            HandleMovement();
+            HandleHeadBob();
+            HandleCameraShake();
+            // ... your space key test etc
+        }
 
         if (!hasFaded && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
@@ -157,27 +189,37 @@ public class ComaPlayerController : MonoBehaviour
     void HandleHeadBob()
     {
         float healthRatio = (float)GameManager.Ins.CurrentHealth / GameManager.Ins.MaxHealth;
+
         float effectiveAmplitude = Mathf.Lerp(bobAmplitudeMax, bobAmplitude, healthRatio);
         float effectiveFrequency = Mathf.Lerp(bobFrequencyMax, bobFrequency, healthRatio);
 
+        float recoverSpeed = Mathf.Lerp(droopRecoverMin, droopRecoverBase, healthRatio);
+        droopOffset = Mathf.Lerp(droopOffset, 0f, recoverSpeed * Time.deltaTime);
+
         if (moving)
         {
-            bobTimer += effectiveFrequency * Time.deltaTime;
-            // Sin starts at 0 and goes positive — subtract amplitude so it starts
-            // at the bottom of the arc, keeping vertical center at rest position
-            currentBobY = (Mathf.Sin(bobTimer) - 0f) * effectiveAmplitude;
-            currentBobX = Mathf.Sin(bobTimer * 0.5f) * effectiveAmplitude * 0.5f;
+            // At low health: faster downswing, slower upswing
+            float downSpeed = Mathf.Lerp(bobFrequency, bobFrequency * 2.5f, 1f - healthRatio);
+            float upSpeed = Mathf.Lerp(bobFrequency, bobFrequency * 0.4f, 1f - healthRatio);
+
+            float speed = (Mathf.Sin(bobTimer) < 0f) ? downSpeed : upSpeed;
+            bobTimer += speed * Time.deltaTime;
+
+            currentBobY = Mathf.Sin(bobTimer) * bobAmplitude;
+            currentBobX = Mathf.Sin(bobTimer * 0.5f) * bobAmplitude * 0.5f;
             if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV + walkFOVOffset, fovLerpSpeed * Time.deltaTime);
         }
         else
         {
-            bobTimer = Mathf.PI * 1.5f; // reset to trough so next movement starts going UP from below
+            bobTimer = Mathf.PI * 1.5f;
             currentBobY = Mathf.Lerp(currentBobY, 0f, bobReturnSpeed * Time.deltaTime);
             currentBobX = Mathf.Lerp(currentBobX, 0f, bobReturnSpeed * Time.deltaTime);
             if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFOV, fovLerpSpeed * Time.deltaTime);
         }
 
-        cameraFollowTarget.localPosition = camRestLocalPos + new Vector3(currentBobX, currentBobY, 0f) + shakeOffset;
+        cameraFollowTarget.localPosition = camRestLocalPos
+            + new Vector3(currentBobX, currentBobY + droopOffset, 0f)
+            + shakeOffset;
     }
 
     void HandleCameraShake()
@@ -193,12 +235,6 @@ public class ComaPlayerController : MonoBehaviour
         shakeOffset = Random.insideUnitSphere * shakeMagnitude * progress;
     }
 
-    void OnHit()
-    {
-        slowTimer = slowDuration;
-        shakeTimer = shakeDuration;
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Death")) GameManager.Ins.OnDeath();
@@ -206,9 +242,74 @@ public class ComaPlayerController : MonoBehaviour
 
     void Death()
     {
+        if (isDead) return;
+        isDead = true;
         slowTimer = 0f;
         shakeTimer = 0f;
+        droopOffset = 0f;
+        StartCoroutine(DeathSequence());
+    }
+
+    IEnumerator DeathSequence()
+    {
+        // Lock out all input/movement/bob for duration
+        float timer = 0f;
+
+        Vector3 startLocalPos = cameraFollowTarget.localPosition;
+        Quaternion startRot = cameraFollowTarget.rotation;
+
+        // Target: tipped forward and slightly to one side, dropped down
+        Quaternion fallRot = Quaternion.Euler(deathFallAngle, lookYaw, deathFallSideAngle);
+        Vector3 fallenLocalPos = new Vector3(startLocalPos.x, camRestLocalPos.y - deathDropHeight, startLocalPos.z);
+
+        // --- Phase 1: Fall ---
+        while (timer < deathFallDuration)
+        {
+            timer += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, timer / deathFallDuration);
+
+            // Accelerate into the fall using a curve (slow start, fast finish = gravity feel)
+            float tPos = Mathf.Pow(t, 2f);
+
+            cameraFollowTarget.rotation = Quaternion.Slerp(startRot, fallRot, t);
+            cameraFollowTarget.localPosition = Vector3.Lerp(startLocalPos, fallenLocalPos, tPos);
+            yield return null;
+        }
+
+        // --- Phase 2: Bounce ---
+        // Small upward bump then settle, like the head hitting the floor
+        timer = 0f;
+        Vector3 bouncePos = fallenLocalPos + Vector3.up * deathBounceHeight;
+
+        while (timer < deathBounceDuration * 0.5f)
+        {
+            timer += Time.deltaTime;
+            float t = timer / (deathBounceDuration * 0.5f);
+            cameraFollowTarget.localPosition = Vector3.Lerp(fallenLocalPos, bouncePos, t);
+            yield return null;
+        }
+        while (timer < deathBounceDuration)
+        {
+            timer += Time.deltaTime;
+            float t = (timer - deathBounceDuration * 0.5f) / (deathBounceDuration * 0.5f);
+            cameraFollowTarget.localPosition = Vector3.Lerp(bouncePos, fallenLocalPos, t);
+            yield return null;
+        }
+
+        // --- Phase 3: Fade to black ---
+        // Brief pause so the player registers they've hit the ground
+        yield return new WaitForSeconds(0.3f);
+        //yield return StartCoroutine(Utils.FadeCoroutine(this, walker, 0f, 1f, fadeDuration));
+
+        // --- Reset ---
         transform.position = respawnPoint.position;
+        cameraFollowTarget.localPosition = camRestLocalPos;
+        xRotation = 0f;
         GameManager.Ins.AfterRespawn();
+
+        // --- Phase 4: Fade back in ---
+        //yield return StartCoroutine(Utils.FadeCoroutine(this, walker, 1f, 0f, fadeDuration));
+
+        isDead = false;
     }
 }

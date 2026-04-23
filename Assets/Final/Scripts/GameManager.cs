@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -25,8 +26,14 @@ public class GameManager : MonoBehaviour
 
     [Header("Papers")]
     [SerializeField] private List<GameObject> papers = new();
+    [SerializeField] private GameObject sadDrawing;
+    [SerializeField] private GameObject shatteredSadDrawing;
+    private Animator shatteredSadDrawingAnimator;
     public Animator papersAnimator;
     public Material happyMat;
+
+
+    bool isDead = false;
 
     private readonly int maxHealth = 100;
     private int currentHealth = 100;
@@ -43,16 +50,31 @@ public class GameManager : MonoBehaviour
             return;
         }
         Ins = this;
+        sadDrawing.SetActive(true);
+        shatteredSadDrawing.SetActive(false);
+        shatteredSadDrawingAnimator = shatteredSadDrawing.GetComponent<Animator>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            Debug.Log("got here manager");
-            AllPiecesCollected?.Invoke();
+            ShatterImage();
         }
         HandleRegen();
+    }
+
+    void ShatterImage()
+    {
+        sadDrawing.SetActive(false);
+        shatteredSadDrawing.SetActive(true);
+        StartCoroutine(WaitAndCut());
+    }
+
+    IEnumerator WaitAndCut()
+    {
+        yield return new WaitForSeconds(1f);
+        shatteredSadDrawingAnimator.SetBool("startCut", true);
     }
 
     void HandleRegen()
@@ -75,11 +97,7 @@ public class GameManager : MonoBehaviour
 
     public void RemoveHealth(int amt)
     {
-        if (!canBeHurt)
-        {
-            Debug.Log("Damage on Cooldown");
-            return;
-        }
+        if (!canBeHurt) return;
 
         timeSinceLastDamage = 0f;
         regenAccumulator = 0f;
@@ -134,7 +152,7 @@ public class GameManager : MonoBehaviour
 
     public void ReturnPaper(int paperIndex) //it's bad I know
     {
-        if(paperIndex == 1)
+        if (paperIndex == 1)
         {
             papersAnimator.Play("Paper1Return");
         }
