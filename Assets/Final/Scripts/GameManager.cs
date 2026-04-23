@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             ShatterImage();
-            initialFog.SetActive(false);
+            initialFog.transform.position = Vector3.Lerp(initialFog.transform.position, Vector3.down * 10, 1);
         }
         HandleRegen();
     }
