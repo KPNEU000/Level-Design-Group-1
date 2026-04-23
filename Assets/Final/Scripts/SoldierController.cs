@@ -53,7 +53,7 @@ public class SoldierController : MonoBehaviour
 
     void Start()
     {
-        damage = isBasic ? 20 : 45;
+        damage = isBasic ? 10 : 25;
         GameManager.Ins.AllPiecesCollected += CeaseFire;
         SetIllumination(baseIllumination);
     }
@@ -100,7 +100,7 @@ public class SoldierController : MonoBehaviour
         switch (type)
         {
             case DialogueType.Low:
-                Debug.Log(name + " hears LOW dialogue");
+                //Debug.Log(name + " hears LOW dialogue");
                 break;
             case DialogueType.Medium:
                 if (isBasic) HandleShoot("MEDIUM");
@@ -148,7 +148,7 @@ public class SoldierController : MonoBehaviour
     {
         float randomDelay = Random.Range(0f, .3f);
         Invoke("Shoot", randomDelay);
-        Debug.Log(name + " fires on " + level + " dialogue!");
+        //Debug.Log(name + " fires on " + level + " dialogue!");
     }
 
     void Shoot() => SetAnim("IsFire");

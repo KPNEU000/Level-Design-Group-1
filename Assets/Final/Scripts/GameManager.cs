@@ -139,13 +139,10 @@ public class GameManager : MonoBehaviour
     public void CollectPaper(GameObject paper)
     {
         if (collectedPapers.Contains(paper))
-        {
-            Debug.Log("rgrgrgrgrg");
             return;
-        }
+
 
         collectedPapers.Add(paper);
-        Debug.Log("rgrgrgrgrg");
         paper.GetComponent<MeshRenderer>().material = happyMat;
         //paper.SetActive(false);
 
