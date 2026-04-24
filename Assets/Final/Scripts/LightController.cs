@@ -11,14 +11,18 @@ public class LightController : MonoBehaviour
 
     void Awake()
     {
-        GameManager.Ins.OnGameProperStart += SetNight;
         dirLight.intensity = 2f;
         dirLight.color = etherealColor;
     }
 
+    void Start()
+    {
+        GameManager.Ins.RightBeforeGameProperStart += SetNight;
+    }
+
     void OnDisable()
     {
-        GameManager.Ins.OnGameProperStart -= SetNight;
+        GameManager.Ins.RightBeforeGameProperStart -= SetNight;
     }
 
     void Update()

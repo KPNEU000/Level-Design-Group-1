@@ -99,6 +99,8 @@ public class SoldierController : MonoBehaviour
 
         TriggerFlash();
 
+        if (!DialogueManager.Ins.FirstDialogueHappened)
+            return;
 
         switch (type)
         {

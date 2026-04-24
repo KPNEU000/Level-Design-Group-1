@@ -95,6 +95,8 @@ public class ComaPlayerController : MonoBehaviour
     private bool hasFaded = false;
     bool isInitialized = false;
 
+    int triggersEntered = 0;
+
     void Awake()
     {
         cc = GetComponent<CharacterController>();
@@ -250,6 +252,18 @@ public class ComaPlayerController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Death")) GameManager.Ins.OnDeath();
+
+        if (other.CompareTag("Trigger1") && triggersEntered == 0)
+        {
+            GameManager.Ins.Trigger1();
+            triggersEntered = 1;
+        }
+
+        if (other.CompareTag("Trigger2") && triggersEntered == 1)
+        {
+            Debug.Log("got here");
+            GameManager.Ins.Trigger2();
+        }
     }
 
     void Death()

@@ -43,13 +43,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform frameStartingTransform;
     [SerializeField] private Terrain terrain;
     [SerializeField] private GameObject ghostlyApparitions;
+    [SerializeField] private GameObject variousThings;
+    [SerializeField] private GameObject startingArea;
+    [SerializeField] private GameObject startingAreaColliders;
 
+    private Collider terrainCol;
 
 
     public GameObject initialFog;
 
     public Action OnPapersGrounded;
     public Action OnGameProperStart;
+    public Action RightBeforeGameProperStart;
 
 
     bool isDead = false;
@@ -59,6 +64,8 @@ public class GameManager : MonoBehaviour
     private readonly List<GameObject> collectedPapers = new();
     float timeSinceLastDamage;
     float regenAccumulator;
+
+    bool frameNeedsToShatter = false;
 
     void Awake()
     {
@@ -74,23 +81,17 @@ public class GameManager : MonoBehaviour
         shatteredSadDrawingAnimator = shatteredSadDrawing.GetComponent<Animator>();
 
         bed.transform.position = bedStartingTransform.position;
-        frame.transform.position = frameStartingTransform.position;
+        frame.transform.position = frameEndingTransform.position;
+        terrainCol = terrain.GetComponent<Collider>();
+        terrainCol.enabled = false;
         terrain.enabled = false;
         ghostlyApparitions.SetActive(false);
-        Debug.Log($"terrain enabled: {terrain.enabled}, ghostly active: {ghostlyApparitions.activeSelf}");
-
+        variousThings.SetActive(false);
     }
 
     void Start()
     {
         Debug.Log($"terrain enabled: {terrain.enabled}, ghostly active: {ghostlyApparitions.activeSelf}");
-    }
-
-    void TransitionToMainLevel()
-    {
-        bed.transform.position = bedEndingTransform.position;
-        frame.transform.position = frameEndingTransform.position;
-        terrain.enabled = true;
     }
 
     void Update()
@@ -235,5 +236,54 @@ public class GameManager : MonoBehaviour
     public void OnShatterEnd()
     {
         OnPapersGrounded?.Invoke();
+    }
+
+    public void Trigger1()
+    {
+        StartCoroutine(MoveOverTime(frame, frameStartingTransform.position, 3f));
+    }
+
+    IEnumerator MoveOverTime(GameObject obj, Vector3 targetPos, float duration)
+    {
+        float elapsedTime = 0;
+        Vector3 startingPos = obj.transform.position;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float smoothT = t * t * (3f - 2f * t);
+            obj.transform.position = Vector3.Lerp(startingPos, targetPos, smoothT);
+            yield return null;
+        }
+        obj.transform.position = targetPos;
+        if (frameNeedsToShatter)
+        {
+            frameNeedsToShatter = false;
+            ShatterImage();
+        }
+    }
+
+    public void Trigger2()
+    {
+        sadDrawing.SetActive(false);
+        shatteredSadDrawing.SetActive(true);
+        RightBeforeGameProperStart?.Invoke();
+        variousThings.SetActive(true);
+        terrain.enabled = true;
+        terrainCol.enabled = true;
+        StartCoroutine(WaitAndMove());
+    }
+    IEnumerator WaitAndMove()
+    {
+        frameNeedsToShatter = true;
+        startingAreaColliders.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+        StartCoroutine(MoveOverTime(frame, frameEndingTransform.position, 3f));
+        StartCoroutine(MoveOverTime(bed, bedEndingTransform.position, 3f));
+        ghostlyApparitions.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        startingArea.SetActive(false);
+        OnGameProperStart?.Invoke();
     }
 }

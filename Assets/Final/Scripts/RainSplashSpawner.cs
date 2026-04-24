@@ -13,6 +13,10 @@ public class RainSplashSpawner : MonoBehaviour
         collisionEvents = new List<ParticleCollisionEvent>();
         emission = splashEffect.emission;
         emission.enabled = false;
+    }
+
+    void Start()
+    {
         GameManager.Ins.OnGameProperStart += StartRain;
     }
 

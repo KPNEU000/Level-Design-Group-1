@@ -4,6 +4,7 @@ using System.Collections;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager Ins { get; private set; }
     public AudioSource audioSource;
     public AudioSource sonAudioSource;
     public AudioSource daughterAudioSource;
@@ -16,6 +17,8 @@ public class DialogueManager : MonoBehaviour
     public static float DaughterVolume { get; private set; }
 
     private float[] _samples = new float[256];
+    public bool firstDialogueHappened = false;
+    public bool FirstDialogueHappened => firstDialogueHappened;
 
     [System.Serializable]
     public struct DialogueStep
@@ -56,6 +59,14 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
+        if (Ins != null && Ins != this)
+        {
+            Debug.LogError($"Multiple instances of DialogueManager in scene, destroying component on {gameObject.name}");
+            Destroy(this);
+            return;
+        }
+        Ins = this;
+
         GameManager.Ins.OnGameProperStart += WakeUp;
     }
 
@@ -122,6 +133,7 @@ public class DialogueManager : MonoBehaviour
                     OnDialogueTriggered?.Invoke(step.type, step.side);
                     yield return new WaitForSeconds(clip.length);
                     OnDialogueEnd?.Invoke(step.type, step.side);
+                    firstDialogueHappened = true;
                 }
                 if (step.delayAfter > 0f)
                     yield return new WaitForSeconds(step.delayAfter);
